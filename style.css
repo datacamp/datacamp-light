@@ -1,0 +1,9 @@
+body {
+	width: 800px;
+	margin: auto;
+}
+
+iframe {
+	height: 250px;
+	width: 100%;
+}

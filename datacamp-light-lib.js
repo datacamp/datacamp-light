@@ -1,3 +1,32 @@
+'use strict';
+
+/**
+ * Inspired by https://github.com/sindresorhus/strip-indent
+ */
+function stripIndent(code_block) {
+	var match = code_block.match(/^[ \t]*(?=\S)/gm);
+
+	if (!match) {
+		return code_block;
+	}
+
+	var indent = Math.min.apply(Math, match.map(function (el) {
+		return el.length;
+	}));
+
+	var re = new RegExp('^[ \\t]{' + indent + '}', 'gm');
+
+	code_block = indent > 0 ? code_block.replace(re, '') : code_block;
+	var lines = code_block.split(/\r?\n/);
+	if (lines[lines.length-1].trim() === "") {
+		lines.splice(lines.length-1, 1);
+	}
+	if (lines[0].trim() === "") {
+		lines.splice(0, 1);
+	}
+	return lines.join("\n");
+}
+
 function processCodeTags(result_object, code_tags) {
 	for (var i = 0; i < code_tags.length; i++) {
 		if ("type" in code_tags[i].dataset) {
@@ -52,7 +81,7 @@ function createURLData(data) {
 	var result = [];
 	for (var entry in data) {
 		if (data.hasOwnProperty(entry))
-			result.push(encodeURIComponent(entry) + "=" + encodeURIComponent(data[entry]));
+			result.push(encodeURIComponent(entry) + "=" + encodeURIComponent(stripIndent(data[entry])));
 	}
 	return result.join("&");
 }

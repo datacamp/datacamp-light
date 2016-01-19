@@ -1,0 +1,219 @@
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<style>
+			iframe {
+				height: 300px;
+				width: 100%;
+			}
+		</style>
+		<script>
+			function stripIndent(code_block) {
+				var match = code_block.match(/^[ \t]*(?=\S)/gm);
+
+				if (!match) {
+					return code_block;
+				}
+
+				var indent = Math.min.apply(Math, match.map(function (el) {
+					return el.length;
+				}));
+
+				var re = new RegExp('^[ \\t]{' + indent + '}', 'gm');
+
+				code_block = indent > 0 ? code_block.replace(re, '') : code_block;
+				var lines = code_block.split(/\r?\n/);
+				if (lines[lines.length-1].trim() === "") {
+					lines.splice(lines.length-1, 1);
+				}
+				if (lines[0].trim() === "") {
+					lines.splice(0, 1);
+				}
+				return lines.join("\n");
+			}
+
+			function unescapeHtml(safe) {
+				return safe.replace(/&amp;/g, '&')
+					.replace(/&lt;/g, '<')
+					.replace(/&gt;/g, '>')
+					.replace(/&quot;/g, '"')
+					.replace(/&#039;/g, "'");
+			}
+
+			function processCodeTags(result_object, code_tags) {
+				for (var i = 0; i < code_tags.length; i++) {
+					if ("type" in code_tags[i].dataset) {
+						var text = unescapeHtml(code_tags[i].innerHTML);
+						var type = code_tags[i].dataset["type"];
+						if (type === "pre-exercise-code") {
+							result_object["pre-exercise-code"] = text;
+						}
+						else if (type === "sample-code") {
+							result_object["sample-code"] = text;
+						}
+						else if (type === "solution") {
+							result_object["solution"] = text;
+						}
+						else if (type === "sct") {
+							result_object["sct"] = text;
+						}
+					}
+				}
+			}
+
+			function processParagraphTags(result_object, paragraphs) {
+				for (var i = 0; i < paragraphs.length; i++) {
+					if ("type" in paragraphs[i].dataset) {
+						var type = paragraphs[i].dataset["type"];
+						if (type === "hint") {
+							result_object["hint"] = paragraphs[i].innerHTML;
+						}
+					} else {
+						// Check if the Powered by paragraph is set
+						// If it has not been found before
+						if (result_object["powered-by"] !== null)
+							continue;
+						// Check "Powered by" string presence
+						if (paragraphs[i].innerHTML.indexOf("Powered by") < 0)
+							continue;
+						// Check if link is set properly
+						var anchors = paragraphs[i].getElementsByTagName('a');
+						if (anchors.length !== 1)
+							continue;
+						if (anchors[0].href !== "https://www.datacamp.com/")
+							continue;
+						if (anchors[0].innerHTML.indexOf("DataCamp") < 0)
+							continue;
+						// If we get here the "Powered by" paragraph was set properly
+						result_object["powered-by"] = paragraphs[i];
+					}
+				}
+			}
+
+			function createURLData(data) {
+				var result = [];
+				for (var entry in data) {
+					if (data.hasOwnProperty(entry))
+						result.push(encodeURIComponent(entry) + "=" + encodeURIComponent(stripIndent(data[entry])));
+				}
+				return result.join("&");
+			}
+
+			function replaceDataCampExercises() {
+				var exercises = document.querySelectorAll("[data-datacamp-exercise]");
+				for (var i = 0; i < exercises.length; i++) {
+					var exercise = exercises[i];
+
+					if (!("lang" in exercise.dataset)) {
+						console.log("DataCamp-Light: Missing the data-lang attribute.");
+						return;
+					}
+
+					var result_object = {
+						"language": exercise.dataset["lang"],
+						"pre-exercise-code": "",
+						"sample-code": "",
+						"solution": "",
+						"sct": "",
+						"hint": "",
+						"powered-by": null
+					}
+
+					processParagraphTags(result_object, exercise.getElementsByTagName('p'));
+
+					var powered_by = result_object["powered-by"];
+					if (powered_by === null) {
+						console.log("ataCamp-Light: Missing the Powered By statement.");
+						return;
+					}
+
+					processCodeTags(result_object, exercise.getElementsByTagName('code'));
+
+					// Actually replace
+					while (exercise.lastChild) {
+					    exercise.removeChild(exercise.lastChild);
+					}
+
+					// Add "Powered by"
+					exercise.appendChild(powered_by);
+
+					// Add iframe
+					delete result_object["powered-by"];
+					var url = "http://datacamp-light.herokuapp.com/?" + createURLData(result_object);
+					var iframe = document.createElement("iframe");
+					iframe.setAttribute("src", url);
+					iframe.setAttribute("style", "border: 1px solid #DCE7EB;");
+					exercise.insertBefore(iframe, powered_by);
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', replaceDataCampExercises, false);
+
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>R Exercise</h1>
+
+			<div data-datacamp-exercise data-lang="r">
+				<code data-type="pre-exercise-code">
+					# no pec
+			    </code>
+				<code data-type="sample-code">
+					# Create a variable a, equal to 5
+
+
+					# Print out a
+					
+				</code>
+				<code data-type="solution">
+					# Create a variable a, equal to 5
+					a <- 5
+
+					# Print out a
+					print(a)
+				</code>
+				<code data-type="sct">
+					test_object("a")
+					test_function("print")
+					success_msg("Great job!")
+				</code>
+				<p data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</p>
+				<p>Powered by <a href="https://www.datacamp.com">DataCamp.com</a></p>
+			</div>
+
+			<h1>Python Exercise</h1>
+
+			<div data-datacamp-exercise data-lang="python">
+				<code data-type="pre-exercise-code">
+					# no pec
+			    </code>
+				<code data-type="sample-code">
+					# Create a variable a, equal to 5
+					
+
+					# Print out a
+					
+				</code>
+				<code data-type="solution">
+					# Create a variable a, equal to 5
+					a = 5
+
+					# Print out a
+					print(a)
+				</code>
+				<code data-type="sct">
+					test_object("a")
+					test_function("print")
+					success_msg("Great job!")
+				</code>
+				<p data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</p>
+				<p>Powered by <a href="https://www.datacamp.com">DataCamp.com</a></p>
+			</div>
+		</div>
+	</body>
+</html>

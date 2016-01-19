@@ -27,10 +27,18 @@ function stripIndent(code_block) {
 	return lines.join("\n");
 }
 
+function unescapeHtml(safe) {
+	return safe.replace(/&amp;/g, '&')
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&quot;/g, '"')
+		.replace(/&#039;/g, "'");
+}
+
 function processCodeTags(result_object, code_tags) {
 	for (var i = 0; i < code_tags.length; i++) {
 		if ("type" in code_tags[i].dataset) {
-			var text = code_tags[i].innerHTML;
+			var text = unescapeHtml(code_tags[i].innerHTML);
 			var type = code_tags[i].dataset["type"];
 			if (type === "pre-exercise-code") {
 				result_object["pre-exercise-code"] = text;

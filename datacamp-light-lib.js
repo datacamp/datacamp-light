@@ -126,10 +126,10 @@ function replaceDataCampExercises() {
 
 		// Add iframe
 		delete result_object["powered-by"];
-		var url = "http://localhost:3003/?" + createURLData(result_object);
+		var url = "http://datacamp-light.herokuapp.com/?" + createURLData(result_object);
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("src", url);
-		iframe.setAttribute("style", "border: none;");
+		iframe.setAttribute("style", "border: 1px solid #DCE7EB;");
 		exercise.insertBefore(iframe, powered_by);
 	}
 }

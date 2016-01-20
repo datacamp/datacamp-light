@@ -112,8 +112,7 @@ function replaceDataCampExercises() {
 		var url = DATACAMP_LIGHT_URL + "?" + createURLData(result_object);
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("src", url);
-		var style_attribute = "border: 1px solid #DCE7EB;";
-		iframe.setAttribute("style", "border: 1px solid #DCE7EB;");
+		var style_attribute = "border: 1px solid #d5eaef;";
 
 		// Calculate height of iframe
 		var doHeightCalculation = true;

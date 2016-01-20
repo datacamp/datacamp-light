@@ -1,5 +1,7 @@
 'use strict';
 
+var MIN_HEIGHT = 200;
+
 var DATACAMP_LIGHT_URL = "http://datacamp-light.herokuapp.com/";
 var DATACAMP_LIGHT_URL = "http://localhost:3003/";
 
@@ -110,7 +112,70 @@ function replaceDataCampExercises() {
 		var url = DATACAMP_LIGHT_URL + "?" + createURLData(result_object);
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("src", url);
+		var style_attribute = "border: 1px solid #DCE7EB;";
 		iframe.setAttribute("style", "border: 1px solid #DCE7EB;");
+
+		// Calculate height of iframe
+		var doHeightCalculation = true;
+		var height;
+		if ("height" in exercise.dataset) {
+			var user_height = Math.round(exercise.dataset["height"]);
+			if (!isNaN(user_height)) {
+				if (user_height > MIN_HEIGHT) {
+					height = user_height;
+					doHeightCalculation = false;
+				} else {
+					console.log("The height attribute should be larger than " + MIN_HEIGHT + ".");
+				}
+			} else {
+				console.log("Invalid height attribute.");
+			}
+		}
+
+		if (doHeightCalculation) {
+			// Get min-height
+			var min_height = MIN_HEIGHT;
+			if ("minHeight" in exercise.dataset) {
+				var user_min_height = Math.round(exercise.dataset["minHeight"]);
+				if (!isNaN(user_min_height)) {
+					if (user_min_height > MIN_HEIGHT) {
+						min_height = user_min_height;
+					} else {
+						console.log("The min-height attribute should be larger than " + MIN_HEIGHT + ".");
+					}
+				} else {
+					console.log("Invalid min-height attribute.");
+				}
+			}
+
+			// Get height based on sample-code
+			var sample_lines_length = result_object["sample-code"].split(/\r?\n/).length;
+			height = Math.max(
+				47 + (sample_lines_length-2) * 18,
+				min_height
+			);
+
+			if ("maxHeight" in exercise.dataset) {
+				var user_max_height = Math.round(exercise.dataset["maxHeight"]);
+				if (!isNaN(user_max_height)) {
+					if (user_max_height > MIN_HEIGHT) {
+						height = Math.min(height, user_max_height);
+					} else {
+						console.log("The max-height attribute should be larger than " + MIN_HEIGHT + ".");
+					}
+				} else {
+					console.log("Invalid max-height attribute.");
+				}
+			}
+		}
+
+		iframe.style.height = height + "px";
+		style_attribute += "height:" + height + "px;"
+
+		// Set style attribute of iframe
+		iframe.setAttribute("style", style_attribute);
+
+		// Append iframe
 		exercise.appendChild(iframe);
 	}
 }

@@ -1,5 +1,8 @@
 'use strict';
 
+var DATACAMP_LIGHT_URL = "http://datacamp-light.herokuapp.com/";
+var DATACAMP_LIGHT_URL = "http://localhost:3003/";
+
 /**
  * Inspired by https://github.com/sindresorhus/strip-indent
  */
@@ -63,24 +66,6 @@ function processParagraphTags(result_object, paragraphs) {
 			if (type === "hint") {
 				result_object["hint"] = paragraphs[i].innerHTML;
 			}
-		} else {
-			// Check if the Powered by paragraph is set
-			// If it has not been found before
-			if (result_object["powered-by"] !== null)
-				continue;
-			// Check "Powered by" string presence
-			if (paragraphs[i].innerHTML.indexOf("Powered by") < 0)
-				continue;
-			// Check if link is set properly
-			var anchors = paragraphs[i].getElementsByTagName('a');
-			if (anchors.length !== 1)
-				continue;
-			if (anchors[0].href !== "https://www.datacamp.com/")
-				continue;
-			if (anchors[0].innerHTML.indexOf("DataCamp") < 0)
-				continue;
-			// If we get here the "Powered by" paragraph was set properly
-			result_object["powered-by"] = paragraphs[i];
 		}
 	}
 }
@@ -111,17 +96,9 @@ function replaceDataCampExercises() {
 			"solution": "",
 			"sct": "",
 			"hint": "",
-			"powered-by": null
 		}
 
 		processParagraphTags(result_object, exercise.getElementsByTagName('p'));
-
-		var powered_by = result_object["powered-by"];
-		if (powered_by === null) {
-			console.log("ataCamp-Light: Missing the Powered By statement.");
-			return;
-		}
-
 		processCodeTags(result_object, exercise.getElementsByTagName('code'));
 
 		// Actually replace
@@ -129,16 +106,12 @@ function replaceDataCampExercises() {
 		    exercise.removeChild(exercise.lastChild);
 		}
 
-		// Add "Powered by"
-		exercise.appendChild(powered_by);
-
 		// Add iframe
-		delete result_object["powered-by"];
-		var url = "http://datacamp-light.herokuapp.com/?" + createURLData(result_object);
+		var url = DATACAMP_LIGHT_URL + "?" + createURLData(result_object);
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("src", url);
 		iframe.setAttribute("style", "border: 1px solid #DCE7EB;");
-		exercise.insertBefore(iframe, powered_by);
+		exercise.appendChild(iframe);
 	}
 }
 

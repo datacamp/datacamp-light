@@ -42,3 +42,19 @@ Next we can start creating exercises using simple HTML tags. We will look into h
 ```
 
 As we can see in the example, the whole exercise is contained in a single `<div>` element with two data attributes `data-datacamp-exercise` and `data-lang`. The first attribute `data-datacamp-exercise` indicates that the `<div>` should be treated as a DataCamp Light exercise, while the other attribute `data-lang` specifies which programming language should be used.
+
+### Pre Exercise Code
+
+### Sample Code
+
+### Solution
+
+### Submission Correctness Test (SCT)
+
+You can find more information on creating SCTs at http://docs.datacamp.com/teach/sct-design-r.html for R and at http://docs.datacamp.com/teach/sct-design-python.html for python.
+
+### Hint
+
+## Examples
+
+You can find more examples in the `/example` folder in the repository. You can also test our a live example at http://assets.datacamp.com/example/standalone-two-consoles.html.

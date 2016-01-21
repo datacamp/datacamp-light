@@ -2,6 +2,7 @@
 
 var MIN_HEIGHT = 200;
 var DATACAMP_LIGHT_URL = "https://light.datacamp.com/";
+var DATACAMP_LIGHT_URL = "http://localhost:3003/";
 
 
 /**

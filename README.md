@@ -103,6 +103,11 @@ In our example the first line checks whether the user declared the variable `a` 
 
 ### Hint
 
+To specify a hint, a `<p>` should be defined containg the hint and the `data-type` attribute should be set to `hint` like this:
+
+<p data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</p>
+
+It is possible for the hint to contain for instance `<code>` tags as is the case in our example.
 
 
 ## Examples

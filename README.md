@@ -45,6 +45,17 @@ As we can see in the example, the whole exercise is contained in a single `<div>
 
 ### Pre Exercise Code
 
+Pre Exercise Code is code that initializes the workspace such that users can start coding the essence of the exercise instead of worrying about loading in data and packages. The way to do this is by specifying a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
+
+```
+<code data-type="pre-exercise-code">
+	# This will get executed each time the exercise gets initialized
+	b = 6
+</code>
+```
+
+In our example we initiliaze the (the rather useless) variable `b` with value `6`.
+
 ### Sample Code
 
 ### Solution
@@ -57,4 +68,4 @@ You can find more information on creating SCTs at http://docs.datacamp.com/teach
 
 ## Examples
 
-You can find more examples in the `/example` folder in the repository. You can also test our a live example at http://assets.datacamp.com/example/standalone-two-consoles.html.
+You can find more examples in the `/example` folder in the repository. You can also test out a live example at http://assets.datacamp.com/example/standalone-two-consoles.html.

@@ -43,9 +43,9 @@ Next we can start creating exercises using simple HTML tags. We will look into h
 
 As we can see in the example, the whole exercise is contained in a single `<div>` element with two data attributes `data-datacamp-exercise` and `data-lang`. The first attribute `data-datacamp-exercise` indicates that the `<div>` should be treated as a DataCamp Light exercise, while the other attribute `data-lang` specifies which programming language should be used.
 
-### Pre Exercise Code
+### Pre-Exercise Code
 
-Pre Exercise Code is code that initializes the workspace such that users can start coding the essence of the exercise instead of worrying about loading in data and packages. The way to do this is by specifying a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
+Pre-exercise code is code that initializes the workspace such that users can start coding the essence of the exercise instead of worrying about loading in data and packages. The way to do this is by defining a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
 
 ```
 <code data-type="pre-exercise-code">
@@ -54,9 +54,24 @@ Pre Exercise Code is code that initializes the workspace such that users can sta
 </code>
 ```
 
-In our example we initiliaze the (the rather useless) variable `b` with value `6`.
+In our example we initialize the (the rather useless) variable `b` with value `6`.
 
 ### Sample Code
+
+To set the sample code that will be present initially in the code editor, a `<code>` tag should be defined containing the sample code and the `data-type` attribute should be set to `sample-code` like this:
+
+```
+<code data-type="sample-code">
+	# Create a variable a, equal to 5
+
+
+	# Print out a
+
+
+</code>
+```
+
+Our example simply shows a couple of comments together with some newlines. The total number of lines of code is used to determine the height of the resulting iframe. As the newlines are counted as well, they can be used to achieve the desired height. The JavaScript library also takes care of stripping leading indentation so no need to worry about that.
 
 ### Solution
 

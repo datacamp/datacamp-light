@@ -45,7 +45,7 @@ As we can see in the example, the whole exercise is contained in a single `<div>
 
 ### Pre-Exercise Code
 
-Pre-exercise code is code that initializes the workspace such that users can start coding the essence of the exercise instead of worrying about loading in data and packages. The way to do this is by defining a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
+Pre-exercise code is code that initializes the workspace such that users can start coding the essence of the exercise instead of worrying about loading in data and packages. The way to specify this is by defining a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
 
 ```
 <code data-type="pre-exercise-code">
@@ -75,11 +75,35 @@ Our example simply shows a couple of comments together with some newlines. The t
 
 ### Solution
 
+To set the solution code, a `<code>` tag should be defined containing the solution code and the `data-type` attribute should be set to `solution-code` like this:
+
+```
+<code data-type="solution">
+	# Create a variable a, equal to 5
+	a <- 5
+
+	# Print out a
+	print(a)
+</code>
+```
+
 ### Submission Correctness Test (SCT)
 
-You can find more information on creating SCTs at http://docs.datacamp.com/teach/sct-design-r.html for R and at http://docs.datacamp.com/teach/sct-design-python.html for python.
+A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at http://docs.datacamp.com/teach/sct-design-r.html for R and at http://docs.datacamp.com/teach/sct-design-python.html for python. The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
+
+```
+<code data-type="sct">
+	test_object("a")
+	test_function("print")
+	success_msg("Great job!")
+</code>
+```
+
+In our example the first line checks whether the user declared the variable `a` and whether its value matches that of the solution code. The second line checks whether the `print` function is called and lastly a success message is specified that will be shown to the user when the exercise is successfully completed.
 
 ### Hint
+
+
 
 ## Examples
 

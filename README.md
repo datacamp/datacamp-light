@@ -89,7 +89,7 @@ To set the solution code, a `<code>` tag should be defined containing the soluti
 
 ### Submission Correctness Test (SCT)
 
-A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at http://docs.datacamp.com/teach/sct-design-r.html for R and at http://docs.datacamp.com/teach/sct-design-python.html for python. The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
+A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at http://docs.datacamp.com/teach/sct-design-r.html for R and at http://docs.datacamp.com/teach/sct-design-python.html for Python. The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
 
 ```
 <code data-type="sct">
@@ -103,7 +103,7 @@ In our example the first line checks whether the user declared the variable `a` 
 
 ### Hint
 
-To specify a hint, a `<p>` should be defined containg the hint and the `data-type` attribute should be set to `hint` like this:
+To specify a hint, a `<p>` tag should be defined containing the hint and the `data-type` attribute should be set to `hint` like this:
 
 ```
 <p data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</p>
@@ -114,4 +114,4 @@ It is possible for the hint to contain for instance `<code>` tags as is the case
 
 ## Examples
 
-You can find more examples in the `/example` folder in the repository. You can also test out a live example at http://assets.datacamp.com/example/standalone-two-consoles.html.
+You can find more examples in the `example` folder in the repository. You can also test out a live example at http://assets.datacamp.com/example/standalone-two-consoles.html.

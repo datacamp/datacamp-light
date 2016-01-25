@@ -107,7 +107,7 @@ function replaceDataCampExercises() {
 		}
 
 		// Add iframe
-		var url = DATACAMP_LIGHT_URL + (window.location.hostname ? "#/" + window.location.hostname + "/?" : "?") + createURLData(result_object);
+		var url = DATACAMP_LIGHT_URL + (window.location.hostname ? window.location.hostname + "/?" : "?") + createURLData(result_object);
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("src", url);
 		var style_attribute = "border: 1px solid #d5eaef;";

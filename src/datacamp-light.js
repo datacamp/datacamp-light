@@ -169,9 +169,10 @@ function replaceDataCampExercises() {
 		iframe.style.height = height + "px";
 		style_attribute += "height:" + height + "px;"
 
-		// Set min-width
+		// Set width and min-width
+		iframe.style.width = "100%";
 		iframe.style.minWidth = "600px";
-		style_attribute += "min-width:600px;"
+		style_attribute += "width:100%;min-width:600px;"
 
 		// Set style attribute of iframe
 		iframe.setAttribute("style", style_attribute);

@@ -210,7 +210,9 @@ function replaceDataCampExercises() {
 		var form = createDataForm(exercise_data);
 		exercise_DOM.appendChild(form);
 		form.submit();
-		// TODO REMOVE FORM AGAIN?
+
+		// Remove the form again so no data is visible to the user in the HTML
+		exercise_DOM.removeChild(form);
 	}
 }
 

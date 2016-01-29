@@ -1,7 +1,7 @@
 'use strict';
 
 var MIN_HEIGHT = 200;
-var IFRAME_NAME = "datacamp-light-iframe";
+var IFRAME_NAME = "datacamp-light-iframe-";
 var DATACAMP_LIGHT_URL = "https://light.datacamp.com/";
 
 /**
@@ -80,9 +80,9 @@ function createURLData(data) {
 	return result.join("&");
 }
 
-function createIFrame(exercise_DOM, exercise_data) {
+function createIFrame(exercise_DOM, exercise_data, index) {
 	var iframe = document.createElement("iframe");
-	iframe.setAttribute("name", IFRAME_NAME);
+	iframe.name = IFRAME_NAME + index;
 	var style_attribute = "border: 1px solid #d5eaef;";
 
 	// Calculate height of iframe
@@ -152,7 +152,7 @@ function createIFrame(exercise_DOM, exercise_data) {
 	return iframe;
 }
 
-function createDataForm(exercise_data) {
+function createDataForm(exercise_data , index) {
 	var url = DATACAMP_LIGHT_URL + (window.location.hostname ? window.location.hostname + "/?" : "?") +
 	createURLData({
 
@@ -160,7 +160,7 @@ function createDataForm(exercise_data) {
     var form = document.createElement("form");
     form.setAttribute("method", "post");
     form.setAttribute("action", DATACAMP_LIGHT_URL);
-    form.setAttribute("target", IFRAME_NAME);
+    form.setAttribute("target", IFRAME_NAME + index);
 
     for(var key in exercise_data) {
         if(exercise_data.hasOwnProperty(key)) {
@@ -203,11 +203,11 @@ function replaceDataCampExercises() {
 		    exercise_DOM.removeChild(exercise_DOM.lastChild);
 		}
 
-		// Append iframe
-		exercise_DOM.appendChild(createIFrame(exercise_DOM, exercise_data));
+		// Create iframe
+		exercise_DOM.appendChild(createIFrame(exercise_DOM, exercise_data , i));
 
 		// Create form to send exercise data
-		var form = createDataForm(exercise_data);
+		var form = createDataForm(exercise_data, i);
 		exercise_DOM.appendChild(form);
 		form.submit();
 

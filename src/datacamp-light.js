@@ -56,16 +56,8 @@ function processCodeTags(result_object, code_tags) {
 			else if (type === "sct") {
 				result_object["sct"] = text;
 			}
-		}
-	}
-}
-
-function processParagraphTags(result_object, paragraphs) {
-	for (var i = 0; i < paragraphs.length; i++) {
-		if ("type" in paragraphs[i].dataset) {
-			var type = paragraphs[i].dataset["type"];
-			if (type === "hint") {
-				result_object["hint"] = paragraphs[i].innerHTML;
+			else if (type === "hint") {
+				result_object["hint"] = text;
 			}
 		}
 	}
@@ -195,8 +187,7 @@ function replaceDataCampExercises() {
 			"hint": "",
 		}
 
-		processParagraphTags(exercise_data, exercise_DOM.getElementsByTagName('p'));
-		processCodeTags(exercise_data, exercise_DOM.getElementsByTagName('code'));
+		processCodeTags(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
 
 		// Actually replace
 		while (exercise_DOM.lastChild) {

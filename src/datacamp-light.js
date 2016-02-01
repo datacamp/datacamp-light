@@ -151,7 +151,7 @@ function createDataForm(exercise_data , index) {
 	});
     var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", DATACAMP_LIGHT_URL);
+    form.setAttribute("action", url);
     form.setAttribute("target", IFRAME_NAME + index);
 
     for(var key in exercise_data) {

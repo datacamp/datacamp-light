@@ -113,7 +113,7 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 		// Get height based on sample-code
 		var sample_lines_length = exercise_data["sample-code"].split(/\r?\n/).length;
 		height = Math.max(
-			47 + (sample_lines_length-2) * 18,
+			82 + (sample_lines_length-2) * 16,
 			min_height
 		);
 

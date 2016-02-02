@@ -134,10 +134,9 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 	iframe.style.height = height + "px";
 	style_attribute += "height:" + height + "px;"
 
-	// Set width and min-width
+	// Set width
 	iframe.style.width = "100%";
-	iframe.style.minWidth = "600px";
-	style_attribute += "width:100%;min-width:600px;"
+	style_attribute += "width:100%;"
 
 	// Set style attribute of iframe
 	iframe.setAttribute("style", style_attribute);

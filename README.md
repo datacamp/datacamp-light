@@ -1,4 +1,4 @@
-![DataCamp Light banner](http://assets.datacamp.com/img/github/datacamp-light/banner.png "Banner")
+![DataCamp Light banner](http://assets.datacamp.com/img/github/datacamp-light/bannerv2.png "Banner")
 
 # DataCamp Light
 

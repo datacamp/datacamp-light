@@ -2,9 +2,10 @@
 
 * Convert any website or blog to an interactive learning platform.
 * Works for both R and Python exercises.
-* Easy to install (include either a javascript library or a Wordpress plugin).
+* Easy to install (include either a javascript library or a [Wordpress plugin](https://github.com/datacamp/datacamp-light-wordpress)).
+* Convert existing markdown documents to an interactive course using [the tutorial package](https://github.com/datacamp/tutorial)
 * Check out an example of how a course could look like [here](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r).
-* Leverage the same Submission Correctness Tests(SCT) DataCamp uses for all their courses.
+* Leverage the same [Submission Correctness Tests(SCT)](http://docs.datacamp.com/teach/sct-design-r.html) DataCamp uses for all their courses.
 
 
 ## Student flow
@@ -19,12 +20,21 @@ By giving automated feedback, the user is guided to the correct solution.
 
 
 ## How to install?
+
+#### Manual installation
 The first step is to include the JavaScript library into your webpage. For this we recommend using the latest release on the DataCamp CDN (https://cdn.datacamp.com/datacamp-light-1.0.0.min.js) like this:
 
 ```html
 <script src="https://cdn.datacamp.com/datacamp-light-1.0.0.min.js"></script>
 ```
 
+#### Using the Wordpress plugin
+Installation instructions can be found [here](https://github.com/datacamp/datacamp-light-wordpress).
+
+#### Using the tutorial package
+Convert existing `.Rmd` files to an interactive HTML by installing the [tutorial R package](https://github.com/datacamp/tutorial)
+
+## How to create your own interactive exercises
 Next we can start creating exercises using simple HTML tags. We will look into how to do this using the following simple example :
 
 ```html
@@ -56,8 +66,10 @@ Next we can start creating exercises using simple HTML tags. We will look into h
 	<p data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</p>
 </div>
 ```
+This code chunck will be transformed to the following exercise:
+![DataCamp Light example 4](http://assets.datacamp.com/img/github/datacamp-light/example_r_start.jpg "Example 4")
 
-As we can see in the example, the whole exercise is contained in a single `<div>` element with two data attributes `data-datacamp-exercise` and `data-lang`. The first attribute `data-datacamp-exercise` indicates that the `<div>` should be treated as a DataCamp Light exercise, while the other attribute `data-lang` specifies which programming language should be used.
+As we can see in the example, the whole exercise is contained in a single `<div>` element with two data attributes `data-datacamp-exercise` and `data-lang`. The first attribute `data-datacamp-exercise` indicates that the `<div>` should be treated as a DataCamp Light exercise, while the other attribute `data-lang` specifies which programming language should be used. The accepted values for `data-lang` are `r` and `python`
 
 ### Pre-Exercise Code
 

@@ -148,62 +148,111 @@ function createDataForm(exercise_data , index) {
 	createURLData({
 
 	});
-    var form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", url);
-    form.setAttribute("target", IFRAME_NAME + index);
+	var form = document.createElement("form");
+	form.setAttribute("method", "post");
+	form.setAttribute("action", url);
+	form.setAttribute("target", IFRAME_NAME + index);
 
-    for(var key in exercise_data) {
-        if(exercise_data.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", stripIndent(exercise_data[key]));
+	for(var key in exercise_data) {
+		if(exercise_data.hasOwnProperty(key)) {
+			var hiddenField = document.createElement("input");
+			hiddenField.setAttribute("type", "hidden");
+			hiddenField.setAttribute("name", key);
+			hiddenField.setAttribute("value", stripIndent(exercise_data[key]));
 
-            form.appendChild(hiddenField);
-         }
-    }
+			form.appendChild(hiddenField);
+		 }
+	}
 
-    return form;
+	return form;
 }
 
 function replaceDataCampExercises() {
 	var exercises = document.querySelectorAll("[data-datacamp-exercise]");
 	for (var i = 0; i < exercises.length; i++) {
-		var exercise_DOM = exercises[i];
+		(function (index){
+			var exercise_DOM = exercises[index];
 
-		if (!("lang" in exercise_DOM.dataset)) {
-			console.log("DataCamp-Light: Missing the data-lang attribute.");
-			return;
-		}
+			if (exercise_DOM.getElementsByTagName("iframe").length > 0) {
+				// We use this check to see if the exercise is already replaced.
+				return;
+			}
 
-		var exercise_data = {
-			"language": exercise_DOM.dataset["lang"],
-			"pre-exercise-code": "",
-			"sample-code": "",
-			"solution": "",
-			"sct": "",
-			"hint": "",
-		}
+			var spinner = document.createElement('object');
+			spinner.type = 'image/svg+xml';
+			spinner.setAttribute('data', 'https://cdn.datacamp.com/spinner.svg');
+			exercise_DOM.appendChild(spinner);
 
-		processCodeTags(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
+			if (!("lang" in exercise_DOM.dataset)) {
+				console.log("DataCamp Light: Missing the data-lang attribute.");
+				return;
+			}
 
-		// Actually replace
-		while (exercise_DOM.lastChild) {
-		    exercise_DOM.removeChild(exercise_DOM.lastChild);
-		}
+			var exercise_data = {
+				"language": exercise_DOM.dataset["lang"],
+				"pre-exercise-code": "",
+				"sample-code": "",
+				"solution": "",
+				"sct": "",
+				"hint": "",
+			}
 
-		// Create iframe
-		exercise_DOM.appendChild(createIFrame(exercise_DOM, exercise_data , i));
+			processCodeTags(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
 
-		// Create form to send exercise data
-		var form = createDataForm(exercise_data, i);
-		exercise_DOM.appendChild(form);
-		form.submit();
+			// Actually replace
+			while (exercise_DOM.firstChild !== spinner) {
+				exercise_DOM.removeChild(exercise_DOM.firstChild);
+			}
 
-		// Remove the form again so no data is visible to the user in the HTML
-		exercise_DOM.removeChild(form);
+			// Create iframe
+			var iframe = createIFrame(exercise_DOM, exercise_data , index);
+			exercise_DOM.appendChild(iframe);
+
+			// On load remove spinner
+			iframe.onload = function () {
+				exercise_DOM.removeChild(spinner);
+			}
+
+			// Create form to send exercise data
+			var form = createDataForm(exercise_data, index);
+			exercise_DOM.appendChild(form);
+			form.submit();
+
+			// Remove the form again so no data is visible to the user in the HTML
+			exercise_DOM.removeChild(form);
+		})(i);
 	}
 }
 
-document.addEventListener('DOMContentLoaded', replaceDataCampExercises, false);
+
+
+function insertCSS() {
+	var style = document.createElement('style');
+	style.type = 'text/css';
+	document.getElementsByTagName("head")[0].appendChild(style);
+
+	var css = 	"div[data-datacamp-exercise] {" +
+					"position:relative; }" +
+				"div[data-datacamp-exercise] > code," +
+				"div[data-datacamp-exercise] > div," +
+				"div[data-datacamp-exercise] > p {" +
+					"display: none }" +
+				"div[data-datacamp-exercise] > object {" +
+					"height: 100px;" +
+					"position: absolute;" +
+					"top: 50%;" +
+					"left: 50%;" +
+					"display: block;" +
+					"-ms-transform: translate(-50%,-50%);" + /* IE 9 */
+					"-webkit-transform: translate(-50%,-50%);" + /* Safari */
+					"transform: translate(-50%,-50%); }";
+
+	if (style.styleSheet)
+		style.styleSheet.cssText = css;
+	else
+		style.innerHTML = css;
+}
+
+insertCSS();
+replaceDataCampExercises();
+document.addEventListener('DOMContentLoaded', replaceDataCampExercises);

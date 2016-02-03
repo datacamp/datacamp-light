@@ -6,7 +6,7 @@
 * Works for both R and Python exercises.
 * Easy to install (include either a javascript library or a [Wordpress plugin](https://github.com/datacamp/datacamp-light-wordpress)).
 * Convert existing markdown documents to an interactive course using [the tutorial package](https://github.com/datacamp/tutorial)
-* Check out an example of how a course could look like [here](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r).
+* Check out an example of how a course could look like [here](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r), or a static example [here](http://assets.datacamp.com/example/standalone-two-consoles.html).
 * Leverage the same [Submission Correctness Tests(SCT)](http://docs.datacamp.com/teach/sct-design-r.html) DataCamp uses for all their courses.
 
 
@@ -34,10 +34,10 @@ The first step is to include the JavaScript library into your webpage. For this 
 Installation instructions can be found [here](https://github.com/datacamp/datacamp-light-wordpress).
 
 #### Using the tutorial package
-Convert existing `.Rmd` files to an interactive HTML by installing the [tutorial R package](https://github.com/datacamp/tutorial)
+Convert existing `.Rmd` files to an interactive HTML by installing the [tutorial R package](https://github.com/datacamp/tutorial).
 
-## How to create your own interactive exercises
-Next we can start creating exercises using simple HTML tags. We will look into how to do this using the following simple example :
+## How to create your own interactive exercises using the JavaScript library
+Every exercise starts off as an HTML block of the following format:
 
 ```html
 <div data-datacamp-exercise data-lang="r">
@@ -65,7 +65,7 @@ Next we can start creating exercises using simple HTML tags. We will look into h
 		test_function("print")
 		success_msg("Great job!")
 	</code>
-	<p data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</p>
+	<div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>
 </div>
 ```
 This code chunck will be transformed to the following exercise:
@@ -133,7 +133,7 @@ In our example the first line checks whether the user declared the variable `a` 
 
 ### Hint
 
-To specify a hint, a `<p>` tag should be defined containing the hint and the `data-type` attribute should be set to `hint` like this:
+To specify a hint, a tag should be defined containing the hint and the `data-type` attribute should be set to `hint` like this:
 
 ```html
 <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>

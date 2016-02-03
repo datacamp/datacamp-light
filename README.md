@@ -1,3 +1,5 @@
+![DataCamp Light banner](http://assets.datacamp.com/img/github/datacamp-light/banner.png "Banner")
+
 # DataCamp Light
 
 * Convert any website or blog to an interactive learning platform.

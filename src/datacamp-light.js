@@ -178,11 +178,6 @@ function replaceDataCampExercises() {
 				return;
 			}
 
-			var spinner = document.createElement('object');
-			spinner.type = 'image/svg+xml';
-			spinner.setAttribute('data', 'https://cdn.datacamp.com/spinner.svg');
-			exercise_DOM.appendChild(spinner);
-
 			if (!("lang" in exercise_DOM.dataset)) {
 				console.log("DataCamp Light: Missing the data-lang attribute.");
 				return;
@@ -200,18 +195,18 @@ function replaceDataCampExercises() {
 			processCodeTags(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
 
 			// Actually replace
-			while (exercise_DOM.firstChild !== spinner) {
-				exercise_DOM.removeChild(exercise_DOM.firstChild);
+			while (exercise_DOM.lastChild) {
+				exercise_DOM.removeChild(exercise_DOM.lastChild);
 			}
 
 			// Create iframe
-			var iframe = createIFrame(exercise_DOM, exercise_data , index);
-			exercise_DOM.appendChild(iframe);
+			exercise_DOM.appendChild(createIFrame(exercise_DOM, exercise_data , index));
 
-			// On load remove spinner
-			iframe.onload = function () {
-				exercise_DOM.removeChild(spinner);
-			}
+			// On iframe load remove spinner background for possible performance gains
+			// Currently commented out since it probably doesn't matter
+			// iframe.onload = function () {
+			// 	exercise_DOM.setAttribute("style", "background-image: none;");
+			// }
 
 			// Create form to send exercise data
 			var form = createDataForm(exercise_data, index);
@@ -231,21 +226,17 @@ function insertCSS() {
 	style.type = 'text/css';
 	document.getElementsByTagName("head")[0].appendChild(style);
 
-	var css = 	"div[data-datacamp-exercise] {" +
+	var css =	"div[data-datacamp-exercise] {" +
 					"position:relative; }" +
 				"div[data-datacamp-exercise] > code," +
 				"div[data-datacamp-exercise] > div," +
 				"div[data-datacamp-exercise] > p {" +
 					"display: none }" +
-				"div[data-datacamp-exercise] > object {" +
-					"height: 100px;" +
-					"position: absolute;" +
-					"top: 50%;" +
-					"left: 50%;" +
-					"display: block;" +
-					"-ms-transform: translate(-50%,-50%);" + /* IE 9 */
-					"-webkit-transform: translate(-50%,-50%);" + /* Safari */
-					"transform: translate(-50%,-50%); }";
+				"div[data-datacamp-exercise] {" +
+					"background-image: url(https://cdn.datacamp.com/spinner.gif);" +
+					"background-repeat:no-repeat;" +
+					"background-position: center center;" +
+					"background-size: auto 100px;}";
 
 	if (style.styleSheet)
 		style.styleSheet.cssText = css;

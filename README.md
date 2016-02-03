@@ -1,17 +1,33 @@
 # DataCamp Light
 
-This library allows for interactive coding exercises to be inserted directly into a webpage using a lightweight version of the DataCamp interface.
+* Convert any website or blog to an interactive learning platform.
+* Works for both R and Python exercises.
+* Easy to install (include either a javascript library or a Wordpress plugin).
+* Check out an example of how a course could look like [here](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r).
+* Leverage the same Submission Correctness Tests(SCT) DataCamp uses for all their courses.
 
-## Usage
+
+## Student flow
+The user reads the instructions and attempts to solve the exercise.
+![DataCamp Light example 1](http://assets.datacamp.com/img/github/datacamp-light/example_r_1.jpg "Example 1 R")
+
+The user can play around in the interactive R or Python console on the right.
+![DataCamp Light example 2](http://assets.datacamp.com/img/github/datacamp-light/example_r_2.jpg "Example 2 R")
+
+By giving automated feedback, the user is guided to the correct solution.
+![DataCamp Light example 3](http://assets.datacamp.com/img/github/datacamp-light/example_r_3.jpg "Example 3 R")
+
+
+## How to install?
 The first step is to include the JavaScript library into your webpage. For this we recommend using the latest release on the DataCamp CDN (https://cdn.datacamp.com/datacamp-light-1.0.0.min.js) like this:
 
-```
+```html
 <script src="https://cdn.datacamp.com/datacamp-light-1.0.0.min.js"></script>
 ```
 
 Next we can start creating exercises using simple HTML tags. We will look into how to do this using the following simple example :
 
-```
+```html
 <div data-datacamp-exercise data-lang="r">
 	<code data-type="pre-exercise-code">
 		# This will get executed each time the exercise gets initialized
@@ -47,7 +63,7 @@ As we can see in the example, the whole exercise is contained in a single `<div>
 
 Pre-exercise code is code that initializes the workspace such that users can start coding the essence of the exercise instead of worrying about loading in data and packages. The way to specify this is by defining a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
 
-```
+```html
 <code data-type="pre-exercise-code">
 	# This will get executed each time the exercise gets initialized
 	b = 6
@@ -60,7 +76,7 @@ In our example we initialize the (the rather useless) variable `b` with value `6
 
 To set the sample code that will be present initially in the code editor, a `<code>` tag should be defined containing the sample code and the `data-type` attribute should be set to `sample-code` like this:
 
-```
+```html
 <code data-type="sample-code">
 	# Create a variable a, equal to 5
 
@@ -77,7 +93,7 @@ Our example simply shows a couple of comments together with some newlines. The t
 
 To set the solution code, a `<code>` tag should be defined containing the solution code and the `data-type` attribute should be set to `solution-code` like this:
 
-```
+```html
 <code data-type="solution">
 	# Create a variable a, equal to 5
 	a <- 5
@@ -91,7 +107,7 @@ To set the solution code, a `<code>` tag should be defined containing the soluti
 
 A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at http://docs.datacamp.com/teach/sct-design-r.html for R and at http://docs.datacamp.com/teach/sct-design-python.html for Python. The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
 
-```
+```html
 <code data-type="sct">
 	test_object("a")
 	test_function("print")
@@ -105,8 +121,8 @@ In our example the first line checks whether the user declared the variable `a` 
 
 To specify a hint, a `<p>` tag should be defined containing the hint and the `data-type` attribute should be set to `hint` like this:
 
-```
-<p data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</p>
+```html
+<div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>
 ```
 
 It is possible for the hint to contain for instance `<code>` tags as is the case in our example.

@@ -75,7 +75,6 @@ function createURLData(data) {
 function createIFrame(exercise_DOM, exercise_data, index) {
 	var iframe = document.createElement("iframe");
 	iframe.name = IFRAME_NAME + index;
-	var style_attribute = "border: 1px solid #d5eaef;";
 
 	// Calculate height of iframe
 	var doHeightCalculation = true;
@@ -132,7 +131,7 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 	}
 
 	iframe.style.height = height + "px";
-	style_attribute += "height:" + height + "px;"
+	var style_attribute = "height:" + height + "px;"
 
 	// Set width
 	iframe.style.width = "100%";
@@ -226,8 +225,9 @@ function insertCSS() {
 	style.type = 'text/css';
 	document.getElementsByTagName("head")[0].appendChild(style);
 
-	var css =	"div[data-datacamp-exercise] {" +
-					"position:relative; }" +
+	var css =	"div[data-datacamp-exercise] > iframe {" +
+					"margin: 0;" +
+					"border: 1px solid #d5eaef;}" +
 				"div[data-datacamp-exercise] > code," +
 				"div[data-datacamp-exercise] > div," +
 				"div[data-datacamp-exercise] > p {" +
@@ -236,7 +236,7 @@ function insertCSS() {
 					"background-image: url(https://cdn.datacamp.com/spinner.gif);" +
 					"background-repeat:no-repeat;" +
 					"background-position: center center;" +
-					"background-size: auto 100px;}";
+					"background-size: auto 80px;}";
 
 	if (style.styleSheet)
 		style.styleSheet.cssText = css;

@@ -1,17 +1,17 @@
-![DataCamp Light banner](http://assets.datacamp.com/img/github/datacamp-light/bannerv2.png "Banner")
+[![DataCamp Light banner](http://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](http://assets.datacamp.com/example/standalone-two-consoles.html)
 
 # DataCamp Light
 
 * Convert any website or blog to an interactive learning platform.
-* Works for both R and Python exercises.
-* Easy to install (include either a javascript library or a [Wordpress plugin](https://github.com/datacamp/datacamp-light-wordpress)).
-* Convert existing markdown documents to an interactive course using [the tutorial package](https://github.com/datacamp/tutorial)
-* Check out an example of how a course could look like [here](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r), or a static example [here](http://assets.datacamp.com/example/standalone-two-consoles.html).
-* Leverage the same [Submission Correctness Tests(SCT)](http://docs.datacamp.com/teach/sct-design-r.html) DataCamp uses for all their courses.
+* Works for both R and Python.
+* Easy to install.
+* Convert existing markdown documents to an interactive course using [the tutorial package](https://github.com/datacamp/tutorial).
+* Check out [an example on DataCamp](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r), or a [demo R and Python example](http://assets.datacamp.com/example/standalone-two-consoles.html).
+* Leverage the same [Submission Correctness Tests (SCT)](http://docs.datacamp.com/teach/sct-design-r.html) DataCamp uses for all their courses.
 
 
 ## Student flow
-The user reads the instructions and attempts to solve the exercise.
+The user attempts to solve the exercise.
 ![DataCamp Light example 1](http://assets.datacamp.com/img/github/datacamp-light/example_r_1.jpg "Example 1 R")
 
 The user can play around in the interactive R or Python console on the right.
@@ -21,23 +21,23 @@ By giving automated feedback, the user is guided to the correct solution.
 ![DataCamp Light example 3](http://assets.datacamp.com/img/github/datacamp-light/example_r_3.jpg "Example 3 R")
 
 
-## How to install?
+## How to use?
 
-#### Manual installation
-The first step is to include the JavaScript library into your webpage. For this we recommend using the latest release on the DataCamp CDN (https://cdn.datacamp.com/datacamp-light-1.0.0.min.js) like this:
+### Using the Wordpress plugin
+Installation instructions can be found [here](https://github.com/datacamp/datacamp-light-wordpress).
+
+### Using the tutorial package
+Convert existing `.Rmd` files to an interactive HTML by installing the [tutorial R package](https://github.com/datacamp/tutorial).
+
+### Using the JavaScript library
+You will first need to include the JavaScript library on your webpage. We recommend using the latest release on the DataCamp CDN (https://cdn.datacamp.com/datacamp-light-1.0.0.min.js):
 
 ```html
 <script src="https://cdn.datacamp.com/datacamp-light-1.0.0.min.js"></script>
 ```
 
-#### Using the Wordpress plugin
-Installation instructions can be found [here](https://github.com/datacamp/datacamp-light-wordpress).
-
-#### Using the tutorial package
-Convert existing `.Rmd` files to an interactive HTML by installing the [tutorial R package](https://github.com/datacamp/tutorial).
-
-## How to create your own interactive exercises using the JavaScript library
-Every exercise starts off as an HTML block of the following format:
+#### Writing the HTML block
+After including the JavaScript library, you can start writing HTML blocks in the format below. These will be dynamically converted to exercises.
 
 ```html
 <div data-datacamp-exercise data-lang="r">
@@ -75,7 +75,7 @@ As we can see in the example, the whole exercise is contained in a single `<div>
 
 ### Pre-Exercise Code
 
-Pre-exercise code is code that initializes the workspace such that users can start coding the essence of the exercise instead of worrying about loading in data and packages. The way to specify this is by defining a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
+Pre-exercise code is executed when the R/Python session is initialized. You can use it to pre-load datasets, packages, etc. for students. The way to specify this is by defining a `<code>` tag containing your initialization code and set the `data-type` attribute to `pre-exercise-code` like this:
 
 ```html
 <code data-type="pre-exercise-code">
@@ -84,7 +84,7 @@ Pre-exercise code is code that initializes the workspace such that users can sta
 </code>
 ```
 
-In our example we initialize the (the rather useless) variable `b` with value `6`.
+In our example we initialize the (rather useless) variable `b` with value `6`.
 
 ### Sample Code
 
@@ -119,7 +119,7 @@ To set the solution code, a `<code>` tag should be defined containing the soluti
 
 ### Submission Correctness Test (SCT)
 
-A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at http://docs.datacamp.com/teach/sct-design-r.html for R and at http://docs.datacamp.com/teach/sct-design-python.html for Python. The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
+A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at [the documentation for R](http://docs.datacamp.com/teach/sct-design-r.html) and at [the documentation for Python](http://docs.datacamp.com/teach/sct-design-python.html). The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
 
 ```html
 <code data-type="sct">
@@ -144,4 +144,4 @@ It is possible for the hint to contain for instance `<code>` tags as is the case
 
 ## Examples
 
-You can find more examples in the `example` folder in the repository. You can also test out a live example at http://assets.datacamp.com/example/standalone-two-consoles.html.
+You can find more examples in the `example` folder in the repository. You can also test out [an example on DataCamp](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r), or a [demo R and Python example](http://assets.datacamp.com/example/standalone-two-consoles.html).

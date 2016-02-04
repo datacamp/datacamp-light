@@ -104,7 +104,7 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 		if ("minHeight" in exercise_DOM.dataset) {
 			var user_min_height = Math.round(exercise_DOM.dataset["minHeight"]);
 			if (!isNaN(user_min_height)) {
-				if (user_min_height > MIN_HEIGHT) {
+				if (user_min_height >= MIN_HEIGHT) {
 					min_height = user_min_height;
 				} else {
 					console.log("The min-height attribute should be larger than " + MIN_HEIGHT + ".");
@@ -124,7 +124,7 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 		if ("maxHeight" in exercise_DOM.dataset) {
 			var user_max_height = Math.round(exercise_DOM.dataset["maxHeight"]);
 			if (!isNaN(user_max_height)) {
-				if (user_max_height > MIN_HEIGHT) {
+				if (user_max_height >= MIN_HEIGHT) {
 					height = Math.min(height, user_max_height);
 				} else {
 					console.log("The max-height attribute should be larger than " + MIN_HEIGHT + ".");
@@ -182,13 +182,8 @@ function replaceDataCampExercises() {
 				return;
 			}
 
-			if (!("lang" in exercise_DOM.dataset)) {
-				console.log("DataCamp Light: Missing the data-lang attribute.");
-				return;
-			}
-
 			var exercise_data = {
-				"language": exercise_DOM.dataset["lang"],
+				"language": ("lang" in exercise_DOM.dataset) ? exercise_DOM.dataset["lang"] : "",
 				"pre-exercise-code": "",
 				"sample-code": "",
 				"solution": "",

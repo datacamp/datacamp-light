@@ -4,6 +4,18 @@ var MIN_HEIGHT = 200;
 var IFRAME_NAME = "datacamp-light-iframe-";
 var DATACAMP_LIGHT_URL = "https://light.datacamp.com/";
 
+
+function trimCode(code_block) {
+	var lines = code_block.split(/\r?\n/);
+	if (lines[lines.length-1].trim() === "") {
+		lines.splice(lines.length-1, 1);
+	}
+	if (lines[0].trim() === "") {
+		lines.splice(0, 1);
+	}
+	return lines.join("\n");
+}
+
 /**
  * Inspired by https://github.com/sindresorhus/strip-indent
  */
@@ -11,7 +23,7 @@ function stripIndent(code_block) {
 	var match = code_block.match(/^[ \t]*(?=\S)/gm);
 
 	if (!match) {
-		return code_block;
+		return trimCode(code_block);
 	}
 
 	var indent = Math.min.apply(Math, match.map(function (el) {
@@ -21,14 +33,7 @@ function stripIndent(code_block) {
 	var re = new RegExp('^[ \\t]{' + indent + '}', 'gm');
 
 	code_block = indent > 0 ? code_block.replace(re, '') : code_block;
-	var lines = code_block.split(/\r?\n/);
-	if (lines[lines.length-1].trim() === "") {
-		lines.splice(lines.length-1, 1);
-	}
-	if (lines[0].trim() === "") {
-		lines.splice(0, 1);
-	}
-	return lines.join("\n");
+	return trimCode(code_block);
 }
 
 function unescapeHtml(safe) {
@@ -48,10 +53,10 @@ function processCodeTags(result_object, code_tags) {
 				result_object["pre-exercise-code"] = text;
 			}
 			else if (type === "sample-code") {
-				result_object["sample-code"] = text;
+				result_object["sample-code"] = stripIndent(text);
 			}
 			else if (type === "solution") {
-				result_object["solution"] = text;
+				result_object["solution"] = stripIndent(text);
 			}
 			else if (type === "sct") {
 				result_object["sct"] = text;
@@ -112,7 +117,7 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 		// Get height based on sample-code
 		var sample_lines_length = exercise_data["sample-code"].split(/\r?\n/).length;
 		height = Math.max(
-			82 + (sample_lines_length-2) * 16,
+			82 + (sample_lines_length) * 16,
 			min_height
 		);
 
@@ -157,7 +162,7 @@ function createDataForm(exercise_data , index) {
 			var hiddenField = document.createElement("input");
 			hiddenField.setAttribute("type", "hidden");
 			hiddenField.setAttribute("name", key);
-			hiddenField.setAttribute("value", stripIndent(exercise_data[key]));
+			hiddenField.setAttribute("value", exercise_data[key]);
 
 			form.appendChild(hiddenField);
 		 }

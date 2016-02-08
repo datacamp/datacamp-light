@@ -50,7 +50,7 @@ function processCodeTags(result_object, code_tags) {
 			var text = unescapeHtml(code_tags[i].innerHTML);
 			var type = code_tags[i].dataset["type"];
 			if (type === "pre-exercise-code") {
-				result_object["pre-exercise-code"] = text;
+				result_object["pre-exercise-code"] = stripIndent(text);
 			}
 			else if (type === "sample-code") {
 				result_object["sample-code"] = stripIndent(text);
@@ -59,7 +59,7 @@ function processCodeTags(result_object, code_tags) {
 				result_object["solution"] = stripIndent(text);
 			}
 			else if (type === "sct") {
-				result_object["sct"] = text;
+				result_object["sct"] = stripIndent(text);
 			}
 			else if (type === "hint") {
 				result_object["hint"] = text;

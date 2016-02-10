@@ -10,7 +10,7 @@ function trimCode(code_block) {
 	if (lines[lines.length-1].trim() === "") {
 		lines.splice(lines.length-1, 1);
 	}
-	if (lines[0].trim() === "") {
+	if (lines.length && lines[0].trim() === "") {
 		lines.splice(0, 1);
 	}
 	return lines.join("\n");

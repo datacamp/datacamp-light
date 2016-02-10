@@ -7,11 +7,11 @@ var DATACAMP_LIGHT_URL = "https://light.datacamp.com/";
 
 function trimCode(code_block) {
 	var lines = code_block.split(/\r?\n/);
-	if (lines[lines.length-1].trim() === "") {
-		lines.splice(lines.length-1, 1);
+	if (lines.length > 1 && lines[lines.length-1].trim() === "") {
+		lines.pop();
 	}
-	if (lines.length && lines[0].trim() === "") {
-		lines.splice(0, 1);
+	if (lines[0].trim() === "") {
+		lines.shift();
 	}
 	return lines.join("\n");
 }
@@ -30,9 +30,10 @@ function stripIndent(code_block) {
 		return el.length;
 	}));
 
-	var re = new RegExp('^[ \\t]{' + indent + '}', 'gm');
+	if (indent > 0) {
+		code_block = code_block.replace(new RegExp('^[ \\t]{' + indent + '}', 'gm'), '');
+	}
 
-	code_block = indent > 0 ? code_block.replace(re, '') : code_block;
 	return trimCode(code_block);
 }
 
@@ -44,7 +45,7 @@ function unescapeHtml(safe) {
 		.replace(/&#039;/g, "'");
 }
 
-function processCodeTags(result_object, code_tags) {
+function processExerciseProperties(result_object, code_tags) {
 	for (var i = 0; i < code_tags.length; i++) {
 		if ("type" in code_tags[i].dataset) {
 			var text = unescapeHtml(code_tags[i].innerHTML);
@@ -66,15 +67,6 @@ function processCodeTags(result_object, code_tags) {
 			}
 		}
 	}
-}
-
-function createURLData(data) {
-	var result = [];
-	for (var entry in data) {
-		if (data.hasOwnProperty(entry))
-			result.push(encodeURIComponent(entry) + "=" + encodeURIComponent(data[entry]));
-	}
-	return result.join("&");
 }
 
 function createIFrame(exercise_DOM, exercise_data, index) {
@@ -148,10 +140,7 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 }
 
 function createDataForm(exercise_data , index) {
-	var url = DATACAMP_LIGHT_URL + (window.location.hostname ? window.location.hostname + "/?" : "?") +
-	createURLData({
-
-	});
+	var url = DATACAMP_LIGHT_URL + (window.location.hostname ? window.location.hostname + "/" : "");
 	var form = document.createElement("form");
 	form.setAttribute("method", "post");
 	form.setAttribute("action", url);
@@ -191,7 +180,7 @@ function replaceDataCampExercises() {
 				"hint": "",
 			}
 
-			processCodeTags(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
+			processExerciseProperties(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
 
 			// Actually replace
 			while (exercise_DOM.lastChild) {
@@ -200,12 +189,6 @@ function replaceDataCampExercises() {
 
 			// Create iframe
 			exercise_DOM.appendChild(createIFrame(exercise_DOM, exercise_data , index));
-
-			// On iframe load remove spinner background for possible performance gains
-			// Currently commented out since it probably doesn't matter
-			// iframe.onload = function () {
-			// 	exercise_DOM.setAttribute("style", "background-image: none;");
-			// }
 
 			// Create form to send exercise data
 			var form = createDataForm(exercise_data, index);

@@ -107,24 +107,26 @@ function createIFrame(exercise_DOM, exercise_data, index) {
 		}
 
 		// Get height based on sample-code
-		var sample_lines_length = exercise_data["sample-code"].split(/\r?\n/).length;
-		height = Math.max(
-			82 + (sample_lines_length) * 16,
-			min_height
-		);
-
-		if ("maxHeight" in exercise_DOM.dataset) {
-			var user_max_height = Math.round(exercise_DOM.dataset["maxHeight"]);
-			if (!isNaN(user_max_height)) {
-				if (user_max_height >= MIN_HEIGHT) {
-					height = Math.min(height, user_max_height);
+		if(exercise_data["sample-code"]){
+			var sample_lines_length = exercise_data["sample-code"].split(/\r?\n/).length;
+			height = Math.max(
+				82 + (sample_lines_length) * 16,
+				min_height
+			);
+			if ("maxHeight" in exercise_DOM.dataset) {
+				var user_max_height = Math.round(exercise_DOM.dataset["maxHeight"]);
+				if (!isNaN(user_max_height)) {
+					if (user_max_height >= MIN_HEIGHT) {
+						height = Math.min(height, user_max_height);
+					} else {
+						console.log("The max-height attribute should be larger than " + MIN_HEIGHT + ".");
+					}
 				} else {
-					console.log("The max-height attribute should be larger than " + MIN_HEIGHT + ".");
+					console.log("Invalid max-height attribute.");
 				}
-			} else {
-				console.log("Invalid max-height attribute.");
 			}
 		}
+
 	}
 
 	iframe.style.height = height + "px";
@@ -161,7 +163,9 @@ function createDataForm(exercise_data , index) {
 }
 
 function replaceDataCampExercises() {
-	var exercises = document.querySelectorAll("[data-datacamp-exercise]");
+	var exercises = document.querySelectorAll("[data-datacamp-exercise]"),
+			exercise_data;
+
 	for (var i = 0; i < exercises.length; i++) {
 		(function (index){
 			var exercise_DOM = exercises[index];
@@ -171,16 +175,22 @@ function replaceDataCampExercises() {
 				return;
 			}
 
-			var exercise_data = {
-				"language": ("lang" in exercise_DOM.dataset) ? exercise_DOM.dataset["lang"] : "",
-				"pre-exercise-code": "",
-				"sample-code": "",
-				"solution": "",
-				"sct": "",
-				"hint": "",
-			}
+			if(exercise_DOM.dataset.encoded === 'true'){
+				exercise_data = {
+					"encoded": exercise_DOM.innerText
+				}
+			} else {
+				exercise_data = {
+					"language": ("lang" in exercise_DOM.dataset) ? exercise_DOM.dataset["lang"] : "",
+					"pre-exercise-code": "",
+					"sample-code": "",
+					"solution": "",
+					"sct": "",
+					"hint": "",
+				}
 
-			processExerciseProperties(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
+				processExerciseProperties(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
+			}
 
 			// Actually replace
 			while (exercise_DOM.lastChild) {

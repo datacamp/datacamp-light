@@ -119,7 +119,7 @@ To set the solution code, a `<code>` tag should be defined containing the soluti
 
 #### Submission Correctness Test (SCT)
 
-A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at [the documentation for R](http://docs.datacamp.com/teach/sct-design-r.html) and at [the documentation for Python](http://docs.datacamp.com/teach/sct-design-python.html). The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
+A Submission Correctness Test is used to check whether the code submitted by the user properly solves the exercise. For detailed information on this you can look at [the documentation for R](https://github.com/datacamp/testwhat) and at [the documentation for Python](https://github.com/datacamp/pythonwhat). The way to specify the SCT is by defining a `<code>` tag containing your SCT code and set the `data-type` attribute to `sct` like this:
 
 ```html
 <code data-type="sct">

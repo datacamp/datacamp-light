@@ -1,0 +1,16 @@
+@keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.dcl-animation--flash {
+  -webkit-animation: flash 1s ease-out;
+  animation: flash 1s ease-out;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}

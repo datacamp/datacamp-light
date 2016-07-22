@@ -1,0 +1,126 @@
+.filter-drop {
+	font-weight: 400;
+	font-size: $h4-size;
+	vertical-align: top;
+}
+
+.filter-options {
+	display: inline-block;
+	vertical-align: top;
+	text-align: left !important;
+	a { background-color: white; }
+}
+
+.filter-drop span {
+	border-bottom: 3px solid $primary;
+	padding-right: 1.25em;
+	position: relative;
+	color: $primary;
+	transition: color $default-duration ease, border-color $default-duration ease;
+
+	&:before, &:after {
+		display: block;
+		content: "";
+		background: $primary;
+		border-radius: 4px;
+		width: 0.125em;
+		height: 0.625em;
+		position: absolute;
+		transition: background $default-duration ease;
+	}
+	&:before {
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+		right: 0.3125em;
+		top: 0.3125em;
+	}
+	&:after {
+		-webkit-transform: rotate(-45deg);
+		-ms-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+		right: 0.6875em;
+		top: 0.3125em;
+	}
+
+	&:hover {
+		cursor: pointer;
+		color: $primary-light;
+		border-color: $primary-light;
+		&:before { background: $primary-light;}
+		&:after { background: $primary-light;}
+	}
+}
+
+.filter-drop a:focus {
+	border:none;
+}
+
+.filter-drop-options {
+	margin:0;
+	padding: 0;
+	list-style: none;
+	display: none;
+	li {
+		margin-top: 20px;
+	}
+
+	&.shown {
+		display: block;
+		z-index: $z-max;
+		position: absolute;
+	}
+}
+
+@media screen and (min-width: 480px) {
+	.filter-drop {
+		font-size: $h3-size;
+	}
+}
+
+.filter-arrow {
+	margin-left: 1.5em;
+	position: relative;
+
+	&:before, &:after {
+		display: block;
+		content: "";
+		background: $primary;
+		border-radius: 4px;
+		width: 0.125em;
+		height: 0.625em;
+		position: absolute;
+		transition: background $default-duration ease;
+	}
+	&:before {
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+		top: 0.3125em;
+	}
+	&:after {
+		-webkit-transform: rotate(-45deg);
+		-ms-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+		top: 0.3125em;
+	}
+}
+
+.filter-down {
+	&:before {
+		right: 0.3125em;
+	}
+	&:after {
+		right: 0.6875em;
+	}
+}
+
+.filter-up {
+	&:before {
+		right: 0.6875em;
+	}
+	&:after {
+		right: 0.3125em;
+	}
+}
+

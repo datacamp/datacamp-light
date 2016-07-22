@@ -1,0 +1,16 @@
+.label {
+  color: $text-invert;
+  display: inline-block;
+  font-size: $small-font-size;
+  margin-left: 5px;
+  padding: 0.25em 0.4375em;
+  position: relative;
+  text-transform: uppercase;
+  top: -3px;
+  border-radius: 0;
+  font-weight: 400;
+}
+
+.label-accent {
+  background-color: $accent;
+}

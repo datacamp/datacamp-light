@@ -1,0 +1,5 @@
+<span class="dcl-app-status">
+	<i class="fa fa-circle" ng-hide="isLoading" ng-class="{'dcl-busy': isBusy, 'dcl-broken': isBroken}"></i>
+	<i class="dcl-app-status-spinner fa fa-circle-o-notch fa-spin" ng-show="isLoading"></i>
+	<span class="dcl-app-status-text dcl-hide-xxs">{{appStatusText}}</span>
+</span>

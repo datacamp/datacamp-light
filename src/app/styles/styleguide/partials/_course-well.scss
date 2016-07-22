@@ -1,0 +1,153 @@
+.course-well {
+  text-align: center !important;
+  background-color: $primary-ultra-light;
+  border: $card-outline-width solid $primary;
+  margin-bottom: $default-space;
+  padding-top: 60px;
+  margin-top: 60px;
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  .dcl-btn {
+    margin: $default-space 0;
+  }
+
+  p {
+    margin: 0
+  }
+
+  .course-well--text {
+    padding: 0 20px;
+    .header-link {
+      color: $text;
+      &:hover, &:focus {
+        color: $text-secondary;
+      }
+    }
+  }
+
+  .course-well--footer {
+    padding: 12px 30px;
+    background-color: $primary;
+    color: white;
+    @include flexbox();
+    justify-content: space-around;
+    align-items: center;
+  }
+  &.no-footer {
+    padding-bottom: $default-space;
+  }
+}
+
+@media screen and (min-width: $bp-sm) {
+  .course-well {
+    width: 450px;
+  }
+}
+
+
+// Different variations
+.course-well.started {
+  background-color: $accent-ultra-light;
+  border-color: $accent;
+  .course-well--footer {
+    background-color: $accent;
+    color: $accent-dark;
+    justify-content: space-between;
+  }
+}
+
+.course-well.completed {
+  .course-well--footer {
+    justify-content: space-between;
+    a.dcl-active { color: $primary-light;}
+  }
+}
+
+// Different states
+.course-well--completed {
+  padding: 0 $default-space;
+
+  hr {
+    margin: $default-space / 3.0 0
+  }
+  .dcl-btn {
+    margin: 0 0 0 $default-space / 3.0;
+  }
+  p {
+    color: $text-tertiary;
+  }
+  a:not(.dcl-btn) {
+    display: inline-block;
+    margin-bottom: $default-space / 3.0;
+  }
+
+}
+
+// ------------
+// CHAPTER DOTS
+// ------------
+.course-well--chapters {
+
+  a {
+    border-bottom: none;
+    font-family: FontAwesome;
+    float: left;
+    height: 14px;
+    font-size: 11px;
+    display: block;
+    margin-right: 20px;
+    position: relative;
+    color:$primary-light;
+
+    &:before {
+      content: '';
+      position: absolute;
+      height: 2px;
+      width: 12px;
+      top: 50%;
+      left: 12px;
+      background-color: $primary-light;
+    }
+    &:after { content: "\f1db"}
+
+    &:last-of-type {
+      margin-right: 0;
+      &:before { content: none;}
+    }
+
+    &:focus, &:hover {
+      border-bottom: none;
+    }
+
+    &.dcl-active { color: white;}
+    &.completed { color: $primary-light;}
+    &.completed.dcl-active { color: white; }
+
+    &.locked:after,
+    &.dcl-active.locked:after {
+      content: "\f023"
+    }
+    &.completed:after,
+    &.dcl-active:after {
+      content: "\f111";
+    }
+  }
+}
+
+.course-well.started .course-well--chapters a {
+  color: $accent-dark;
+  &:before {
+    background-color: $accent-dark;
+  }
+  &.dcl-active { color: white;}
+  &.completed { color: $accent-dark;}
+  &.completed.dcl-active { color: white; }
+}
+

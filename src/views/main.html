@@ -1,0 +1,64 @@
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div ng-controller="NormalExerciseController">
+  <div class="dcl-exercise-area" resize-layout>
+    <div class="dcl-left-pane" ng-class="{'dcl-mini': useMiniLayout}">
+      <ul class="dcl-content--tab">
+        <li>
+          <a href="" ng-click="activateLeftTab('usercode')" ng-class="{'dcl-active': isActiveLeftTab('usercode')}">
+            script.{{backendConfig.extension}}
+          </a>
+        </li>
+        <li ng-show="solutionTabShown">
+          <a class="dcl-animation--flash" href="" ng-click="activateLeftTab('solution')" ng-class="{'dcl-active': isActiveLeftTab('solution')}">
+            solution.{{backendConfig.extension}}
+          </a>
+        </li>
+        <li>
+          <a href="" ng-show="useMiniLayout" ng-click="activateLeftTab('console')" ng-class="{'dcl-active': isActiveLeftTab('console')}">
+            {{backendConfig.console}}
+          </a>
+        </li>
+        <li>
+          <a href="" ng-show="useMiniLayout && plotTabShown" ng-click="activateLeftTab('plots')" ng-class="{'dcl-active': isActiveLeftTab('plots')}">
+            Plots
+          </a>
+        </li>
+      </ul>
+      <div class="dcl-content--tab-body">
+        <div code-editor control="editor" ng-show="isActiveLeftTab('usercode') || isActiveLeftTab('solution')" ng-model="userCode"></div>
+        <div ng-show="isActiveLeftTab('console')" class="dcl-console-target dcl-console-mini-target"></div>
+        <div ng-show="isActiveLeftTab('plots')" class="dcl-plots-mini-target"></div>
+        <div growl ng-show="!isActiveLeftTab('plots')" inline="true" limit-messages="1" sct-feedback class="sct-feedback-container"></div>
+      </div>
+    </div>
+    <div ng-show="!useMiniLayout" class="dcl-right-pane clearfix">
+      <a class="dcl-github-link dcl-no-link-style" href="https://github.com/datacamp/datacamp-light" uib-tooltip="View DataCamp Light on Github" tooltip-placement="left" target="_blank">
+        <div class="dcl-github-logo"/>
+      </a>
+      <ul class="dcl-content--tab">
+        <li>
+          <a href="" ng-click="activateRightTab('console')" ng-class="{'dcl-active': isActiveRightTab('console')}">
+            {{backendConfig.console}}
+          </a>
+        </li>
+        <li>
+          <a ng-show="plotTabShown" href="" ng-click="activateRightTab('plots')" ng-class="{'dcl-active': isActiveRightTab('plots')}">
+            Plots
+          </a>
+        </li>
+      </ul>
+      <div class="dcl-content--tab-body">
+        <div ng-show="isActiveRightTab('console')" control="console" class="dcl-console-target dcl-console-full-target">
+          <console class="dcl-console"></console>
+        </div>
+        <div ng-show="isActiveRightTab('plots')" class="dcl-plots-full-target">
+          <plots-container class="dcl-plots-container"></plots-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <action-panel exercise="exercise"></action-panel>
+</div>

@@ -1,0 +1,21 @@
+.dcl-console, .dcl-console * {
+  font-family: Monaco, Consolas, Menlo, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  color: $text;
+  line-height: 16px;
+}
+
+.ace_error {
+  color: #E70909;
+}
+
+.ace_output {
+  color: #8E6627;
+}
+
+.dcl-content--tab-body .dcl-console {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

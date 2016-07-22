@@ -1,0 +1,60 @@
+.ace_editor {
+  //flex: 1 1 auto;
+  line-height: 16px;
+  height: 100%;
+
+  &.ace-crimson-editor {
+
+    div, span {
+      font-family: Monaco, Consolas, Menlo, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    }
+
+    .ace_gutter {
+      background-color: $text-invert;
+      .ace_gutter-cell {
+        color: black;
+      }
+    }
+    .ace_gutter-cell {
+      color: black;
+    }
+
+    .ace_gutter-active-line {
+      background-color: $primary-lighter;
+    }
+
+    .ace_marker-layer .ace_active-line {
+      background-color: $primary-extra-light;
+    }
+  }
+
+  .ace_line {
+    color: black;
+  }
+
+  .error-line {
+    position: absolute;
+    background-color: $error-light;
+    z-index: 3;
+  }
+  .error-gutter {
+    background-color: $error-light;
+  }
+}
+
+.sct-feedback-container {
+  //flex: 0 1 auto;
+  width: 100%;
+
+  .growl-item {
+    border-radius: 0;
+    margin: 0;
+    p {
+      margin: 0;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+  }
+}

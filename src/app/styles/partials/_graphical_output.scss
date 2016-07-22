@@ -1,0 +1,52 @@
+.dcl-graphical-output-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: white;
+
+  .dcl-plot-btn {
+    padding: 8px 16px;
+  }
+
+  .dcl-plot-btn:first-child {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+
+    .fa-chevron-left {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+  }
+
+  span {
+    @extend .h-align;
+    padding-bottom: 8px;
+    bottom: 12px;
+  }
+
+  .dcl-plot-btn:last-child {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+
+    .fa-chevron-right {
+      margin-left: 8px;
+      margin-right: 0;
+    }
+  }
+
+  img, iframe {
+    padding-bottom: 50px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    &.no-padding {
+      padding-bottom: 0;
+    }
+  }
+}

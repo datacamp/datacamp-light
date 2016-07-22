@@ -1,0 +1,6 @@
+<div class="dcl-graphical-output-container">
+  <button class="dcl-btn dcl-btn-secondary dcl-btn-small dcl-plot-btn" ng-click="previousPlot()" ng-show="plotIndex > 0"><i class="fa fa-chevron-left"></i>Previous Plot</button>
+  <span ng-show="plots.length > 0">{{plotIndex + 1}}/{{plots.length}}</span>
+  <img ng-show="plots.length > 0" ng-src="{{currentImage.src}}">
+  <button class="dcl-btn dcl-btn-secondary dcl-btn-small dcl-plot-btn" ng-click="nextPlot()" ng-show="plotIndex < (plots.length - 1)">Next Plot<i class="fa fa-chevron-right"></i></button>
+</div>

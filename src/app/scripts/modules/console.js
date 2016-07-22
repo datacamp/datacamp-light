@@ -30,6 +30,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
     },
     link: function (scope, elm) {
       var startingSession = false;
+      var enableCommands = true;
 
       scope.console = scope.control || {};
       scope.console.isFocused = false;
@@ -213,7 +214,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
         name: 'return_key',
         bindKey: {win: 'Return', mac: 'Return'},
         exec: function (editor) {
-          if (editorLocked) return;
+          if (editorLocked || !enableCommands) return;
           var codeWithoutPre = editor.getInputCode();
           consoleHistory.addCommand(codeWithoutPre);
           executeCode(codeWithoutPre);
@@ -333,7 +334,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
       });
 
       scope.$on('session::loading', function () {
-        lockConsole();
+        enableCommands = false
       });
 
       scope.$on('session::ready', function () {
@@ -369,6 +370,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
       function unlockConsole() {
         editor.setReadOnly(false);
         editorLocked = false;
+        enableCommands = true;
       }
     }
   };

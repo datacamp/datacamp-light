@@ -1,7 +1,11 @@
 .dcl-console, .dcl-console * {
-  font-family: Monaco, Consolas, Menlo, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
   color: $text;
   line-height: 16px;
+
+  div, span {
+    font: inherit !important
+  }
 }
 
 .ace_error {

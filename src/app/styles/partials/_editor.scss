@@ -4,9 +4,10 @@
   height: 100%;
 
   &.ace-crimson-editor {
+    font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
 
     div, span {
-      font-family: Monaco, Consolas, Menlo, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+      font: inherit !important
     }
 
     .ace_gutter {

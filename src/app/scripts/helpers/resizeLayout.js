@@ -68,9 +68,14 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
         });
       });
 
+      var resizeTimeout;
       angular.element($window).bind('resize', function () {
-        checkMiniLayout();
-        performResize();
+        $timeout.cancel(resizeTimeout);
+        resizeTimeout = $timeout(function () {
+          resizeTimeout = null;
+          checkMiniLayout();
+          performResize();
+        }, 500);
       });
     }
   };

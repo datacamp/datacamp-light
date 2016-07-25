@@ -56,6 +56,17 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
         setCurrentImage();
       };
 
+      scope.removePlot = function () {
+        scope.plots.splice(scope.plotIndex, 1);
+        if (scope.plots.length === 0) {
+          clearPlotOutput();
+        }
+        else {
+          if (scope.plotIndex === scope.plots.length) scope.plotIndex--;
+          setCurrentImage();
+        }
+      };
+
       scope.expand = function () {
         if (BackendSessionManager.resize(EXPAND_DIMENSIONS, scope.plotIndex)) {
           openExpandWindow(scope.currentImage.src);

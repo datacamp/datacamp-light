@@ -147,3 +147,9 @@ It is possible for the hint to contain for instance `<code>` tags as is the case
 ## Examples
 
 You can find more examples in the `example` folder in the repository. You can also test out the [demo R and Python example](https://cdn.datacamp.com/dcl/standalone-example.html).
+
+## Building
+
+After you downloaded this repository, run `npm install` and `bower install` for all the necessary dependencies.
+You will probably want to test your own build so change `DCL_URL` in `src/datacamp-light.js` to `http://localhost:3003/`.
+Afterwards you can run `gulp` to build DataCamp Light and `node web.js` to serve random examples with the new build.

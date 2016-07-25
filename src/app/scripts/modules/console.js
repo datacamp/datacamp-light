@@ -173,7 +173,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
       function goToLastLineAndLineEnd() {
         var row = editor.session.getLength() - 1;
         var column = editor.session.getLine(row).length;
-        editor.gotoLine(row + 1, column);
+        editor.gotoLine(row + 1, column, true);
       }
 
       function clearConsole() {
@@ -359,7 +359,8 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
         if (angular.isDefined(resizeHeight))
           elm.height(resizeHeight);
         editor.renderer.updateFull(true);
-        editor.resize();
+        editor.resize(true);
+        goToLastLineAndLineEnd();
       });
 
       function lockConsole() {

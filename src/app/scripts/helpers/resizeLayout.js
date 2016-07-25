@@ -9,14 +9,15 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
     link: function (scope, element) {
       var MINI_THRESHHOLD = 900;
 
-      var pane, sctFeedbackContainer, miniConsoleTarget, fullConsoleTarget, miniPlotTarget, fullPlotTarget;
+      var leftPane, rightPane, sctFeedbackContainer, miniConsoleTarget, fullConsoleTarget, miniPlotTarget, fullPlotTarget;
 
       $timeout(function () {
         //It's in a timeout so that the #console is already in the DOM before we execute it
-        pane = element.find(".dcl-left-pane .dcl-content--tab-body");
-        sctFeedbackContainer = pane.children(".sct-feedback-container");
-        miniConsoleTarget = pane.children(".dcl-console-mini-target");
-        miniPlotTarget = pane.children(".dcl-plots-mini-target");
+        leftPane = element.find(".dcl-left-pane .dcl-content--tab-body");
+        rightPane = element.find(".dcl-right-pane .dcl-content--tab-body");
+        sctFeedbackContainer = leftPane.children(".sct-feedback-container");
+        miniConsoleTarget = leftPane.children(".dcl-console-mini-target");
+        miniPlotTarget = leftPane.children(".dcl-plots-mini-target");
         fullConsoleTarget = element.find(".dcl-console-full-target");
         fullPlotTarget = element.find(".dcl-plots-full-target");
         checkMiniLayout();
@@ -48,10 +49,13 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
       }
 
       function performResize() {
-        var resizeHeight = pane.height() - sctFeedbackContainer.height();
-        miniConsoleTarget.height(resizeHeight);
-        scope.$broadcast("editor::resize", resizeHeight);
-        scope.$broadcast("console::resize");
+        var leftHeight = leftPane.height() - sctFeedbackContainer.height();
+        scope.$broadcast("editor::resize", leftHeight);
+
+        var rightHeight = scope.useMiniLayout ? leftHeight : rightPane.height();
+        if (scope.useMiniLayout)
+          miniConsoleTarget.height(leftHeight);
+        scope.$broadcast("console::resize", rightHeight);
       }
 
       function scrollConsoleToBottom() {
@@ -62,7 +66,6 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
         $timeout(function () {
           performResize();
         });
-        scrollConsoleToBottom();
       });
 
       angular.element($window).bind('resize', function () {

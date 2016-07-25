@@ -20,8 +20,10 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
         fullConsoleTarget = element.find(".dcl-console-full-target");
         fullPlotTarget = element.find(".dcl-plots-full-target");
         checkMiniLayout();
-        if (scope.useMiniLayout)
+        if (scope.useMiniLayout) {
           scope.$broadcast("editor::resize");
+          scope.$broadcast("console::resize");
+        }
       });
 
       function checkMiniLayout() {
@@ -49,6 +51,7 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
         var resizeHeight = pane.height() - sctFeedbackContainer.height();
         miniConsoleTarget.height(resizeHeight);
         scope.$broadcast("editor::resize", resizeHeight);
+        scope.$broadcast("console::resize");
       }
 
       function scrollConsoleToBottom() {

@@ -355,7 +355,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
         goToLastLineAndLineEnd();
       });
 
-      scope.$on("editor::resize", function (_, resizeHeight) {
+      scope.$on("console::resize", function (_, resizeHeight) {
         if (angular.isDefined(resizeHeight))
           elm.height(resizeHeight);
         editor.renderer.updateFull(true);

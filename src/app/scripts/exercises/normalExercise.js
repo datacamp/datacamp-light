@@ -111,8 +111,8 @@
     function calculateRenderDimensions() {
       var container = $rootElement.find('.dcl-content--tab-body:first');
       return {
-        'height': Math.round(container.height()) - 40,
-        'width': Math.round(container.width())
+        'height': Math.round(container.height()) - 30,
+        'width': Math.round(container.width()) - 5
       };
     }
 

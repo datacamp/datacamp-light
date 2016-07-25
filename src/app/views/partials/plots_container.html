@@ -5,4 +5,5 @@
   <button class="dcl-btn dcl-btn-small dcl-plot-btn" ng-click="previousPlot()" ng-disabled="plotIndex <= 0"><i class="fa fa-chevron-left"></i></button>
   <span ng-show="plots.length > 0">{{plotIndex + 1}}/{{plots.length}}</span>
   <button class="dcl-btn dcl-btn-small dcl-plot-btn" ng-click="nextPlot()" ng-disabled="plotIndex >= (plots.length - 1)"><i class="fa fa-chevron-right"></i></button>
+  <button class="dcl-btn dcl-btn-small dcl-plot-btn" ng-click="expand('plot')"><i class="fa fa-expand"></i></button>
 </div>

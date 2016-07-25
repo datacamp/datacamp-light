@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dataCampLight.directives').directive('plotsContainer', ['BackendSessionManager', function (BackendSessionManager) {
+angular.module('dataCampLight.directives').directive('plotsContainer', ['$window', 'BackendSessionManager', function ($window, BackendSessionManager) {
 
   function hexToBase64(str) {
     return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, '').replace(/([\da-fA-F]{2}) ?/g, '0x$1 ').replace(/ +$/, '').split(' ')));
@@ -15,6 +15,10 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['Backend
     templateUrl: 'app/views/partials/plots_container.html',
     link: function (scope, element) {
       var renderDimensions;
+      var EXPAND_DIMENSIONS = {
+        height: 450,
+        width: 450
+      };
       scope.plotIndex = 0;
       scope.plots = [];
 
@@ -52,6 +56,19 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['Backend
         setCurrentImage();
       };
 
+      scope.expand = function () {
+        if (BackendSessionManager.resize(EXPAND_DIMENSIONS, scope.plotIndex)) {
+          openExpandWindow(scope.currentImage.src);
+        } else {
+          scope.plots[scope.plotIndex].expanding = true;
+        }
+      };
+
+      function openExpandWindow(src) {
+        var expandWindow = window.open(src, 'Expanded plot', 'height=450px,width=450px');
+        if ($window.focus) expandWindow.focus();
+      }
+
       function createImageSrc(img_url) {
         if (img_url.lastIndexOf("http", 0) === 0) {
           return img_url;
@@ -74,7 +91,8 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['Backend
         }
         scope.plots.push({
           src: createImageSrc(img_url),
-          resize: false
+          resize: false,
+          expanding: false
         });
         scope.plotIndex = scope.plots.length - 1;
         scope.currentImage = scope.plots[scope.plotIndex];
@@ -85,7 +103,7 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['Backend
         for (var i = 0; i < scope.plots.length; i++) {
           scope.plots[i].resize = true;
         }
-        if (scope.plots.length > 0) {
+        if (scope.plots.length > 0 && scope.plots[scope.plotIndex].expanding === false) {
           scope.plots[scope.plotIndex].resize = false;
           BackendSessionManager.resize(renderDimensions, scope.plotIndex);
         } else {
@@ -96,9 +114,14 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['Backend
       scope.$on('plot::resized', function (_, payload) {
         // REPLACE FIGURE
         if (payload.index < scope.plots.length) {
-          scope.plots[payload.index].src = createImageSrc(payload.url);
-          if (payload.index === scope.plotIndex) {
-            scope.currentImage = scope.plots[scope.plotIndex];
+          if (scope.plots[payload.index].expanding) {
+            openExpandWindow(createImageSrc(payload.url));
+            scope.plots[payload.index].expanding = false;
+          } else {
+            scope.plots[payload.index].src = createImageSrc(payload.url);
+            if (payload.index === scope.plotIndex) {
+              scope.currentImage = scope.plots[scope.plotIndex];
+            }
           }
         }
       })

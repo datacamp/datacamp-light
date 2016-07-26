@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$rootElement', '$timeout', 'BackendSessionManager', 'NotificationService', 'ExerciseLoader', 'RenderService', NormalExerciseController]);
+  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$rootElement', 'BackendSessionManager', 'NotificationService', 'ExerciseLoader', 'RenderService', NormalExerciseController]);
 
   function NormalExerciseController($scope, $rootElement, BackendSessionManager, NotificationService, ExerciseLoader, RenderService) {
     var currentCode;

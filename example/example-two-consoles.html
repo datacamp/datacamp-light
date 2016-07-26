@@ -1,80 +1,111 @@
 <html>
-  <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <script src="datacamp-light-latest.min.js"></script>
-    <link rel='shortcut icon' type='image/x-icon' href='https://www.datacamp.com/assets/favicon.ico' />
-  </head>
-  <body>
-    <div class="container">
-      <h1>R Exercise</h1>
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <script src="datacamp-light-latest.min.js"></script>
+  <link rel='shortcut icon' type='image/x-icon' href='https://www.datacamp.com/assets/favicon.ico'/>
+</head>
+<body>
+<div class="container">
+  <h1>R Exercise</h1>
+  <p>height: auto</p>
+  <div data-datacamp-exercise data-lang="r" data-height="auto">
+    <code data-type="pre-exercise-code"># no pec</code>
+    <code data-type="sample-code">
+      # An addition
+      5 + 5
 
-      <div data-datacamp-exercise data-lang="r">
-        <code data-type="pre-exercise-code">
-          # no pec
-        </code>
-        <code data-type="sample-code">
-          # Create a variable a, equal to 5
+      # A subtraction
+      5 - 5
 
+      # A multiplication
+      3 * 5
 
-          # Print out a
+      # A division
+      (5 + 5) / 2
 
-        </code>
-        <code data-type="solution">
-          # Create a variable a, equal to 5
-          a <- 5
-
-          # Print out a
-          print(a)
-        </code>
-        <code data-type="sct">
-          test_object("a")
-          test_function("print")
-          success_msg("Great job!")
-        </code>
-        <div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>
-      </div>
-
-      <h1>Python Exercise</h1>
-
-      <div data-datacamp-exercise data-lang="python">
-        <code data-type="pre-exercise-code">
-          # no pec
-        </code>
-        <code data-type="sample-code">
-          # Create a variable a, equal to 5
+      # Exponentiation
 
 
-          # Print out a
+      # Modulo
 
+    </code>
+    <code data-type="solution">
+      # An addition
+      5 + 5
 
-          # More comments
+      # A subtraction
+      5 - 5
 
+      # A multiplication
+      3 * 5
 
-          # More whitespace
+      # A division
+      (5 + 5) / 2
 
+      # Exponentiation
+      2 ^ 5
 
-          # More everything
-
-
-        </code>
-        <code data-type="solution">
-          # Create a variable a, equal to 5
-          a = 5
-
-          # Print out a
-          print(a)
-        </code>
-        <code data-type="sct">
-          test_object("a")
-          test_function("print")
-          success_msg("Great job!")
-        </code>
-        <div data-type="hint">Use the assignment operator (<code>=</code>) to create the variable <code>a</code>.</div>
-      </div>
+      # Modulo
+      28 %% 6
+    </code>
+    <code data-type="sct">
+      msg = &quot;Do not remove the other arithmetic examples!&quot;
+      test_output_contains(&quot;2^5&quot;, incorrect_msg = &quot;The exponentiation
+      example
+      is not correct. Write `2 ^ 5` on a new line.&quot;)
+      test_output_contains(&quot;28 %% 6&quot;, incorrect_msg = &quot;There seems to be an
+      issue with the modulo example. Write `28 %% 6` on a new line.&quot;)
+      success_msg(&quot;Great! Head over to the next exercise.&quot;)
+    </code>
+    <div data-type="hint">
+      <p>Another example of the modulo operator:
+        <code>9 %% 2</code> equals
+        <code>1</code>.
+      </p>
     </div>
-  </body>
+  </div>
+
+  <h1>Python Exercise</h1>
+  <p>height: auto</p>
+  <div data-datacamp-exercise data-lang="python" data-height="auto">
+    <code data-type="pre-exercise-code">
+      # no pec
+    </code>
+    <code data-type="sample-code">
+      # Create a variable a, equal to 5
+
+
+      # Print out a
+
+
+      # More comments
+
+
+      # More whitespace
+
+
+      # More everything
+
+
+    </code>
+    <code data-type="solution">
+      # Create a variable a, equal to 5
+      a = 5
+
+      # Print out a
+      print(a)
+    </code>
+    <code data-type="sct">
+      test_object("a")
+      test_function("print")
+      success_msg("Great job!")
+    </code>
+    <div data-type="hint">Use the assignment operator (<code>=</code>) to create the variable <code>a</code>.</div>
+  </div>
+</div>
+</body>
 </html>

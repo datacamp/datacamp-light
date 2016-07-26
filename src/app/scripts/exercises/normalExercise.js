@@ -21,6 +21,8 @@
       parseExercise($rootElement[0].querySelectorAll('[data-type]'));
     }
 
+    setContainerHeight();
+
     $rootElement.removeAttr('data-datacamp-exercise');
 
     //Code parsing
@@ -106,6 +108,13 @@
       }
 
       return trimCode(code_block);
+    }
+
+    function setContainerHeight() {
+      if ($rootElement.data('height') === 'auto') {
+        var sampleLinesLength = exercise.sample.split(/\r?\n/).length;
+        $rootElement.height(75 + (sampleLinesLength) * 16);
+      }
     }
 
     function calculateRenderDimensions() {

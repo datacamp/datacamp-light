@@ -73,7 +73,7 @@ This code chunk will be transformed to the following exercise:
 ![DataCamp Light example 4](https://assets.datacamp.com/img/github/datacamp-light/example_r_start.jpg "Example 4")
 
 As we can see in the example, the whole exercise is contained in a single `<div>` element with two data attributes `data-datacamp-exercise` and `data-lang`. The first attribute `data-datacamp-exercise` indicates that the `<div>` should be treated as a DataCamp Light exercise, while the other attribute `data-lang` specifies which programming language should be used. The accepted values for `data-lang` are `r` and `python`.
-There is also an optional attribute `data-height` which sets the height in `px` of the div (minimum height is 300px).
+There is also an optional attribute `data-height` which can sets the height in `px` of the div (minimum height is `300px`) or set the size according to the amount of sample code lines: `data-height="auto"`.
 
 #### Pre-Exercise Code
 
@@ -152,4 +152,4 @@ You can find more examples in the `example` folder in the repository. You can al
 
 After you downloaded this repository, run `npm install` and `bower install` for all the necessary dependencies.
 You will probably want to test your own build so change `DCL_URL` in `src/datacamp-light.js` to `http://localhost:3003/`.
-Afterwards you can run `gulp` to build DataCamp Light and `node web.js` to serve random examples with the new build.
+Afterwards you can run `gulp` to build DataCamp Light and `node web.js` to serve random examples with the local build.

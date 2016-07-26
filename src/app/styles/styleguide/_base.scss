@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -9,114 +10,27 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.p0 { padding: 0 !important; }
-.pt0 { padding-top: 0 !important; }
-.pb0 { padding-bottom: 0 !important; }
-.pr0 { padding-right: 0 !important; }
-.pl0 { padding-left: 0 !important; }
-
-.m0 { margin: 0 !important; }
-.mt0 { margin-top: 0 !important; }
-.mb0 { margin-bottom: 0 !important; }
-.mr0 { margin-right: 0 !important; }
-.ml0 { margin-left: 0 !important; }
-
-.b0 { border: none !important; }
-.bt0 { border-top: none !important; }
-.bb0 { border-bottom: none !important; }
-.br0 { border-right: none !important; }
-.bl0 { border-left: none !important; }
-
-hr {
-    margin: $default-space 0;
-    background-color: $primary-extra-light;
-    height: 2px;
-    border: none;
-}
-
-.fw {
-    width:100%;
-}
-
-.fh {
-    height:100%;
-}
-
 @mixin text-truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @mixin translateX($x) {
-    -ms-transform: translate($x,0); /* IE 9 */
-    -webkit-transform: translate($x,0); /* Safari */
-    transform: translate($x,0);
-}
-
-@mixin translateY($y) {
-    -ms-transform: translate(0,$y); /* IE 9 */
-    -webkit-transform: translate(0,$y); /* Safari */
-    transform: translate(0,$y);
+  -ms-transform: translate($x, 0); /* IE 9 */
+  -webkit-transform: translate($x, 0); /* Safari */
+  transform: translate($x, 0);
 }
 
 @mixin translate($x, $y) {
-    -ms-transform: translate($x,$y); /* IE 9 */
-    -webkit-transform: translate($x,$y); /* Safari */
-    transform: translate($x,$y);
-}
-
-.v-align {
-    position: absolute;
-    top: 50%;
-    display: block;
-    @include translateY(-50%);
+  -ms-transform: translate($x, $y); /* IE 9 */
+  -webkit-transform: translate($x, $y); /* Safari */
+  transform: translate($x, $y);
 }
 
 .h-align {
-    position: absolute;
-    left: 50%;
-    display: block;
-    @include translateX(-50%);
-}
-
-.vh-align {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    @include translate(-50%,-50%);
-}
-
-
-@mixin flexbox(){
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-}
-
-@mixin flexbox-vertical-center(){
-    @include flexbox();
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    align-items: center;
-}
-
-.toggle-visible {
-  display: none;
-}
-
-.toggle-visible.shown {
+  position: absolute;
+  left: 50%;
   display: block;
+  @include translateX(-50%);
 }
-
-.ajax-success,
-.ajax-fail {
-    display: none;
-    float: right;
-    margin: 0;
-}
-.ajax-success {color: $primary;}
-.ajax-fail { color: $error;}

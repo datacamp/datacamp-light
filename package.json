@@ -1,0 +1,38 @@
+{
+  "name": "dataCampLight",
+  "version": "1.1.0",
+  "dependencies": {
+    "compression": "^1.6.1",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {
+    "del": "~2.2.1",
+    "errorhandler": "^1.4.3",
+    "gulp": "~3.9.0",
+    "gulp-angular-templatecache": "~2.0.0",
+    "gulp-autoprefixer": "~3.1.0",
+    "gulp-clean-css": "^2.0.11",
+    "gulp-concat": "^2.6.0",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-css-wrap": "^0.1.2",
+    "gulp-filter": "~3.0.1",
+    "gulp-inject": "~3.0.0",
+    "gulp-load-plugins": "~1.2.4",
+    "gulp-minify-html": "~1.0.4",
+    "gulp-rename": "~1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-rev": "~7.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "~1.5.4",
+    "gulp-util": "~3.0.6",
+    "lodash": "^4.13.1",
+    "main-bower-files": "~2.13.1",
+    "postcss-wrap": "0.0.4",
+    "run-sequence": "^1.2.2",
+    "uglify-save-license": "~0.4.1",
+    "wiredep": "~4.0.0"
+  },
+  "engines": {
+    "node": ">=4.2.0"
+  }
+}

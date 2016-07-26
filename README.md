@@ -1,4 +1,4 @@
-[![DataCamp Light banner](http://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](http://assets.datacamp.com/example/standalone-two-consoles.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl/standalone-example.html)
 
 # DataCamp Light
 
@@ -6,19 +6,19 @@
 * Works for both R and Python.
 * Easy to install.
 * Convert existing markdown documents to an interactive course using [the tutorial package](https://github.com/datacamp/tutorial).
-* Check out [an example on DataCamp](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r), or a [demo R and Python example](http://assets.datacamp.com/example/standalone-two-consoles.html).
-* Leverage the same [Submission Correctness Tests (SCT)](http://docs.datacamp.com/teach/sct-design-r.html) DataCamp uses for all their courses.
+* Check out a [demo R and Python example](https://cdn.datacamp.com/dcl/standalone-example.html).
+* Leverage the same Submission Correctness Tests (SCT) DataCamp uses for all their courses. For R, there's the [testwhat](https://github.com/datacamp/testwhat) package ([GitHub wiki](https://github.com/datacamp/testwhat/wiki)). For Python, there's the [pythonwhat](https://github.com/datacamp/pythonwhat) package ([GitHub wiki](https://github.com/datacamp/pythonwhat/wiki)).
 
 
 ## Student flow
 The user attempts to solve the exercise.
-![DataCamp Light example 1](http://assets.datacamp.com/img/github/datacamp-light/example_r_1.jpg "Example 1 R")
+![DataCamp Light example 1](https://assets.datacamp.com/img/github/datacamp-light/example_r_1.jpg "Example 1 R")
 
 The user can play around in the interactive R or Python console on the right.
-![DataCamp Light example 2](http://assets.datacamp.com/img/github/datacamp-light/example_r_2.jpg "Example 2 R")
+![DataCamp Light example 2](https://assets.datacamp.com/img/github/datacamp-light/example_r_2.jpg "Example 2 R")
 
 By giving automated feedback, the user is guided to the correct solution.
-![DataCamp Light example 3](http://assets.datacamp.com/img/github/datacamp-light/example_r_3.jpg "Example 3 R")
+![DataCamp Light example 3](https://assets.datacamp.com/img/github/datacamp-light/example_r_3.jpg "Example 3 R")
 
 
 ## How to use?
@@ -30,11 +30,12 @@ Installation instructions can be found [here](https://github.com/datacamp/dataca
 Convert existing `.Rmd` files to an interactive HTML by installing the [tutorial R package](https://github.com/datacamp/tutorial).
 
 ### Using the JavaScript library
-You will first need to include the JavaScript library on your webpage. We recommend using the latest release on the DataCamp CDN (https://cdn.datacamp.com/datacamp-light-1.0.0.min.js):
+You will first need to include the JavaScript library on your webpage. We recommend using the latest release on the DataCamp CDN (<https://cdn.datacamp.com/datacamp-light-latest.min.js>):
 
 ```html
-<script src="https://cdn.datacamp.com/datacamp-light-1.0.0.min.js"></script>
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 ```
+You can also use the JavaScript library in a stackoverflow.com answer by including the exercise and script tag as a snippet.
 
 #### Writing the HTML block
 After including the JavaScript library, you can start writing HTML blocks in the format below. These will be dynamically converted to exercises.
@@ -68,10 +69,11 @@ After including the JavaScript library, you can start writing HTML blocks in the
 	<div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>
 </div>
 ```
-This code chunck will be transformed to the following exercise:
-![DataCamp Light example 4](http://assets.datacamp.com/img/github/datacamp-light/example_r_start.jpg "Example 4")
+This code chunk will be transformed to the following exercise:
+![DataCamp Light example 4](https://assets.datacamp.com/img/github/datacamp-light/example_r_start.jpg "Example 4")
 
-As we can see in the example, the whole exercise is contained in a single `<div>` element with two data attributes `data-datacamp-exercise` and `data-lang`. The first attribute `data-datacamp-exercise` indicates that the `<div>` should be treated as a DataCamp Light exercise, while the other attribute `data-lang` specifies which programming language should be used. The accepted values for `data-lang` are `r` and `python`
+As we can see in the example, the whole exercise is contained in a single `<div>` element with two data attributes `data-datacamp-exercise` and `data-lang`. The first attribute `data-datacamp-exercise` indicates that the `<div>` should be treated as a DataCamp Light exercise, while the other attribute `data-lang` specifies which programming language should be used. The accepted values for `data-lang` are `r` and `python`.
+There is also an optional attribute `data-height` which can sets the height in `px` of the div (minimum height is `300px`) or set the size according to the amount of sample code lines: `data-height="auto"`.
 
 #### Pre-Exercise Code
 
@@ -101,7 +103,7 @@ To set the sample code that will be present initially in the code editor, a `<co
 </code>
 ```
 
-Our example simply shows a couple of comments together with some newlines. The total number of lines of code is used to determine the height of the resulting iframe. As the newlines are counted as well, they can be used to achieve the desired height. The JavaScript library also takes care of stripping leading indentation so no need to worry about that.
+Our example simply shows a couple of comments together with some newlines. The JavaScript library also takes care of stripping leading indentation so no need to worry about that.
 
 #### Solution
 
@@ -144,4 +146,10 @@ It is possible for the hint to contain for instance `<code>` tags as is the case
 
 ## Examples
 
-You can find more examples in the `example` folder in the repository. You can also test out [an example on DataCamp](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r), or a [demo R and Python example](http://assets.datacamp.com/example/standalone-two-consoles.html).
+You can find more examples in the `example` folder in the repository. You can also test out the [demo R and Python example](https://cdn.datacamp.com/dcl/standalone-example.html).
+
+## Building
+
+After you downloaded this repository, run `npm install` and `bower install` for all the necessary dependencies.
+You will probably want to test your own build so change `DCL_URL` in `src/datacamp-light.js` to `http://localhost:3003/`.
+Afterwards you can run `gulp` to build DataCamp Light and `node web.js` to serve random examples with the local build.

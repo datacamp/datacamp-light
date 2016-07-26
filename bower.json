@@ -1,0 +1,29 @@
+{
+  "name": "dataCampLight",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular-sanitize": "~1.4.2",
+    "angular-cookies": "~1.4.2",
+    "jquery": "~2.1.4",
+    "angular": "~1.4.2",
+    "ace-builds-datacamp": "datacamp/ace-builds#master",
+    "angular-growl-v2": "~0.7.5"
+  },
+  "resolutions": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.2"
+  },
+  "overrides": {
+    "ace-builds-datacamp": {
+      "main": [
+        "src-min-noconflict/ace.js",
+        "src-min-noconflict/mode-r.js",
+        "src-min-noconflict/mode-r_console.js",
+        "src-min-noconflict/mode-python.js",
+        "src-min-noconflict/mode-python_console.js",
+        "src-min-noconflict/theme-crimson_editor.js",
+        "src-min-noconflict/ext-language_tools.js"
+      ]
+    }
+  }
+}

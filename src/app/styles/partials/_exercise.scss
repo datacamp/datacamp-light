@@ -1,0 +1,128 @@
+.dcl-exercise-area {
+  position: absolute;
+  top: 0;
+  bottom: 45px;
+  left: 0;
+  right: 0;
+  background-color: $primary-extra-light;
+
+  .dcl-left-pane {
+    position: absolute;
+    width: 50%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    //@include flexbox();
+    //flex-flow: column;
+
+    &.dcl-mini {
+      width: 100%;
+    }
+  }
+
+  .dcl-right-pane {
+    position: absolute;
+    width: 50%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-left: 5px solid $primary-extra-light;
+  }
+}
+
+.dcl-content--tab {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  li a {
+    @extend .dcl-no-link-style;
+    color: $text-tertiary;
+    height: 30px;
+    font-size: $small-font-size;
+    line-height: 30px;
+    padding: 0px 12px;
+    border: none;
+    display: block;
+    float: left;
+    position: relative;
+    @include text-truncate();
+
+    .report-button {
+      display: none;
+    }
+  }
+
+  li a.dcl-active {
+    z-index: 1;
+    background-color: white;
+    color: $text;
+    font-weight: 400;
+    @include text-truncate();
+
+    .report-button {
+      position: absolute;
+      right: 7px;
+      font-size: 11px;
+      width: 11px;
+      display: block;
+
+      i.fa {
+        padding: 0;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  li:first-child a.dcl-active {
+    border-left: none;
+  }
+}
+
+.dcl-content--tab-body {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+}
+
+.dcl-github-link {
+  float: right;
+  display: inline-block;
+  padding: 2px;
+  margin: 3px;
+  opacity: 0.6;
+
+  &:hover, &:focus {
+    opacity: 1;
+  }
+
+  .dcl-github-logo {
+    background: url("https://cdn.datacamp.com/dcl/assets/images/github.png") no-repeat center center;
+    background-size: contain;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .dcl-hide-xxs {
+    display: none !important;
+  }
+}
+
+@media (max-width: 525px) {
+  .dcl-hide-xs {
+    display: none !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .dcl-hide-s {
+    display: none !important;
+  }
+}

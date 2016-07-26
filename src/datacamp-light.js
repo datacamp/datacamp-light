@@ -1,242 +1,164 @@
-'use strict';
-
-var MIN_HEIGHT = 200;
-var IFRAME_NAME = "datacamp-light-iframe-";
-var DATACAMP_LIGHT_URL = "https://light.datacamp.com/";
-
-
-function trimCode(code_block) {
-	var lines = code_block.split(/\r?\n/);
-	if (lines.length > 1 && lines[lines.length-1].trim() === "") {
-		lines.pop();
-	}
-	if (lines[0].trim() === "") {
-		lines.shift();
-	}
-	return lines.join("\n");
-}
-
-/**
- * Inspired by https://github.com/sindresorhus/strip-indent
+/*
+ DataCamp Light
+ Version {{version}}
  */
-function stripIndent(code_block) {
-	var match = code_block.match(/^[ \t]*(?=\S)/gm);
 
-	if (!match) {
-		return trimCode(code_block);
-	}
+(function () {
+  'use strict';
 
-	var indent = Math.min.apply(Math, match.map(function (el) {
-		return el.length;
-	}));
+  var MIN_HEIGHT = 300;
+  var DCL_URL = "https://cdn.datacamp.com/dcl/";
 
-	if (indent > 0) {
-		code_block = code_block.replace(new RegExp('^[ \\t]{' + indent + '}', 'gm'), '');
-	}
+  //Logic for 'Powered By DataCamp'
+  function checkPoweredBy() {
+    function domainMatches(domain) {
+      return location.hostname.match(domain) !== null
+    }
 
-	return trimCode(code_block);
-}
+    function changeLink(url) {
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].getElementsByTagName('a')[0].href = url;
+      }
+    }
 
-function unescapeHtml(safe) {
-	return safe.replace(/&amp;/g, '&')
-		.replace(/&lt;/g, '<')
-		.replace(/&gt;/g, '>')
-		.replace(/&quot;/g, '"')
-		.replace(/&#039;/g, "'");
-}
+    function removePoweredBy() {
+      while (elements[0]) {
+        elements[0].parentNode.removeChild(elements[0]);
+      }
+    }
 
-function processExerciseProperties(result_object, code_tags) {
-	for (var i = 0; i < code_tags.length; i++) {
-		if ("type" in code_tags[i].dataset) {
-			var text = unescapeHtml(code_tags[i].innerHTML);
-			var type = code_tags[i].dataset["type"];
-			if (type === "pre-exercise-code") {
-				result_object["pre-exercise-code"] = stripIndent(text);
-			}
-			else if (type === "sample-code") {
-				result_object["sample-code"] = stripIndent(text);
-			}
-			else if (type === "solution") {
-				result_object["solution"] = stripIndent(text);
-			}
-			else if (type === "sct") {
-				result_object["sct"] = stripIndent(text);
-			}
-			else if (type === "hint") {
-				result_object["hint"] = text;
-			}
-		}
-	}
-}
+    var elements = document.getElementsByClassName('powered-by-datacamp');
+    if (domainMatches("r-bloggers.com")) {
+      changeLink("https://www.datacamp.com?tap_a=5644-dce66f&tap_s=10907-287229");
+    } else if (domainMatches("datacamp.com")) {
+      removePoweredBy();
+    }
+  }
 
-function createIFrame(exercise_DOM, exercise_data, index) {
-	var iframe = document.createElement("iframe");
-	iframe.name = IFRAME_NAME + index;
+  //Initialises the DIV for the DCL exercise: Load HTML, sets height, etc
+  function createContainer(exercise_DOM) {
+    exercise_DOM.className += ' datacamp-exercise';
 
-	// Calculate height of iframe
-	var doHeightCalculation = true;
-	var height;
-	if ("height" in exercise_DOM.dataset) {
-		var user_height = Math.round(exercise_DOM.dataset["height"]);
-		if (!isNaN(user_height)) {
-			if (user_height > MIN_HEIGHT) {
-				height = user_height;
-				doHeightCalculation = false;
-			} else {
-				console.log("The height attribute should be larger than " + MIN_HEIGHT + ".");
-			}
-		} else {
-			console.log("Invalid height attribute.");
-		}
-	}
+    // Calculate height
+    var height;
+    if ("height" in exercise_DOM.dataset && exercise_DOM.dataset["height"] !== 'auto') {
+      var user_height = Math.round(exercise_DOM.dataset["height"]);
+      if (!isNaN(user_height)) {
+        if (user_height >= MIN_HEIGHT) {
+          exercise_DOM.style.height = user_height + "px";
+          var style_attribute = "height:" + user_height + "px;";
+          exercise_DOM.setAttribute("style", style_attribute);
+        } else {
+          console.log("The height attribute should be >= " + MIN_HEIGHT + ".");
+        }
+      } else {
+        console.log("Invalid height attribute.");
+      }
+    }
 
-	if (doHeightCalculation) {
-		// Get min-height
-		var min_height = MIN_HEIGHT;
-		if ("minHeight" in exercise_DOM.dataset) {
-			var user_min_height = Math.round(exercise_DOM.dataset["minHeight"]);
-			if (!isNaN(user_min_height)) {
-				if (user_min_height >= MIN_HEIGHT) {
-					min_height = user_min_height;
-				} else {
-					console.log("The min-height attribute should be larger than " + MIN_HEIGHT + ".");
-				}
-			} else {
-				console.log("Invalid min-height attribute.");
-			}
-		}
+    //Wrap encoded data for easier handling
+    if ("encoded" in exercise_DOM.dataset) {
+      exercise_DOM.innerHTML = '<div class="encoded">' + exercise_DOM.innerHTML.trim() + '</div>';
+    }
 
-		// Get height based on sample-code
-		if(exercise_data["sample-code"]){
-			var sample_lines_length = exercise_data["sample-code"].split(/\r?\n/).length;
-			height = Math.max(
-				82 + (sample_lines_length) * 16,
-				min_height
-			);
-			if ("maxHeight" in exercise_DOM.dataset) {
-				var user_max_height = Math.round(exercise_DOM.dataset["maxHeight"]);
-				if (!isNaN(user_max_height)) {
-					if (user_max_height >= MIN_HEIGHT) {
-						height = Math.min(height, user_max_height);
-					} else {
-						console.log("The max-height attribute should be larger than " + MIN_HEIGHT + ".");
-					}
-				} else {
-					console.log("Invalid max-height attribute.");
-				}
-			}
-		}
+    //Load angular app HTML
+    exercise_DOM.innerHTML += '{{mainView}}';
 
-	}
+    //Powered By DataCamp
+    var htmlString = '{{poweredBy}}';
+    var div = document.createElement('div');
+    div.innerHTML = htmlString;
+    var element = div.firstChild;
+    exercise_DOM.parentNode.insertBefore(element, exercise_DOM.nextSibling);
+  }
 
-	iframe.style.height = height + "px";
-	var style_attribute = "height:" + height + "px;"
+  function loadScriptAsync(file) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = file;
+    script.charset = "utf-8";
 
-	// Set width
-	iframe.style.width = "100%";
-	style_attribute += "width:100%;"
+    insertTag('body', script);
+  }
 
-	// Set style attribute of iframe
-	iframe.setAttribute("style", style_attribute);
-	return iframe;
-}
+  function loadStyle(file) {
+    var style = document.createElement("link");
+    style.type = 'text/css';
+    style.rel = 'stylesheet';
+    style.href = file;
 
-function createDataForm(exercise_data , index) {
-	var url = DATACAMP_LIGHT_URL + (window.location.hostname ? window.location.hostname + "/" : "");
-	var form = document.createElement("form");
-	form.setAttribute("method", "post");
-	form.setAttribute("action", url);
-	form.setAttribute("target", IFRAME_NAME + index);
+    insertTag('head', style);
+  }
 
-	for(var key in exercise_data) {
-		if(exercise_data.hasOwnProperty(key)) {
-			var hiddenField = document.createElement("input");
-			hiddenField.setAttribute("type", "hidden");
-			hiddenField.setAttribute("name", key);
-			hiddenField.setAttribute("value", exercise_data[key]);
+  function initDataCampExercises() {
+    var exercises = document.querySelectorAll("[data-datacamp-exercise]");
 
-			form.appendChild(hiddenField);
-		 }
-	}
+    if (exercises.length === 0) {
+      console.log("No DataCamp Light exercises found. Make sure the exercise has the 'data-datacamp-exercise' attribute.");
+    }
 
-	return form;
-}
+    for (var i = 0; i < exercises.length; i++) {
+      (function (index) {
+        var exercise_DOM = exercises[index];
 
-function replaceDataCampExercises() {
-	var exercises = document.querySelectorAll("[data-datacamp-exercise]"),
-			exercise_data;
+        if ((' ' + exercise_DOM.className + ' ').indexOf(' datacamp-exercise ') > -1) {
+          // We use this check to see if the exercise is already replaced.
+          return;
+        }
 
-	for (var i = 0; i < exercises.length; i++) {
-		(function (index){
-			var exercise_DOM = exercises[index];
+        // Create the DCL angular app div
+        createContainer(exercise_DOM);
+      })(i);
+    }
 
-			if (exercise_DOM.getElementsByTagName("iframe").length > 0) {
-				// We use this check to see if the exercise is already replaced.
-				return;
-			}
+    checkPoweredBy();
+    loadScriptAsync(DCL_URL + '{{scriptLink}}');
+  }
 
-			if(exercise_DOM.dataset.encoded === 'true'){
-				exercise_data = {
-					"encoded": exercise_DOM.innerText
-				}
-			} else {
-				exercise_data = {
-					"language": ("lang" in exercise_DOM.dataset) ? exercise_DOM.dataset["lang"] : "",
-					"pre-exercise-code": "",
-					"sample-code": "",
-					"solution": "",
-					"sct": "",
-					"hint": "",
-				}
+  function insertAllStyles() {
+    insertCSS();
 
-				processExerciseProperties(exercise_data, exercise_DOM.querySelectorAll('[data-type]'));
-			}
+    var links = [
+      DCL_URL + "{{styleLink}}",
+      "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    ];
 
-			// Actually replace
-			while (exercise_DOM.lastChild) {
-				exercise_DOM.removeChild(exercise_DOM.lastChild);
-			}
+    for (var i = 0; i < links.length; i++) {
+      loadStyle(links[i]);
+    }
+  }
 
-			// Create iframe
-			exercise_DOM.appendChild(createIFrame(exercise_DOM, exercise_data , index));
+  function insertTag(parent, element) {
+    document.getElementsByTagName(parent)[0].appendChild(element);
+  }
 
-			// Create form to send exercise data
-			var form = createDataForm(exercise_data, index);
-			exercise_DOM.appendChild(form);
-			form.submit();
+  function insertCSS() {
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    insertTag('head', style);
 
-			// Remove the form again so no data is visible to the user in the HTML
-			exercise_DOM.removeChild(form);
-		})(i);
-	}
-}
+    var css = '{{mainStyle}}';
 
+    if (style.styleSheet)
+      style.styleSheet.cssText = css;
+    else
+      style.innerHTML = css;
+  }
 
+  function isAlreadyExecuted() {
+    return window.dclLoaded;
+  }
 
-function insertCSS() {
-	var style = document.createElement('style');
-	style.type = 'text/css';
-	document.getElementsByTagName("head")[0].appendChild(style);
+  if (!isAlreadyExecuted()) {
+    window.dclLoaded = true;
+    insertAllStyles();
+    if (document.readyState == "complete" || document.readyState == "loaded") {
+      initDataCampExercises();
+    } else {
+      document.addEventListener('DOMContentLoaded', initDataCampExercises);
+    }
+  } else {
+    console.log('Warning: tried to load DataCamp Light multiple times.')
+  }
+})();
 
-	var css =	"div[data-datacamp-exercise] > iframe {" +
-					"margin: 0;" +
-					"border: 1px solid #d5eaef;}" +
-				"div[data-datacamp-exercise] > code," +
-				"div[data-datacamp-exercise] > div," +
-				"div[data-datacamp-exercise] > p {" +
-					"display: none }" +
-				"div[data-datacamp-exercise] {" +
-					"background-image: url(https://cdn.datacamp.com/spinner.gif);" +
-					"background-repeat:no-repeat;" +
-					"background-position: center center;" +
-					"background-size: auto 80px;}";
-
-	if (style.styleSheet)
-		style.styleSheet.cssText = css;
-	else
-		style.innerHTML = css;
-}
-
-insertCSS();
-replaceDataCampExercises();
-document.addEventListener('DOMContentLoaded', replaceDataCampExercises);

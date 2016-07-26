@@ -1,0 +1,61 @@
+.ace_editor {
+  //flex: 1 1 auto;
+  line-height: 16px;
+  height: 100%;
+
+  &.ace-crimson-editor {
+    font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+
+    div, span {
+      font: inherit !important
+    }
+
+    .ace_gutter {
+      background-color: $text-invert;
+      .ace_gutter-cell {
+        color: black;
+      }
+    }
+    .ace_gutter-cell {
+      color: black;
+    }
+
+    .ace_gutter-active-line {
+      background-color: $primary-ultra-light;
+    }
+
+    .ace_marker-layer .ace_active-line {
+      background-color: $primary-ultra-light;
+    }
+  }
+
+  .ace_line {
+    color: black;
+  }
+
+  .error-line {
+    position: absolute;
+    background-color: $error-light;
+    z-index: 3;
+  }
+  .error-gutter {
+    background-color: $error-light;
+  }
+}
+
+.sct-feedback-container {
+  //flex: 0 1 auto;
+  width: 100%;
+
+  .growl-item {
+    border-radius: 0;
+    margin: 0;
+    p {
+      margin: 0;
+    }
+
+    code {
+      white-space: pre-wrap;
+    }
+  }
+}

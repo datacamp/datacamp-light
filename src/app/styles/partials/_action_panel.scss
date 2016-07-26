@@ -1,0 +1,73 @@
+.dcl-action-panel {
+  background-color: $primary-ultra-light;
+  height: 45px;
+  border-top: 5px solid $primary-extra-light;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+
+  .dcl-btn {
+    flex: 0 0 auto;
+    margin: 0 0 0 5px;
+    padding: 6px 0;
+    width: 80px;
+
+    .fa {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .fa-puzzle-piece {
+      padding-left: 2px;
+    }
+  }
+
+  .dcl-app-status {
+    cursor: default;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 4px;
+
+    .dcl-app-status-text {
+      transition: color 0.5s;
+      -webkit-transition: color 0.5s ease-in-out;
+      font-size: $small-font-size;
+      color: $text-tertiary;
+      padding-left: 4px;
+
+      &.highlight {
+        color: $text-secondary;
+      }
+    }
+
+    i.fa {
+      color: $primary-light;
+      font-weight: 400;
+      padding-top: 2px;
+    }
+
+    i.fa-circle {
+      color: $success;
+      font-size: 16px;
+
+      &.dcl-busy {
+        color: $accent;
+      }
+
+      &.dcl-broken {
+        color: $primary-lighter;
+      }
+    }
+
+    i.fa-spin {
+      color: $primary-lighter;
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+}

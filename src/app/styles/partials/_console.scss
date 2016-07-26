@@ -1,0 +1,25 @@
+.dcl-console, .dcl-console * {
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+  color: $text;
+  line-height: 16px;
+
+  div, span {
+    font: inherit !important
+  }
+}
+
+.ace_error {
+  color: #E70909;
+}
+
+.ace_output {
+  color: #8E6627;
+}
+
+.dcl-content--tab-body .dcl-console {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

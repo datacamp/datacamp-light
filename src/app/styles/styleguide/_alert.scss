@@ -1,0 +1,60 @@
+.alert {
+  font-size: $small-font-size !important;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  background: none !important;
+
+  * {
+    min-height: 0 !important;
+  }
+
+  .close {
+    position: relative !important;
+    opacity: 1 !important;
+    font-weight: 300 !important;
+    font-size: $h4-size !important;
+    top: -4px !important;
+    right: -21px !important;
+    -webkit-appearance: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    background: 0 0 !important;
+    border: 0 !important;
+    float: right !important;
+    line-height: 1 !important;
+    text-shadow: 0 1px 0 #fff !important;
+
+    &:hover, &:focus {
+      color: $text-invert !important;
+    }
+  }
+
+}
+
+@mixin color-alert($bg, $close, $text-color) {
+  background-color: $bg !important;
+  color: $text-color !important;
+
+  code {
+    background-color: darken($bg, 10) !important;
+    color: white !important;
+  }
+  .close {
+    color: $close !important;
+  }
+  div {
+    color: $text-color !important;
+  }
+}
+
+.alert-danger {
+  @include color-alert($error, $error-light, $text-invert)
+}
+
+.alert-success {
+  @include color-alert($success, $success-light, $text-invert)
+}
+
+.alert-warning {
+  @include color-alert($primary-lighter, $primary, $primary)
+}

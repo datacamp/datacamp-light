@@ -1,0 +1,111 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: $default-font-size;
+  line-height: $default-line-height;
+  font-family: $font-family;
+  color: $text;
+  font-weight: 200;
+}
+
+h1, h2, h3, h4, h5 {
+  line-height: $header-line-height;
+  margin: 0.25em 0;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: $h1-size;
+}
+
+h2 {
+  font-size: $h2-size;
+}
+
+h3 {
+  font-size: $h3-size;
+}
+
+h4 {
+  font-size: $h4-size;
+}
+
+h5 {
+  font-size: $h5-size;
+}
+
+a {
+  transition: color $default-duration ease-out;
+  color: $link-color;
+  text-decoration: none;
+  border-bottom: 1px solid $primary;
+}
+
+a:hover {
+  color: $primary-dark;
+  text-decoration: none;
+}
+
+a:focus {
+  color: $primary;
+  border-bottom: 1px solid $primary;
+  outline: none;
+  text-decoration: none;
+}
+
+.dcl-no-link-style {
+  border-bottom: none;
+
+  &:hover {
+    //color: $link-color;
+    //color: inherit;
+  }
+
+  &:focus {
+    border-bottom: none;
+    //color: inherit;
+  }
+}
+
+code,
+pre,
+mark {
+  background-color: $primary-extra-light;
+  border-radius: $code-border-radius;
+}
+
+code,
+pre {
+  font-family: monospace;
+  font-size: $small-font-size;
+}
+
+code {
+  display: inline-block;
+  line-height: 1;
+  margin: 0 0.25em;
+  padding: 0.2em 0.4em 0.35em 0.4em;
+  color: $text;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1.5em;
+  transition: max-width 0.25s, margin 0.25s;
+  border: none
+}
+
+mark {
+  color: $primary-dark;
+  font-weight: 700;
+  margin: 0 0.3em;
+  padding: 0.3em 0.4em
+}
+
+mark::-moz-selection,
+mark::selection {
+  background-color: $primary-dark;
+  color: white
+}

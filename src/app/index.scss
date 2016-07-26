@@ -1,0 +1,22 @@
+/* Do not remove the comments below. It's the markers used by wiredep to inject
+   sass dependencies when defined in the bower.json of your dependencies */
+// bower:scss
+// endbower
+
+@import "styles/styleguide/normalize";
+@import "styles/styleguide/globals";
+@import "styles/styleguide/base";
+
+/* Do not remove the comments below. It's the markers used by gulp-inject to inject
+   all your sass files automatically */
+// injector
+// endinjector
+
+/*Resets*/
+* {
+  @import 'https://fonts.googleapis.com/css?family=Open+Sans:400,700';
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: none !important;
+  text-align: left;
+  box-sizing: border-box;
+}

@@ -1,0 +1,36 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin translateX($x) {
+  -ms-transform: translate($x, 0); /* IE 9 */
+  -webkit-transform: translate($x, 0); /* Safari */
+  transform: translate($x, 0);
+}
+
+@mixin translate($x, $y) {
+  -ms-transform: translate($x, $y); /* IE 9 */
+  -webkit-transform: translate($x, $y); /* Safari */
+  transform: translate($x, $y);
+}
+
+.h-align {
+  position: absolute;
+  left: 50%;
+  display: block;
+  @include translateX(-50%);
+}

@@ -51,6 +51,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
       editor.setBehavioursEnabled(true);
       editor.setFontSize('12.8px');
       editor.$blockScrolling = Infinity;
+      editor.ranges = [];
 
       var consoleHistory = new ConsoleHistory(editor);
 
@@ -65,13 +66,22 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
       editor.commands.removeCommand("touppercase");
       editor.commands.removeCommand("tolowercase");
 
+      editor.commands.bindKeys({
+        "ctrl-h": null,
+        "ctrl-j": null,
+        "ctrl-k": null,
+        "ctrl-s": null,
+        "ctrl-r": null,
+        "ctrl-o": null
+      });
+
       session = editor.getSession();
       session.setUseWrapMode(true);
       editor.setTheme('ace/theme/crimson_editor');
 
       pre = backendConfig.prompt;
       promptCount = 1;
-      session.setMode(backendConfig.aceModeConsole);
+      session.setMode(backendConfig.aceMode);
       clearConsole();
       goToLastLineAndLineEnd();
 
@@ -115,26 +125,35 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
         editor.gotoLine(editor.session.getLength());
       }
 
-      function printText(text) {
+      function printText(text, token) {
         var row = session.getLength() - 1;
         session.removeFullLines(row, row); //remove line because it contains pre
         if (!backendConfig.newlineBeforePrompt && row !== 0) {
           appendRawText("\n");
         }
-        appendRawText(text);
+        var range = appendRawText(text);
         appendPre();
+        if (token) {
+          range.token = token;
+          editor.ranges.push(range);
+        }
+        return range;
       }
 
       function replaceText(text) {
         var row = session.getLength() - 1;
-        session.replace(new Range(row, 0, row, Number.MAX_VALUE), text);
+        var replaceRange = new Range(row, 0, row, Number.MAX_VALUE);
+        session.replace(replaceRange, text);
+        return replaceRange;
       }
 
       function appendRawText(text) {
-        session.insert({
+        var start = {
           row: session.getLength(),
           column: 0
-        }, text);
+        };
+        var end = session.insert(start, text);
+        return new Range(start.row, start.column, end.row + 1, end.column);
       }
 
       editor.getLastLine = function () {
@@ -170,6 +189,40 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
         return code;
       };
 
+
+      //does the highlighting of the code in the console
+      var bgTokenizer = editor.session.bgTokenizer;
+      bgTokenizer.$tokenizeRow = function (row) {
+        var tokens = [];
+        var line = editor.session.getLine(row);
+
+        var range = null;
+        for (var i = editor.ranges.length - 1; i >= 0; i--) {
+          var rangeTmp = editor.ranges[i];
+          if (rangeTmp.contains(row + 1, line.length)) {
+            range = rangeTmp;
+            break;
+          }
+        }
+        var regex = backendConfig.promptRegex || new RegExp("^" + backendConfig.prompt, 'i');
+        var promptMatch = line.match(regex);
+        if (promptMatch) {
+          tokens.push({type: backendConfig.promptToken, value: promptMatch[0]});
+          line = line.substring(promptMatch[0].length, line.length);
+        }
+
+        if (range) {
+          tokens.push({type: range.token, value: line});
+        } else {
+          tokens.push({type: "identifier", value: line});
+        }
+        return tokens;
+      };
+      var noop = function () {
+      };
+      bgTokenizer.$updateOnChange = noop;
+      bgTokenizer.start = noop;
+
       function goToLastLineAndLineEnd() {
         var row = editor.session.getLength() - 1;
         var column = editor.session.getLine(row).length;
@@ -180,6 +233,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
         editor.setValue("", 1);
         appendPre(true);
         removeMarkers();
+        editor.ranges = [];
       }
 
       function removeMarkers() {
@@ -300,7 +354,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
        * @param error (string): the error message that will be shown
        */
       scope.$on('output::error', function writeError(_, error) {
-        printText(error);
+        printText(error, 'error');
       });
 
       /*
@@ -317,7 +371,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
        * @param msg (string): the code output that will be shown
        */
       scope.$on('output::output', function writeOutput(_, msg) {
-        printText(msg);
+        printText(msg, 'output');
       });
 
       /*
@@ -326,7 +380,7 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
        */
       scope.$on('output::result', function (_, msg) {
         var outputLabel = getOutputLabel();
-        printText(outputLabel + msg);
+        printText(outputLabel + msg, 'output');
       });
 
       scope.$on('session::busy', function () {

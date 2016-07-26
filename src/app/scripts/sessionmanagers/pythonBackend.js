@@ -2,13 +2,14 @@
 
 angular.module('dataCampLight.services').constant('PYTHON_CONFIG', {
   prompt: 'In [{count}]: ',
+  promptRegex: /^(In |Out)\[\d+\]: /,
+  promptToken: "identifier",
   newlineBeforePrompt: true,
   outputLabel: 'Out[{count}]: ',
   extension: 'py',
   console: 'IPython Shell',
   responseRegex: /\'(.*)\'\r?\n/g,
-  aceMode: 'ace/mode/python',
-  aceModeConsole: 'ace/mode/python_console'
+  aceMode: 'ace/mode/python'
 })
   .factory('PythonBackend', ['$rootScope', 'PYTHON_CONFIG', function ($rootScope, PYTHON_CONFIG) {
     var currentCode, currentExercise, renderDimensions;

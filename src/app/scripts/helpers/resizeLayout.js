@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dataCampLight.directives').directive('resizeLayout', ['$window', '$timeout', function ($window, $timeout) {
+angular.module('dataCampLight.directives').directive('resizeLayout', ['$window', '$timeout', 'RenderService', function ($window, $timeout, RenderService) {
   // ------------------------
   // --- Exported Methods ---
   // ------------------------
@@ -48,14 +48,18 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
         scope.$apply();
       }
 
-      function performResize() {
+      function performResize(full) {
         var leftHeight = leftPane.height() - sctFeedbackContainer.height();
         scope.$broadcast("editor::resize", leftHeight);
 
-        var rightHeight = scope.useMiniLayout ? leftHeight : rightPane.height();
-        if (scope.useMiniLayout)
-          miniConsoleTarget.height(leftHeight);
-        scope.$broadcast("console::resize", rightHeight);
+        if (full || scope.useMiniLayout) {
+          var rightHeight = scope.useMiniLayout ? leftHeight : rightPane.height();
+          if (scope.useMiniLayout)
+            miniConsoleTarget.height(leftHeight);
+          scope.$broadcast("console::resize", rightHeight);
+
+          scope.$broadcast('plots::resize', RenderService.calculateRenderDimensions());
+        }
       }
 
       function scrollConsoleToBottom() {
@@ -64,7 +68,7 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
 
       scope.$on("layout::resize", function () {
         $timeout(function () {
-          performResize();
+          performResize(false);
         });
       });
 
@@ -74,7 +78,7 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
         resizeTimeout = $timeout(function () {
           resizeTimeout = null;
           checkMiniLayout();
-          performResize();
+          performResize(true);
         }, 500);
       });
     }

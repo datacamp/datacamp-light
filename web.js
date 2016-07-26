@@ -10,7 +10,9 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 var examplePath = path.join(__dirname, '/example/');
-var examples = fs.readdirSync(examplePath);
+var examples = fs.readdirSync(examplePath).filter(function (name) {
+  return name.startsWith('example-')
+});
 
 app.get('/', function (req, res) {
   res.sendFile(examplePath + examples[Math.floor(Math.random() * examples.length)]);

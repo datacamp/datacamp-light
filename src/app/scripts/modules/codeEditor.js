@@ -75,8 +75,10 @@ angular.module('dataCampLight.directives').directive('codeEditor', ['BackendSess
       scope.$on("editor::resize", function (_, resizeHeight) {
         if (angular.isDefined(resizeHeight))
           elm.height(resizeHeight);
-        acee.renderer.updateFull(true);
-        acee.resize();
+        $timeout(function () {
+          acee.renderer.updateFull(true);
+          acee.resize();
+        });
       });
 
       // ------------------------

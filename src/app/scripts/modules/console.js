@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dataCampLight.directives').directive('console', ['$window', 'BackendSessionManager', 'ConsoleHistory', function ($window, BackendSessionManager, ConsoleHistory) {
+angular.module('dataCampLight.directives').directive('console', ['$window', '$timeout', 'BackendSessionManager', 'ConsoleHistory', function ($window, $timeout, BackendSessionManager, ConsoleHistory) {
 
   var editor, session, cursor, Range, pre;
   var currentPrompt;
@@ -358,9 +358,11 @@ angular.module('dataCampLight.directives').directive('console', ['$window', 'Bac
       scope.$on("console::resize", function (_, resizeHeight) {
         if (angular.isDefined(resizeHeight))
           elm.height(resizeHeight);
-        editor.renderer.updateFull(true);
-        editor.resize(true);
-        goToLastLineAndLineEnd();
+        $timeout(function () {
+          editor.renderer.updateFull(true);
+          editor.resize();
+          goToLastLineAndLineEnd();
+        });
       });
 
       function lockConsole() {

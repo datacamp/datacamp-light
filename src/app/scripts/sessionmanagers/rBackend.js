@@ -2,12 +2,12 @@
 
 angular.module('dataCampLight.services').constant('R_CONFIG', {
   prompt: '> ',
+  promptToken: "operator.keyword",
   newlineBeforePrompt: false,
   extension: 'R',
   console: 'R Console',
   responseRegex: /\[1\] "(.*)"\r?\n/g,
   aceMode: 'ace/mode/r',
-  aceModeConsole: 'ace/mode/r_console'
 })
   .factory('RBackend', ['$rootScope', 'R_CONFIG', '$window', function ($rootScope, R_CONFIG, $window) {
     var currentCode, currentExercise, renderDimensions;

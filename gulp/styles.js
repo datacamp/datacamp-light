@@ -45,7 +45,7 @@ gulp.task('styles', ['stylesInject'], function () {
     .pipe($.filter('**/*.css'))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.concatCss("style.css"))
-    .pipe($.cssWrap({selector:'.datacamp-exercise'}))
+    .pipe($.cssWrap({selector: '.datacamp-exercise'}))
     .pipe($.cleanCss({processImport: false}))
     .pipe($.rev())
     .pipe(gulp.dest(conf.paths.dist));

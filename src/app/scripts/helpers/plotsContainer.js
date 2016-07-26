@@ -76,7 +76,7 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
       };
 
       function openExpandWindow(src) {
-        var expandWindow = window.open(src, 'Expanded plot', 'height=450px,width=450px');
+        var expandWindow = window.open(src, 'expandWindow', 'height=' + EXPAND_DIMENSIONS.height + 'px,width=' + EXPAND_DIMENSIONS.width + 'px');
         if ($window.focus) expandWindow.focus();
       }
 

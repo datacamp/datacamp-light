@@ -41,7 +41,7 @@
 
     // Calculate height
     var height;
-    if ("height" in exercise_DOM.dataset) {
+    if ("height" in exercise_DOM.dataset && exercise_DOM.dataset["height"] !== 'auto') {
       var user_height = Math.round(exercise_DOM.dataset["height"]);
       if (!isNaN(user_height)) {
         if (user_height >= MIN_HEIGHT) {

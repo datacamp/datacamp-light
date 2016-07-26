@@ -1,9 +1,9 @@
 (function () {
   'use strict';
 
-  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$log', '$rootElement', '$timeout', 'BackendSessionManager', 'NotificationService', NormalExerciseController]);
+  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$log', '$rootElement', '$timeout', 'BackendSessionManager', 'NotificationService', 'RenderService', NormalExerciseController]);
 
-  function NormalExerciseController($scope, $log, $rootElement, $timeout, BackendSessionManager, NotificationService) {
+  function NormalExerciseController($scope, $log, $rootElement, $timeout, BackendSessionManager, NotificationService, RenderService) {
     var currentCode, exercise;
     var lineError = null;
 
@@ -108,25 +108,11 @@
       return trimCode(code_block);
     }
 
-    function calculateRenderDimensions() {
-      var container = $rootElement.find('.dcl-content--tab-body:first');
-      return {
-        'height': Math.round(container.height()) - 30,
-        'width': Math.round(container.width()) - 5
-      };
-    }
-
-    function resize() {
-      $scope.$broadcast('plots::resize', calculateRenderDimensions());
-    }
-
-    $scope.$on('editor::resize', resize);
-
-    var backend = BackendSessionManager.createBackend(exercise.language, exercise, calculateRenderDimensions());
+    var backend = BackendSessionManager.createBackend(exercise.language, exercise, RenderService.calculateRenderDimensions());
 
     //Wait until DOM is loaded and calculate the RenderDimensions again
-    $timeout(function () {
-      BackendSessionManager.resize(calculateRenderDimensions());
+    $rootElement.ready(function () {
+      BackendSessionManager.resize(RenderService.calculateRenderDimensions());
     });
 
     // Initialize scope variables

@@ -1,13 +1,15 @@
 'use strict';
 
 var gulp = require('gulp');
-var wrench = require('wrench');
+var fs = require('fs');
+
+var GULP_TASK_PATH = './gulp/';
 
 //Load all tasks
-wrench.readdirSyncRecursive('./gulp').filter(function (file) {
-  return (/\.(js|coffee)$/i).test(file);
+fs.readdirSync(GULP_TASK_PATH).filter(function (file) {
+  return (/\.js$/i).test(file);
 }).map(function (file) {
-  require('./gulp/' + file);
+  require(GULP_TASK_PATH + file);
 });
 
 gulp.task('default', ['clean'], function () {

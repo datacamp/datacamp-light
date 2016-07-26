@@ -384,11 +384,11 @@ angular.module('dataCampLight.directives').directive('console', ['$window', '$ti
       });
 
       scope.$on('session::busy', function () {
-        lockConsole();
+        enableCommands = false;
       });
 
       scope.$on('session::loading', function () {
-        enableCommands = false
+        enableCommands = false;
       });
 
       scope.$on('session::ready', function () {

@@ -7,7 +7,7 @@
   'use strict';
 
   var MIN_HEIGHT = 300;
-  var DCL_URL = "https://cdn.datacamp.com/dcl/";
+  var DCL_URL = "http://localhost:3003/";
 
   //Logic for 'Powered By DataCamp'
   function checkPoweredBy() {

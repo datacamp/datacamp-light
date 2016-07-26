@@ -1,0 +1,57 @@
+.dcl-btn {
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: $button-radius;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  line-height: $button-line-height;
+  margin: 10px 20px;
+  padding: 8px 30px;
+  transition: background-color $default-duration ease, color $default-duration ease;
+  text-align: center !important;
+
+  &:hover, &:focus, &:active:focus {
+    outline: none;
+    border: none;
+  }
+
+  .fa {
+    margin-right: 8px;
+  }
+}
+
+.dcl-btn.disabled, .dcl-btn:disabled {
+  background-color: $primary-lighter;
+  color: $text-invert;
+  &:hover {
+    background-color: $primary-lighter;
+    color: $text-invert;
+  }
+}
+
+@mixin color-button($bg, $color, $hover) {
+  background-color: $bg;
+  color: $color;
+  &:hover,
+  &:focus {
+    background-color: $hover;
+    color: $color;
+  }
+}
+
+.dcl-btn-primary {
+  @include color-button($accent, $accent-dark, $accent-light);
+}
+
+.dcl-btn-secondary {
+  @include color-button($primary, $text-invert, $primary-light);
+}
+
+.dcl-btn-small {
+  border-radius: $button-small-radius;
+  font-size: $button-small-font-size;
+  line-height: $button-small-line-height;
+  margin: 8px;
+  padding: 8px 24px;
+}

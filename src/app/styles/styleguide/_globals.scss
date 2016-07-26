@@ -4,90 +4,58 @@
 // *********************************
 
 // ---------- Colors ----------
-$primary-dark: 			  #1f697f;
-$primary: 			     	#33aacc;
-$primary-light: 		  #7ecce2;
-$primary-lighter:     #d5eaef;
-$primary-extra-light:	#ebf4f7;
-$primary-ultra-light:	#fafeff;
+$primary-dark: #1f697f;
+$primary: #33aacc;
+$primary-light: #7ecce2;
+$primary-lighter: #d5eaef;
+$primary-extra-light: #ebf4f7;
+$primary-ultra-light: #fafeff;
 
-$text:					      #3a3a3a;
-$text-secondary:		  #666666;
-$text-tertiary:			  #a3a3a3;
-$text-invert:			    #ffffff;
-$text-invert-secondary:	$primary-lighter;
+$text: #3a3a3a;
+$text-secondary: #666666;
+$text-tertiary: #a3a3a3;
+$text-invert: #ffffff;
+$text-invert-secondary: $primary-lighter;
 
-$link-color:			    $primary;
+$link-color: $primary;
 
-$accent-dark: 			  #6d561e;
-$accent:				      #fdc551;
-$accent-light:        #ffe2a6;
-$accent-ultra-light:  #fffdf7;
+$accent-dark: #6d561e;
+$accent: #fdc551;
+$accent-light: #ffe2a6;
+$accent-ultra-light: #fffdf7;
 
-$error-dark:          #6e2a2a;
-$error:               #c96768;
-$error-light:         #ffbfbf;
+$error-dark: #6e2a2a;
+$error: #c96768;
+$error-light: #ffbfbf;
 
-$danger:              rgb(221, 92, 92);
-$danger-light:        rgba(221, 92, 92, 0.8);
+$danger: rgb(221, 92, 92);
+$danger-light: rgba(221, 92, 92, 0.8);
 
-$success-dark:        #4d6e40;
-$success:             #83c967;
-$success-light:       #cfedc2;
+$success-dark: #4d6e40;
+$success: #83c967;
+$success-light: #cfedc2;
 
 // -------- Typography --------
-$font-family:         "karmina-sans",sans-serif;
-$h1-size:             55px;
-$h2-size:             45px;
-$h3-size:             32px;
-$h4-size:             24px;
-$h5-size:             18px;
-$small-font-size:     14px;
-$default-font-size:   16px;
+$font-family: "karmina-sans", sans-serif;
+$h1-size: 55px;
+$h2-size: 45px;
+$h3-size: 32px;
+$h4-size: 24px;
+$h5-size: 18px;
+$small-font-size: 14px;
+$default-font-size: 16px;
 $default-line-height: 1.5;
-$header-line-height:	1;
-$code-border-radius:	3px;
-
-// ---------- Navbar ----------
-$navbar-height:			  40px;
-
-// -------- Forms --------
-$form-border-radius:	5px;
-$form-border-width:		1px;
-$form-radio-radius:		3px;
-$form-radio-border-width: 2px;
-
+$header-line-height: 1;
+$code-border-radius: 3px;
 
 // ---------- Buttons ----------
-$button-radius:			          6px;
-$button-font-size:		        $default-font-size;
-$button-font-weight:	        700;
-$button-line-height:	        $default-line-height;
-$button-small-radius:	        5px;
-$button-small-font-size:	    $small-font-size;
-$button-small-line-height:    1.2;
-
-// ---------- Spacing ----------
-$default-space:			          32px;
-$header-margin:			          15px;
-
-// ---------- Flash ----------
-$flash-spacing:			          20px;
-
-// ---------- Tables ----------
-$table-spacing:			          10px;
-$table-border-width:	        1px;
-
-// ---------- Cards ----------
-$card-outline-width:	        2px;
+$button-radius: 6px;
+$button-font-size: $default-font-size;
+$button-font-weight: 700;
+$button-line-height: $default-line-height;
+$button-small-radius: 5px;
+$button-small-font-size: $small-font-size;
+$button-small-line-height: 1.2;
 
 // ---------- Transitions ----------
-$default-duration:		        150ms;
-
-// ---------- Transitions ----------
-$z-max:                       10;
-
-// ---------- Breakpoints ----------
-$bp-sm:                       768px;
-$bp-md:                       992px;
-$bp-lg:                       1200px;
+$default-duration: 150ms;

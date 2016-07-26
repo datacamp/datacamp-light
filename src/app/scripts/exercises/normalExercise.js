@@ -161,7 +161,7 @@
       } else if (tab === "solution") {
         $scope.userCode = exercise.solution; // Replace the code with the solution
       } else if (tab === "console") {
-        $scope.$broadcast("console::scrolltobottom");
+        $scope.$broadcast("console::resize");
       }
     }
 

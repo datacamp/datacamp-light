@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dataCampLight.services').factory('exerciseLoader', ['$log', function ($log) {
+angular.module('dataCampLight.services').factory('ExerciseLoader', ['$log', function ($log) {
   return {
     getExercise: getExercise
   };

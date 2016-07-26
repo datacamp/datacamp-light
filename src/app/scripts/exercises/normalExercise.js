@@ -1,18 +1,18 @@
 (function () {
   'use strict';
 
-  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$rootElement', '$timeout', 'BackendSessionManager', 'NotificationService', 'exerciseLoader', NormalExerciseController]);
+  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$rootElement', '$timeout', 'BackendSessionManager', 'NotificationService', 'ExerciseLoader', 'RenderService', NormalExerciseController]);
 
-  function NormalExerciseController($scope, $rootElement, $timeout, BackendSessionManager, NotificationService, exerciseLoader, RenderService) {
+  function NormalExerciseController($scope, $rootElement, BackendSessionManager, NotificationService, ExerciseLoader, RenderService) {
     var currentCode;
     var lineError = null;
 
-    var exercise = exerciseLoader.getExercise($rootElement);
+    var exercise = ExerciseLoader.getExercise($rootElement);
 
     var backend = BackendSessionManager.createBackend(exercise.language, exercise, RenderService.calculateRenderDimensions());
 
     //Wait until DOM is loaded and calculate the RenderDimensions again
-    $timeout(function () {
+    $rootElement.ready(function () {
       BackendSessionManager.resize(RenderService.calculateRenderDimensions());
     });
 

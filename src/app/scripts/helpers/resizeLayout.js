@@ -12,7 +12,7 @@ angular.module('dataCampLight.directives').directive('resizeLayout', ['$window',
       var leftPane, rightPane, sctFeedbackContainer, miniConsoleTarget, fullConsoleTarget, miniPlotTarget, fullPlotTarget;
 
       $timeout(function () {
-        //It's in a timeout so that the #console is already in the DOM before we execute it
+        //It's in a timeout so that the console is already in the DOM before we execute it
         leftPane = element.find(".dcl-left-pane .dcl-content--tab-body");
         rightPane = element.find(".dcl-right-pane .dcl-content--tab-body");
         sctFeedbackContainer = leftPane.children(".sct-feedback-container");

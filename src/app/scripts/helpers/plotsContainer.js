@@ -68,15 +68,13 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
       };
 
       scope.expand = function () {
-        if (BackendSessionManager.resize(EXPAND_DIMENSIONS, scope.plotIndex)) {
+        if (BackendSessionManager.expand(EXPAND_DIMENSIONS, scope.plotIndex)) {
           openExpandWindow(scope.currentImage.src);
-        } else {
-          scope.plots[scope.plotIndex].expanding = true;
         }
       };
 
       function openExpandWindow(src) {
-        var expandWindow = window.open(src, 'expandWindow', 'height=' + EXPAND_DIMENSIONS.height + 'px,width=' + EXPAND_DIMENSIONS.width + 'px');
+        var expandWindow = $window.open(src, '_blank', 'height=' + EXPAND_DIMENSIONS.height + 'px,width=' + EXPAND_DIMENSIONS.width + 'px');
         if ($window.focus) expandWindow.focus();
       }
 
@@ -102,8 +100,7 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
         }
         scope.plots.push({
           src: createImageSrc(img_url),
-          resize: false,
-          expanding: false
+          resize: false
         });
         scope.plotIndex = scope.plots.length - 1;
         scope.currentImage = scope.plots[scope.plotIndex];
@@ -114,7 +111,7 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
         for (var i = 0; i < scope.plots.length; i++) {
           scope.plots[i].resize = true;
         }
-        if (scope.plots.length > 0 && scope.plots[scope.plotIndex].expanding === false) {
+        if (scope.plots.length > 0) {
           scope.plots[scope.plotIndex].resize = false;
           BackendSessionManager.resize(renderDimensions, scope.plotIndex);
         } else {
@@ -125,17 +122,16 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
       scope.$on('plot::resized', function (_, payload) {
         // REPLACE FIGURE
         if (payload.index < scope.plots.length) {
-          if (scope.plots[payload.index].expanding) {
-            openExpandWindow(createImageSrc(payload.url));
-            scope.plots[payload.index].expanding = false;
-          } else {
-            scope.plots[payload.index].src = createImageSrc(payload.url);
-            if (payload.index === scope.plotIndex) {
-              scope.currentImage = scope.plots[scope.plotIndex];
-            }
+          scope.plots[payload.index].src = createImageSrc(payload.url);
+          if (payload.index === scope.plotIndex) {
+            scope.currentImage = scope.plots[scope.plotIndex];
           }
         }
-      })
+      });
+
+      scope.$on('plot::expanded', function (_, payload) {
+        openExpandWindow(createImageSrc(payload.url));
+      });
     }
   };
 }]);

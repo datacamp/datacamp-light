@@ -1,20 +1,15 @@
 (function () {
   'use strict';
 
-  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$rootElement', 'BackendSessionManager', 'NotificationService', 'ExerciseLoader', 'RenderService', NormalExerciseController]);
+  angular.module('dataCampLight.controllers').controller('NormalExerciseController', ['$scope', '$rootElement', 'BackendSessionManager', 'NotificationService', 'ExerciseLoader', NormalExerciseController]);
 
-  function NormalExerciseController($scope, $rootElement, BackendSessionManager, NotificationService, ExerciseLoader, RenderService) {
+  function NormalExerciseController($scope, $rootElement, BackendSessionManager, NotificationService, ExerciseLoader) {
     var currentCode;
     var lineError = null;
 
     var exercise = ExerciseLoader.getExercise($rootElement);
 
-    var backend = BackendSessionManager.createBackend(exercise.language, exercise, RenderService.calculateRenderDimensions());
-
-    //Wait until DOM is loaded and calculate the RenderDimensions again
-    $rootElement.ready(function () {
-      BackendSessionManager.resize(RenderService.calculateRenderDimensions());
-    });
+    var backend = BackendSessionManager.createBackend(exercise.language, exercise);
 
     // Initialize scope variables
     $scope.userCode = exercise.sample;

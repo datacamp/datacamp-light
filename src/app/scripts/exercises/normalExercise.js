@@ -12,7 +12,7 @@
     var backend = BackendSessionManager.createBackend(exercise.language, exercise, RenderService.calculateRenderDimensions());
 
     //Wait until DOM is loaded and calculate the RenderDimensions again
-    $rootElement.ready(function () {
+    RenderService.getElement().load(function () {
       BackendSessionManager.resize(RenderService.calculateRenderDimensions());
     });
 

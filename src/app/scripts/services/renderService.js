@@ -7,7 +7,7 @@ angular.module('dataCampLight.services').factory('RenderService', ['$rootElement
   };
 
   function getElement() {
-    return $rootElement.find('.dcl-content--tab-body:first')
+    return $rootElement.find('.dcl-content--tab-body:first');
   }
 
   function calculateRenderDimensions() {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dataCampLight.services').factory('BackendSessionManager', ['$http', '$timeout', '$interval', '$rootScope', 'url', 'RBackend', 'PythonBackend', '$q', '$cookies', '$window', '$log', function ($http, $timeout, $interval, $rootScope, url, RBackend, PythonBackend, $q, $cookies, $window, $log) {
+angular.module('dataCampLight.services').factory('BackendSessionManager', ['$http', '$timeout', '$interval', '$rootScope', 'url', 'RBackend', 'PythonBackend', '$q', '$cookies', '$window', '$log', 'RenderService', function ($http, $timeout, $interval, $rootScope, url, RBackend, PythonBackend, $q, $cookies, $window, $log, RenderService) {
   var MIN_POLL_INTERVAL = 1500;
   var MAX_POLL_INTERVAL = 10000;
 
@@ -296,6 +296,7 @@ angular.module('dataCampLight.services').factory('BackendSessionManager', ['$htt
      */
     startSession: function () {
       sessionCounter++;
+      backend.setRenderDimensions(RenderService.calculateRenderDimensions());
       executeNewSessionRequest(false);
       broadcastEvent("session::loading", "Setting Up Workspace");
     },

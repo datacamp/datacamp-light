@@ -2,7 +2,6 @@
 
 angular.module('dataCampLight.services').factory('RenderService', ['$rootElement', function ($rootElement) {
   return {
-    getElement: getElement,
     calculateRenderDimensions: calculateRenderDimensions
   };
 

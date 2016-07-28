@@ -73,6 +73,10 @@ angular.module('dataCampLight.services').constant('PYTHON_CONFIG', {
       return null;
     };
 
+    PythonBackend.prototype.getExpandCommand = function (dimensions, index) {
+      return null;
+    };
+
     function prepareScriptOutput(output, filename) {
       var lines = output.split("\n");
       var result = "\n<" + filename + "> output:\n    " + lines.join("\n    ");

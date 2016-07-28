@@ -318,16 +318,17 @@ angular.module('dataCampLight.services').factory('BackendSessionManager', ['$htt
       return backend.getConfig();
     },
 
-    //Returns if resize is immediate (not necessary).
     resize: function (renderDimensions, index) {
       if (!sid) return;
-      var cmd = backend.getResizeCommand(renderDimensions, index);
-      if (cmd !== null) {
-        sendCall(cmd);
-        return false;
-      } else {
-        return true;
-      }
+      sendCall(backend.getResizeCommand(renderDimensions, index));
+    },
+
+    //Returns if expand is immediate.
+    expand: function (renderDimensions, index) {
+      if (!sid) return true;
+      var cmd = backend.getExpandCommand(renderDimensions, index);
+      sendCall(cmd);
+      return cmd === null;
     }
   };
 }]);

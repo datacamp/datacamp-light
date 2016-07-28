@@ -129,7 +129,7 @@ angular.module('dataCampLight.services').constant('R_CONFIG', {
           DC_FIGURE_INDEX: index
         };
         data.DC_COMMAND = 'expand';
-        return formatCall(data);
+        return formatRCall(data);
       } else { //revo has not yet the expand command
         return null;
       }

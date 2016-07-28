@@ -326,12 +326,8 @@ angular.module('dataCampLight.services').factory('BackendSessionManager', ['$htt
     expand: function (renderDimensions, index) {
       if (!sid) return true;
       var cmd = backend.getExpandCommand(renderDimensions, index);
-      if (cmd !== null) {
-        sendCall(cmd);
-        return false;
-      } else {
-        return true;
-      }
+      sendCall(cmd);
+      return cmd === null;
     }
   };
 }]);

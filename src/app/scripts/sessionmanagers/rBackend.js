@@ -122,13 +122,17 @@ angular.module('dataCampLight.services').constant('R_CONFIG', {
     };
 
     RBackend.prototype.getExpandCommand = function (dimensions, index) {
-      var data = {
-        DC_RENDER_HEIGHT: dimensions.height,
-        DC_RENDER_WIDTH: dimensions.width,
-        DC_FIGURE_INDEX: index
-      };
-      data.DC_COMMAND = 'expand';
-      return formatRCall(data);
+      if (this.language === "r") {
+        var data = {
+          DC_RENDER_HEIGHT: dimensions.height,
+          DC_RENDER_WIDTH: dimensions.width,
+          DC_FIGURE_INDEX: index
+        };
+        data.DC_COMMAND = 'expand';
+        return formatCall(data);
+      } else { //revo has not yet the expand command
+        return null;
+      }
     };
 
     /*

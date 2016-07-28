@@ -75,7 +75,7 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
 
       function openExpandWindow(src) {
         var expandWindow = $window.open(src, '_blank', 'height=' + EXPAND_DIMENSIONS.height + 'px,width=' + EXPAND_DIMENSIONS.width + 'px');
-        if ($window.focus) expandWindow.focus();
+        if ($window.focus && expandWindow) expandWindow.focus();
       }
 
       function createImageSrc(img_url) {

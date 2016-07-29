@@ -16,8 +16,8 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
     link: function (scope, element) {
       var renderDimensions;
       var EXPAND_DIMENSIONS = {
-        height: 450,
-        width: 450
+        height: 800,
+        width: 800
       };
       scope.plotIndex = 0;
       scope.plots = [];
@@ -74,7 +74,8 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
       };
 
       function openExpandWindow(src) {
-        var expandWindow = $window.open(src, '_blank', 'height=' + EXPAND_DIMENSIONS.height + 'px,width=' + EXPAND_DIMENSIONS.width + 'px');
+        var expandWindow = $window.open('', '_blank', 'height=' + EXPAND_DIMENSIONS.height + 'px,width=' + EXPAND_DIMENSIONS.width + 'px');
+        expandWindow.document.body.innerHTML = '<div style="width: 100%; height: 100%;"><img style="width: 100%; height: 100%;" src="' + src + '"></div>';
         if ($window.focus && expandWindow) expandWindow.focus();
       }
 

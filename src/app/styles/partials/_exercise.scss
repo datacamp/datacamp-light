@@ -37,6 +37,10 @@
   margin: 0;
   list-style: none;
 
+  li {
+    list-style: none;
+  }
+
   li a {
     @extend .dcl-no-link-style;
     color: $text-tertiary;

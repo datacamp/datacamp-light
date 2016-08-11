@@ -28,9 +28,10 @@ angular.module('dataCampLight.directives').directive('codeEditor', ['BackendSess
 
       session = acee.getSession();
       acee.setTheme('ace/theme/crimson_editor');
+      session.setOption('indentedSoftWrap', false);
       session.setUseWrapMode(true);
       session.setMode(BackendSessionManager.getBackendConfig().aceMode);
-      $timeout(function() {
+      $timeout(function () {
         acee.renderer.updateFull(true);
         acee.resize();
       });

@@ -3,7 +3,22 @@
 angular.module('dataCampLight.directives').directive('plotsContainer', ['$window', 'BackendSessionManager', function ($window, BackendSessionManager) {
 
   function hexToBase64(str) {
-    return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, '').replace(/([\da-fA-F]{2}) ?/g, '0x$1 ').replace(/ +$/, '').split(' ')));
+    //Generate hex array from hex string
+    var hexArray = str.replace(/\r|\n/g, '').replace(/([\da-fA-F]{2}) ?/g, '0x$1 ').replace(/ +$/, '').split(' ');
+
+    var CHUNK_SIZE = 0x8000; //Arbitrary number
+    var index = 0;
+    var length = hexArray.length;
+    var result = '';
+    var slice;
+    //Passing too many arguments into fromCharCode gives `Maximum call stack size exceeded`.
+    //We divide the hex array into pieces and pass these.
+    while (index < length) {
+      slice = hexArray.slice(index, index + CHUNK_SIZE);
+      result += String.fromCharCode.apply(null, slice);
+      index += CHUNK_SIZE;
+    }
+    return btoa(result);
   }
 
   // ------------------------

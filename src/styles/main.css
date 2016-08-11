@@ -15,7 +15,7 @@ div[data-datacamp-exercise] {
   background-size: auto 80px !important;
   position: relative;
   min-height: 300px;
-  color: black;
+  color: transparent;
   box-shadow: none;
 }
 

@@ -143,6 +143,14 @@ To specify a hint, a tag should be defined containing the hint and the `data-typ
 
 It is possible for the hint to contain for instance `<code>` tags as is the case in our example.
 
+#### Load exercises added to DOM
+
+To load datacamp-light exercises added to the DOM after the page loaded, call
+
+```javascript
+window.renderAddedDataCampExercises()
+```
+
 
 ## Examples
 

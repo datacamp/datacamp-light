@@ -148,7 +148,7 @@ It is possible for the hint to contain for instance `<code>` tags as is the case
 To load datacamp-light exercises added to the DOM after the page loaded, call
 
 ```javascript
-window.renderAddedDataCampExercises()
+window.initAddedDCLightExercises()
 ```
 
 

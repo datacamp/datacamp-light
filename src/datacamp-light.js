@@ -118,7 +118,7 @@
     loadScriptAsync(DCL_URL + '{{scriptLink}}');
   }
 
-  function renderAddedDCLightExercises() {
+  function initAddedDCLightExercises() {
     renderDCLightExercises();
     window.bootstrapDCLightExercises();
   }
@@ -154,11 +154,11 @@
   }
 
   function isAlreadyExecuted() {
-    return (typeof(window.renderAddedDataCampExercises) === "function");
+    return (typeof(window.initAddedDCLightExercises) === "function");
   }
 
   if (!isAlreadyExecuted()) {
-    window.renderAddedDCLightExercises = renderAddedDCLightExercises;
+    window.initAddedDCLightExercises = initAddedDCLightExercises;
     insertAllStyles();
     if (document.readyState == "complete" || document.readyState == "loaded") {
       initDCLightExercises();

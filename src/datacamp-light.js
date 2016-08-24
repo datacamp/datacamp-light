@@ -90,31 +90,6 @@
     insertTag('head', style);
   }
 
-  function initDataCampExercises() {
-    var exercises = document.querySelectorAll("[data-datacamp-exercise]");
-
-    if (exercises.length === 0) {
-      console.log("No DataCamp Light exercises found. Make sure the exercise has the 'data-datacamp-exercise' attribute.");
-    }
-
-    for (var i = 0; i < exercises.length; i++) {
-      (function (index) {
-        var exercise_DOM = exercises[index];
-
-        if ((' ' + exercise_DOM.className + ' ').indexOf(' datacamp-exercise ') > -1) {
-          // We use this check to see if the exercise is already replaced.
-          return;
-        }
-
-        // Create the DCL angular app div
-        createContainer(exercise_DOM);
-      })(i);
-    }
-
-    checkPoweredBy();
-    loadScriptAsync(DCL_URL + '{{scriptLink}}');
-  }
-
   window.renderAddedDataCampExercises=function() {
     var exercises = document.querySelectorAll("[data-datacamp-exercise]");
 
@@ -135,6 +110,12 @@
         createContainer(exercise_DOM);
       })(i);
     }
+  }
+
+  function initDataCampExercises() {
+    window.renderAddedDataCampExercises()
+    checkPoweredBy();
+    loadScriptAsync(DCL_URL + '{{scriptLink}}');
   }
 
   function insertAllStyles() {
@@ -168,11 +149,10 @@
   }
 
   function isAlreadyExecuted() {
-    return window.dclLoaded;
+    return (typeof(window.renderAddedDataCampExercises) == "function")
   }
 
   if (!isAlreadyExecuted()) {
-    window.dclLoaded = true;
     insertAllStyles();
     if (document.readyState == "complete" || document.readyState == "loaded") {
       initDataCampExercises();

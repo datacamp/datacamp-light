@@ -90,7 +90,7 @@
     insertTag('head', style);
   }
 
-  window.renderAddedDataCampExercises=function() {
+  function renderDCLightExercises() {
     var exercises = document.querySelectorAll("[data-datacamp-exercise]");
 
     if (exercises.length === 0) {
@@ -110,12 +110,17 @@
         createContainer(exercise_DOM);
       })(i);
     }
+    checkPoweredBy();
   }
 
-  function initDataCampExercises() {
-    window.renderAddedDataCampExercises()
-    checkPoweredBy();
+  function initDCLightExercises() {
+    renderDCLightExercises();
     loadScriptAsync(DCL_URL + '{{scriptLink}}');
+  }
+
+  function renderAddedDCLightExercises() {
+    renderDCLightExercises();
+    window.bootstrapDCLightExercises();
   }
 
   function insertAllStyles() {
@@ -149,15 +154,16 @@
   }
 
   function isAlreadyExecuted() {
-    return (typeof(window.renderAddedDataCampExercises) == "function")
+    return (typeof(window.renderAddedDataCampExercises) === "function");
   }
 
   if (!isAlreadyExecuted()) {
+    window.renderAddedDCLightExercises = renderAddedDCLightExercises;
     insertAllStyles();
     if (document.readyState == "complete" || document.readyState == "loaded") {
-      initDataCampExercises();
+      initDCLightExercises();
     } else {
-      document.addEventListener('DOMContentLoaded', initDataCampExercises);
+      document.addEventListener('DOMContentLoaded', initDCLightExercises);
     }
   } else {
     console.log('Warning: tried to load DataCamp Light multiple times.')

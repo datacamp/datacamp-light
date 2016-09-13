@@ -8,7 +8,7 @@ angular.module('dataCampLight.services').constant('PYTHON_CONFIG', {
   outputLabel: 'Out[{count}]: ',
   extension: 'py',
   console: 'IPython Shell',
-  responseRegex: /\'(.*)\'\r?\n/g,
+  responseRegex: /\"(.*)\"\r?\n/g,
   aceMode: 'ace/mode/python'
 })
   .factory('PythonBackend', ['$rootScope', 'PYTHON_CONFIG', function ($rootScope, PYTHON_CONFIG) {

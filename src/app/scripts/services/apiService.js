@@ -5,6 +5,6 @@
  */
 angular.module('dataCampLight.services').factory('url', function(){
   return {
-    sessionManager: 'https://multiplexer-prod-3.datacamp.com/'
+    sessionManager: 'https://multiplexer-prod.datacamp.com/'
   };
 });

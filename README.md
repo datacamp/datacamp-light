@@ -3,14 +3,13 @@
 # DataCamp Light
 
 * Convert any website or blog to an interactive learning platform.
-* Works for both R and Python.
-* Easy to install.
+* Works for both R and Python. Sessions are maintained on DataCamp's servers.
 * Convert existing markdown documents to an interactive course using [the tutorial package](https://github.com/datacamp/tutorial).
 * Check out a [demo R and Python example](https://cdn.datacamp.com/dcl/standalone-example.html).
-* Leverage the same Submission Correctness Tests (SCT) DataCamp uses for all their courses. For R, there's the [testwhat](https://github.com/datacamp/testwhat) package ([GitHub wiki](https://github.com/datacamp/testwhat/wiki)). For Python, there's the [pythonwhat](https://github.com/datacamp/pythonwhat) package ([GitHub wiki](https://github.com/datacamp/pythonwhat/wiki)).
-
+* Leverage the same Submission Correctness Tests (SCT) DataCamp uses for all their courses. For R, there's the [testwhat](https://github.com/datacamp/testwhat) ([GitHub wiki](https://github.com/datacamp/testwhat/wiki)); for Python, there's [pythonwhat](https://github.com/datacamp/pythonwhat) ([GitHub wiki](https://github.com/datacamp/pythonwhat/wiki)).
 
 ## Student flow
+
 The user attempts to solve the exercise.
 ![DataCamp Light example 1](https://assets.datacamp.com/img/github/datacamp-light/example_r_1.jpg "Example 1 R")
 
@@ -19,7 +18,6 @@ The user can play around in the interactive R or Python console on the right.
 
 By giving automated feedback, the user is guided to the correct solution.
 ![DataCamp Light example 3](https://assets.datacamp.com/img/github/datacamp-light/example_r_3.jpg "Example 3 R")
-
 
 ## How to use?
 
@@ -35,9 +33,11 @@ You will first need to include the JavaScript library on your webpage. We recomm
 ```html
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 ```
-You can also use the JavaScript library in a stackoverflow.com answer by including the exercise and script tag as a snippet.
+
+**You can also use the JavaScript library in a stackoverflow.com answer by including the exercise and script tag as a snippet.**
 
 #### Writing the HTML block
+
 After including the JavaScript library, you can start writing HTML blocks in the format below. These will be dynamically converted to exercises.
 
 ```html
@@ -69,6 +69,7 @@ After including the JavaScript library, you can start writing HTML blocks in the
 	<div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>
 </div>
 ```
+
 This code chunk will be transformed to the following exercise:
 ![DataCamp Light example 4](https://assets.datacamp.com/img/github/datacamp-light/example_r_start.jpg "Example 4")
 
@@ -151,6 +152,14 @@ To load datacamp-light exercises added to the DOM after the page loaded, call
 window.initAddedDCLightExercises()
 ```
 
+## How does it work?
+
+`div`s with the `data-datacamp-exercise` attribute are converted into a minimal version of DataCamp's learning interface (for the real deal, you can visit [www.datacamp.com](https://www.datacamp.com)). It contains a session manager that connects to DataCamp's servers to provide an R or Python session as if you're working on your local system. The R and Python computing environments feature the most popular packages:
+
+- [See list of packages for R](http://documents.datacamp.com/default_r_packages.txt)
+- [See list of packages for Python](http://documents.datacamp.com/default_python_packages.txt)
+
+If you want to use a package that is not available, create an issue and we can install it (it's not possible to install packages at runtime).
 
 ## Examples
 

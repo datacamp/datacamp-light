@@ -98,10 +98,6 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
         if (payload.lastIndexOf("http", 0) === 0) {
           return payload;
         }
-        // Old SVGs (from Python) come in plain text
-        if (payload.indexOf('<svg') > -1) {
-          return 'data:image/svg+xml,' + escape(payload);
-        }
         // New SVGs (from Python) com in base64 - they always start with PD94
         if (payload.startsWith('PD94')) {
           return 'data:image/svg+xml;base64,' + payload;

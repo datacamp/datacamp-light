@@ -7,3 +7,4 @@ coverage/
 #dist/
 prod/dist/
 .DS_Store
+jenkins.sh

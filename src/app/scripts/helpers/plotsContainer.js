@@ -94,11 +94,20 @@ angular.module('dataCampLight.directives').directive('plotsContainer', ['$window
         if ($window.focus && expandWindow) expandWindow.focus();
       }
 
-      function createImageSrc(img_url) {
-        if (img_url.lastIndexOf("http", 0) === 0) {
-          return img_url;
+      function createImageSrc(payload) {
+        if (payload.lastIndexOf("http", 0) === 0) {
+          return payload;
         }
-        return 'data:image/png;base64,' + hexToBase64(img_url);
+        // Old SVGs (from Python) come in plain text
+        if (payload.indexOf('<svg') > -1) {
+          return 'data:image/svg+xml,' + escape(payload);
+        }
+        // New SVGs (from Python) com in base64 - they always start with PD94
+        if (payload.startsWith('PD94')) {
+          return 'data:image/svg+xml;base64,' + payload;
+        }
+        // PNGs (from R) come in hex; need to convert to base 64
+        return 'data:image/png;base64,' + hexToBase64(payload);
       }
 
       /**

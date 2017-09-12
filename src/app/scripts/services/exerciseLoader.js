@@ -62,7 +62,7 @@ angular.module('dataCampLight.services').factory('ExerciseLoader', ['$log', func
           else if (type === "hint") {
             exercise.hint = text;
           }
-          el.remove();
+          el.hide();
         }
       }
 
@@ -80,7 +80,8 @@ angular.module('dataCampLight.services').factory('ExerciseLoader', ['$log', func
         .replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"')
         .replace(/&#039;/g, "'")
-        .replace(/<br ?\/?>/g, "\n");
+        .replace(/<br( .*?)?\/?>/g, "\n")
+        .replace(/<!--(.*?)-->/g, '');
     }
 
     function trimCode(code_block) {

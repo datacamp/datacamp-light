@@ -62,7 +62,7 @@ angular.module('dataCampLight.services').factory('ExerciseLoader', ['$log', func
           else if (type === "hint") {
             exercise.hint = text;
           }
-          el.remove();
+          el.hide();
         }
       }
 

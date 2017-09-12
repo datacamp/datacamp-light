@@ -80,7 +80,7 @@ angular.module('dataCampLight.services').factory('ExerciseLoader', ['$log', func
         .replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"')
         .replace(/&#039;/g, "'")
-        .replace(/<br ?\/?>/g, "\n");
+        .replace(/<br( .*?)?\/?>/g, "\n");
     }
 
     function trimCode(code_block) {

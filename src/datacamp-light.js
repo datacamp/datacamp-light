@@ -160,7 +160,7 @@
   if (!isAlreadyExecuted()) {
     window.initAddedDCLightExercises = initAddedDCLightExercises;
     insertAllStyles();
-    if (document.readyState == "complete" || document.readyState == "loaded") {
+    if (document.readyState == "complete" || document.readyState == "loaded" || document.readyState == 'interactive') {
       initDCLightExercises();
     } else {
       document.addEventListener('DOMContentLoaded', initDCLightExercises);

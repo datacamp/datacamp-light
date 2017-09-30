@@ -16,6 +16,7 @@
     "gulp-concat-css": "^2.3.0",
     "gulp-css-wrap": "^0.1.2",
     "gulp-filter": "~3.0.1",
+    "gulp-gzip": "^1.4.0",
     "gulp-inject": "~3.0.0",
     "gulp-load-plugins": "~1.2.4",
     "gulp-minify-html": "~1.0.4",

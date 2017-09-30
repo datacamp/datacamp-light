@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var gzip = require('gulp-gzip');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files']
@@ -40,5 +41,6 @@ gulp.task('scripts', ['partials'], function () {
     .pipe($.concat('script.js'))
     .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
     .pipe($.rev())
+    .pipe(gzip())
     .pipe(gulp.dest(conf.paths.dist));
 });

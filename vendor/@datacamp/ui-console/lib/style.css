@@ -1,0 +1,28 @@
+.Console-module__console--I4oMQ .ace_editor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+.Console-module__console--I4oMQ .ace_error {
+  color: #e70909;
+}
+.Console-module__console--I4oMQ .ace_output {
+  color: #8e6627;
+}
+.Console-module__console--I4oMQ
+  .ace_editor.ace_autocomplete
+  .ace_marker-layer
+  .ace_active-line {
+  background-color: rgba(51, 170, 204, 0.5) !important;
+}
+.Console-module__console--I4oMQ .ace_editor.ace_autocomplete .ace_line-hover {
+  border: 1px solid #3ac !important;
+  background-color: rgba(51, 170, 204, 0.32) !important;
+}
+.Console-module__console--I4oMQ .ace_editor .ace_storage.ace_type {
+  width: auto;
+}

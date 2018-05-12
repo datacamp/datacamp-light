@@ -1,0 +1,16 @@
+.DS_Store
+node_modules/
+build/
+*.log*
+npm-debug.log
+ecs_task.json
+dist/
+public/
+.idea
+.awcache
+
+*.css.d.ts
+*.scss.d.ts
+src/**/*.js
+src/**/*.js.map
+.vscode

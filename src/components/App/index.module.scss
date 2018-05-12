@@ -1,0 +1,197 @@
+@import "global.scss";
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700');
+
+.app {
+  /* stylelint-disable declaration-block-no-duplicate-properties */
+  @include preventive-overrides;
+  position: relative;
+  color: $dark-grey;
+  font-size: $default-font-size;
+  font-family: $font-family;
+  /* stylelint-enable */
+  line-height: $default-line-height;
+  letter-spacing: 0.015em;
+
+  ul,
+  li,
+  p {
+    @include preventive-overrides;
+  }
+
+  a {
+    /* stylelint-disable declaration-block-no-duplicate-properties */
+    @include preventive-overrides;
+    color: $link-color;
+    border-bottom: 1px solid $primary;
+    /* stylelint-enable */
+    transition: color $default-duration ease-out;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $primary-dark;
+    text-decoration: none;
+  }
+
+  a:focus {
+    color: $primary;
+    border-bottom: 1px solid $primary;
+    outline: none;
+    text-decoration: none;
+  }
+
+  code,
+  pre,
+  mark {
+    /* stylelint-disable declaration-block-no-duplicate-properties */
+    @include preventive-overrides;
+    background-color: $primary-extra-light;
+    /* stylelint-enable */
+    border-radius: $code-border-radius;
+  }
+
+  code,
+  pre {
+    font-family: monospace;
+    font-size: $small-font-size;
+  }
+
+  code {
+    display: inline-block;
+    line-height: 1;
+    margin: 0 0.25em;
+    padding: 0.2em 0.4em 0.35em;
+    color: $text;
+  }
+
+  pre {
+    overflow-x: auto;
+    padding: 1.5em;
+    transition: max-width 0.25s, margin 0.25s;
+  }
+
+  mark {
+    color: $primary-dark;
+    font-weight: 700;
+    margin: 0 0.3em;
+    padding: 0.3em 0.4em;
+  }
+
+  mark::-moz-selection,
+  mark::selection {
+    background-color: $primary-dark;
+    color: white;
+  }
+
+  dd {
+    @include preventive-overrides;
+    margin-bottom: 1.2em;
+    margin-left: 0;
+  }
+
+  dt {
+    /* stylelint-disable declaration-block-no-duplicate-properties */
+    @include preventive-overrides;
+    color: $primary;
+    /* stylelint-enable */
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
+.app {
+  margin: 0;
+  background: none;
+  position: relative;
+  min-height: 300px;
+  color: black;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid #d5eaef !important;
+
+  :global .lm_maximise {
+    display: none;
+  }
+
+  :global .lm_tab > .svg-inline--fa {
+    margin: 0 0.5em;
+    height: 30px;
+    display: inline;
+    line-height: 0;
+  }
+}
+
+.exercise {
+  position: relative;
+  flex: 1;
+}
+
+.editor,
+.console {
+  width: 100%;
+  height: 100%;
+}
+
+.feedback {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 200;
+  opacity: 0.9;
+}
+
+:global .datacamp-exercise {
+  @include preventive-overrides;
+  margin-bottom: 1em;
+}
+
+:global div[data-datacamp-exercise] {
+  /* stylelint-disable declaration-block-no-duplicate-properties, declaration-block-no-shorthand-property-overrides */
+  @include preventive-overrides;
+  outline: 1px solid #d5eaef !important;
+  background: #fff url(https://cdn.datacamp.com/spinner.gif) no-repeat center
+    center !important;
+  color: transparent;
+  /* stylelint-enable */
+  margin: 0;
+  background-size: auto 80px !important;
+  position: relative;
+  min-height: 300px;
+}
+
+:global div[data-datacamp-exercise] > code,
+:global div[data-datacamp-exercise] > div,
+:global div[data-datacamp-exercise] > p {
+  display: none;
+}
+
+.githubLink,
+a.githubLink {
+  @include preventive-overrides;
+  position: absolute;
+  right: 3px;
+  top: 0;
+  z-index: 200;
+  border: none;
+  border-bottom: none;
+  text-decoration: none;
+
+  display: block;
+  width: 1em;
+  height: 1em;
+
+  svg {
+    display: block;
+    height: 1em;
+    line-height: 100%;
+    opacity: 0.4;
+    margin: 0.35em 3px 0.3em 0;
+  }
+}
+
+:global .lm_dropTargetIndicator {
+  font-family: $font-family;
+}

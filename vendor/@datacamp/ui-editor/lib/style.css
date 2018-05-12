@@ -1,0 +1,38 @@
+.Editor-module__editor--3du3f .ace_editor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  line-height: 1.3em;
+}
+.Editor-module__editor--3du3f .ace_editor[id^="ace-code-editor-"] {
+  bottom: 50px;
+}
+.Editor-module__editor--3du3f .ace_editor.ace-crimson-editor .ace_gutter {
+  background-color: #fff;
+}
+.Editor-module__editor--3du3f
+  .ace_editor.ace-crimson-editor
+  .ace_gutter-active-line {
+  background-color: #d5eaef;
+}
+.Editor-module__editor--3du3f
+  .ace_editor.ace-crimson-editor
+  .ace_marker-layer
+  .ace_active-line {
+  background-color: #ebf4f7;
+}
+.Editor-module__editor--3du3f .error-line {
+  position: absolute;
+  background-color: #ffbfbf;
+  z-index: 3;
+}
+.Editor-module__editor--3du3f .error-gutter {
+  background-color: #ffbfbf;
+}
+.Editor-module__editor--3du3f .ace_gutter .ace_gutter-layer {
+  min-width: 50px !important;
+}

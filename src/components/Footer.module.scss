@@ -1,0 +1,45 @@
+@import "global.scss";
+
+.footer {
+  height: 48px; /* if you change me, also change the value in the golden layout root style, in ./index.tsx */
+  background: $primary-extra-light;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.restart {
+  display: inline-block;
+}
+
+.status {
+  margin: 0 $baseline;
+}
+
+:root a.logo,
+:root a.logo:focus,
+:root a.logo:hover {
+  text-decoration: none;
+  border: none;
+  border-bottom: none;
+  line-height: 48px;
+}
+
+.logo svg {
+  height: 2em;
+  margin: 0 6px 0 0;
+  display: block;
+  line-height: 48px;
+}
+
+@media screen and (max-width: 640px) {
+  .status {
+    margin: 0 $baseline/4;
+  }
+}

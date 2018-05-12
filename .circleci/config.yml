@@ -1,0 +1,101 @@
+jobs:
+  build:
+    docker:
+      - image: node:8.9.1
+    steps:
+      - checkout
+      - run:
+          name: Install node deps and build
+          command: |
+            npm install
+            if [ "$CIRCLE_BRANCH" == 'development' ]; then
+              NODE_WORKSPACE=PRODDUCTION npm run build:dev
+            else
+              NODE_WORKSPACE=PRODDUCTION npm run build:prod
+            fi
+            gzip dist/dcl-react.js
+      - run:
+          name: Tests
+          command: |
+            npm test
+      - persist_to_workspace:
+          root: "."
+          paths:
+            - dist/*
+  deploy-dev:
+    docker:
+      - image: ${STAGING_ECR_URL}/docker-deploy
+        aws_auth:
+          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
+          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - run:
+          name: S3 Sync
+          command: |
+            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-dev.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react-dev.js.gz"
+  deploy:
+    docker:
+      - image: ${STAGING_ECR_URL}/docker-deploy
+        aws_auth:
+          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
+          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - run:
+          name: S3 Sync
+          command: |
+            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-staging.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react-staging.js.gz"
+  deploy-prod:
+    docker:
+      - image: ${STAGING_ECR_URL}/docker-deploy
+        aws_auth:
+          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
+          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - run:
+          name: S3 Sync
+          command: |
+            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react.js.gz"
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          context: org-global
+          filters:
+            tags:
+              only: /.*/
+      - deploy-dev:
+          requires:
+            - build
+          context: org-global
+          filters:
+            branches:
+              only:
+                - development
+      - deploy:
+          requires:
+            - build
+          context: org-global
+          filters:
+            branches:
+              only:
+                - beta
+      - deploy-prod:
+          requires:
+            - build
+          context: org-global
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
+            branches:
+              ignore: /.*/
+         

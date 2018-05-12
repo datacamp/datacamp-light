@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true, // `false` is for pussies
+    "strictNullChecks": false,
+    "noStrictGenericChecks": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react",
+    "baseUrl": ".",
+    "allowJs": true,
+    "paths": {
+      "*": ["*", "vendor/"]
+    }
+  },
+  "include": ["src/**/*.{ts,tsx,svg}", "lib/**/*.js"],
+  "exclude": ["node_modules", "dist", "webpack.config.js", "configs"],
+  "files": ["src/index.d.ts", "src/index.ts"],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true,
+    "reportFiles": ["src/**/*.{ts,tsx,js,jsx}"]
+  },
+  "compileOnSave": false,
+  "buildOnSave": false
+}

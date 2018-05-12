@@ -1,0 +1,169 @@
+@import "global.scss";
+
+$btn-large-scale: 1.35;
+
+.button {
+  /* stylelint-disable declaration-block-no-duplicate-properties */
+  @include preventive-overrides;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  /* stylelint-enable */
+  display: inline-block;
+  text-decoration: none;
+  border-radius: $button-radius;
+  line-height: $button-line-height;
+  margin: 0.625rem 1.25rem;
+  padding: 0.5rem 1.875rem;
+  transition: background-color $default-duration ease,
+    color $default-duration ease;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active:focus {
+    outline: none;
+    border: none;
+  }
+
+  :global .fa {
+    margin-right: 0.5rem;
+  }
+}
+
+.button.disabled,
+.button:disabled {
+  background-color: $primary-lighter;
+  color: $text-invert;
+
+  &:hover {
+    background-color: $primary-lighter;
+    color: $text-invert;
+  }
+}
+
+@mixin color-button ($bg, $color, $hover) {
+  background-color: $bg;
+  color: $color;
+
+  &:hover,
+  &:focus {
+    background-color: $hover;
+    color: $color;
+  }
+}
+
+.primary {
+  @include color-button($accent, $accent-dark, $accent-light);
+}
+
+.secondary {
+  @include color-button($primary, $text-invert, $primary-light);
+}
+
+.secondary-light {
+  @include color-button(($primary-light),
+    $text-invert,
+    $primary-lighter);
+  &:hover {
+    color: $primary-dark;
+  }
+}
+
+.tertiary {
+  @include color-button($text, $text-invert, $text-secondary);
+
+  padding: 0.3125em 1.25em;
+  font-size: $default-font-size;
+}
+
+.danger {
+  @include color-button($danger, $text-invert, $danger-light);
+}
+
+.facebook {
+  @include color-button(rgba(57, 87, 154, 1),
+    $text-invert,
+    rgba(57, 87, 154, 0.8));
+}
+
+.twitter {
+  @include color-button(rgb(0, 172, 237),
+    $text-invert,
+    rgba(0, 172, 237, 0.8));
+}
+
+.linkedin {
+  @include color-button(rgba(0, 118, 183, 1),
+    $text-invert,
+    rgba(0, 118, 183, 0.8));
+}
+
+.google-plus {
+  @include color-button(rgba(223, 74, 50, 1),
+    $text-invert,
+    rgba(223, 74, 50, 0.8));
+}
+
+.execute-code {
+  width: 137px;
+  &.attempts-counter {
+    width: 157px;
+  }
+}
+
+.try-code.small {
+  margin-right: 0;
+  width: 100px;
+}
+
+.execute-code.disabled {
+  background-color: #d1d3d8;
+
+  &:hover {
+    background-color: #d1d3d8;
+  }
+}
+
+.small {
+  border-radius: $button-small-radius;
+  font-size: $button-small-font-size;
+  line-height: $button-small-line-height;
+  margin: 0.5rem;
+  padding: 0.5rem 1.5rem;
+}
+
+.extra-small {
+  @extend .small;
+
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.large {
+  font-size: $btn-large-scale * $button-font-size;
+  line-height: $btn-large-scale * 0.9 * $button-line-height;
+}
+
+/* Helper classes */
+.btn-group .btn:first-child {
+  margin-left: 0;
+}
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+.largeScreen {
+  display: initial;
+}
+
+@media screen and (max-width: 960px) {
+  .button {
+    padding: 0.5rem (1.875rem / 3);
+    margin: 0.625rem (1.25rem / 4);
+  }
+
+  .largeScreen {
+    display: none;
+  }
+}

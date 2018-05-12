@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should match snapshot 1`] = `
+<div
+  className="footer"
+>
+  <Button
+    disabled={false}
+    onClick={[Function]}
+    size="small"
+    type="primary"
+  >
+    Run
+  </Button>
+  <Connect(t)
+    className="status"
+  />
+  <div
+    className="spacer"
+  />
+  <Connect(RestartSessionButton)
+    className="restart"
+    visible={false}
+  />
+  <a
+    className="logo"
+    href="https://www.datacamp.com/?utm_source=datacamp_light&utm_campaign=powered_by_datacamp"
+    target="_blank"
+    title="Powered by DataCamp"
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;

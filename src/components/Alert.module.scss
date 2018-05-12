@@ -1,0 +1,102 @@
+@import "global.scss";
+
+.alert {
+  /* stylelint-disable declaration-block-no-duplicate-properties */
+  @include preventive-overrides;
+  font-size: $small-font-size;
+  border: 1px solid transparent;
+  /* stylelint-enable */
+  padding: $baseline;
+  margin-bottom: 0;
+  border-radius: 0;
+
+  /* Headings for larger alerts */
+  h4 {
+    /* stylelint-disable declaration-block-no-duplicate-properties */
+    @include preventive-overrides;
+    color: inherit;
+    /* stylelint-enable */
+    margin-top: 0;
+  }
+
+  /* Improve alignment and spacing of inner content */
+  p,
+  ul {
+    @include preventive-overrides;
+    margin: 0;
+    padding: 0;
+    color: inherit;
+    font-size: $small-font-size;
+  }
+
+  p + p {
+    @include preventive-overrides;
+    padding-top: $baseline;
+  }
+
+  code {
+    @include preventive-overrides;
+  }
+}
+
+.close {
+  cursor: pointer;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  opacity: 1;
+  top: -4px;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+
+  &:hover,
+  &:focus {
+    color: $white;
+    text-decoration: none;
+    opacity: 0.75;
+  }
+}
+
+@mixin color-alert ($bg) {
+  background-color: $bg;
+  color: rgba(0, 0, 0, 0.65);
+
+  .close {
+    color: rgba(0, 0, 0, 0.2);
+  }
+
+  p,
+  ul,
+  li {
+    color: inherit;
+    font-size: $small-font-size;
+  }
+}
+
+.alert.danger {
+  @include color-alert($error-light);
+
+  code {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.alert.success {
+  @include color-alert($success-light);
+
+  code {
+    background-color: $success-light;
+  }
+}
+
+.alert.info {
+  @include color-alert($primary-lighter);
+
+  code {
+    background-color: $primary-extra-light;
+  }
+}

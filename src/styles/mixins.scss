@@ -1,0 +1,12 @@
+@import "./variables.scss";
+
+@mixin preventive-overrides {
+  background-color: transparent;
+  background-image: none;
+  color: black;
+  font-family: $font-family;
+  font-size: $default-font-size;
+  box-shadow: none;
+  text-shadow: none;
+  border: none;
+}

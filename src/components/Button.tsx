@@ -21,7 +21,7 @@ interface IButtonProps extends React.Props<Button> {
   onClick?: (event: React.SyntheticEvent<HTMLButtonElement>) => void;
 }
 
-export default class Button extends React.Component<IButtonProps> {
+export class Button extends React.Component<IButtonProps> {
   public static defaultProps: Partial<IButtonProps> = {
     disabled: false,
     type: "secondary-light",
@@ -54,3 +54,5 @@ export default class Button extends React.Component<IButtonProps> {
     );
   }
 }
+
+export default Button;

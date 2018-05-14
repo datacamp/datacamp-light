@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestartSessionButton should match snapshot 1`] = `
+<div>
+  <Button
+    disabled={false}
+    onClick={[Function]}
+    size="small"
+    type="primary"
+  >
+    <span>
+      Restart
+    </span>
+    <span
+      className="largeScreen"
+    >
+       Session
+    </span>
+  </Button>
+</div>
+`;

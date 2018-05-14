@@ -1,15 +1,15 @@
 import * as React from "react";
 import { shallow } from "enzyme";
 
-import { Footer } from "./Footer";
+import { Placeholder } from "./Placeholder";
 
-describe("Footer", () => {
+describe("Placeholder", () => {
   it("should exist", () => {
-    expect(Footer).toBeDefined();
+    expect(Placeholder).toBeDefined();
   });
 
   it("should match snapshot", () => {
-    const tree = shallow(<Footer />);
+    const tree = shallow(<Placeholder />);
     expect(tree).toMatchSnapshot();
   });
 });

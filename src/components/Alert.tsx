@@ -13,7 +13,7 @@ export interface IAlertState {
   open: boolean;
 }
 
-export default class Alert extends React.Component<IAlertProps, IAlertState> {
+export class Alert extends React.Component<IAlertProps, IAlertState> {
   public static defaultProps: Partial<IAlertProps> = {
     className: "",
     closable: false,
@@ -65,3 +65,5 @@ export default class Alert extends React.Component<IAlertProps, IAlertState> {
     ) : null;
   }
 }
+
+export default Alert;

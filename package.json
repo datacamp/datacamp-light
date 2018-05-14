@@ -135,7 +135,8 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "setupFiles": ["<rootDir>/src/test-setup.ts"],
-    "snapshotSerializers": ["enzyme-to-json/serializer"]
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "collectCoverageFrom": ["src/**/*.{ts,tsx}"]
   },
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,css}": [

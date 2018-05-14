@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <div
+    className="app"
+    onClick={[Function]}
+    style={
+      Object {
+        "height": "350px",
+      }
+    }
+  >
+    <a
+      className="githubLink"
+      href="https://github.com/datacamp/datacamp-light"
+      target="_blank"
+      title="View DataCamp Light on GitHub"
+    >
+      <test-file-stub />
+    </a>
+    <div
+      className="exercise"
+    >
+      <div
+        className="editor"
+        style={
+          Object {
+            "height": "302px",
+          }
+        }
+      />
+      <Connect(Component)
+        className="feedback"
+      />
+    </div>
+    <Connect(Footer)
+      onShowSolution={[Function]}
+      showSolutionButton={true}
+    />
+  </div>
+</Provider>
+`;

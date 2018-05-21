@@ -212,20 +212,20 @@ const registerMux = (language: Language, dclId: string) => {
   };
   pluginManager.remove(MUX_NAME + dclId);
   pluginManager.register(MUX_NAME + dclId, Multiplexer.AsyncSession, userInfo, {
-    debug: __IS_DEBUG__,
+    debug: process.env.NODE_ENV === "development",
     flattenOutputs: false,
     language,
     multiplexerUrl: config.urls.multiplexer,
   });
 };
 
-const id$ = (action$: Observable<Action>) =>
+export const id$ = (action$: Observable<Action>) =>
   action$
     .filter(setId.match)
     .distinctUntilChanged((a, b) => a.payload === b.payload)
     .map(action => action.payload);
 
-const readyAgain$ = (action$: Observable<Action>) =>
+export const readyAgain$ = (action$: Observable<Action>) =>
   action$
     .filter(updateBackendStatus.match)
     .distinctUntilChanged((a, b) => a.payload.status === b.payload.status)

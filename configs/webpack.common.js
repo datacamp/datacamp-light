@@ -45,6 +45,8 @@ module.exports = {
     path: config.outputPath,
     filename: "dcl-react.js",
     publicPath: "/",
+    libraryTarget: "var",
+    library: "DCL",
   },
 
   resolve: {

@@ -18,3 +18,7 @@ document.addEventListener("DOMContentLoaded", bootstrapDCLightExercises);
 if (document.readyState !== "loading") {
   bootstrapDCLightExercises();
 }
+
+// Exports are exported in global variable 'DCL'
+
+export const init = bootstrapDCLightExercises;

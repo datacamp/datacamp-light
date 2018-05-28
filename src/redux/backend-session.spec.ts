@@ -3,6 +3,7 @@ import configureMockStore from "redux-mock-store";
 import { Record } from "immutable";
 import { AnyAction as Action } from "typescript-fsa";
 import { marbles } from "rxjs-marbles";
+import { Observable } from "rxjs/Observable";
 
 import pm from "../helpers/pluginManager";
 import { viewsStart } from "./view";
@@ -18,6 +19,7 @@ import reducer, {
   muxRegistered,
   id$,
   readyAgain$,
+  guardOnBackendError,
 } from "./backend-session";
 
 describe("state", () => {
@@ -120,13 +122,63 @@ describe("epic helpers", () => {
       m.expect(destination$).toBeObservable(expected$);
     })
   );
+
+  describe("guardOnBackendError", () => {
+    const soCode = {
+      type: "code",
+      payload: "print('hello)",
+    };
+
+    const soError = {
+      type: "error",
+      payload: "the answer to life was not found",
+    };
+
+    const soBackendError = {
+      type: "backend-error",
+      payload: "the answer to life was not found",
+    };
+
+    test("should return an empty observable if there's no error", () => {
+      const eo = Observable.empty();
+
+      expect(guardOnBackendError([], null)).toMatchObject(eo);
+      expect(guardOnBackendError([], "r")).toMatchObject(eo);
+      expect(guardOnBackendError([], "revo")).toMatchObject(eo);
+      expect(guardOnBackendError([], "revo")).toMatchObject(eo);
+      expect(guardOnBackendError([soCode], "revo")).toMatchObject(eo);
+      expect(guardOnBackendError([soCode, soCode, soCode], "r")).toMatchObject(
+        eo
+      );
+    });
+
+    test("should return a backendError action when there is an error", () => {
+      const errorObs = Observable.of(
+        backendError({
+          output: soError.payload,
+        })
+      );
+
+      expect(guardOnBackendError([soError], "r")).toMatchObject(errorObs);
+      expect(guardOnBackendError([soBackendError], "python")).toMatchObject(
+        errorObs
+      );
+
+      expect(
+        guardOnBackendError([soCode, soCode, soError, soCode], "r")
+      ).toMatchObject(errorObs);
+      expect(
+        guardOnBackendError([soCode, soCode, soError, soCode, soError], "r")
+      ).toMatchObject(errorObs);
+    });
+  });
 });
 
 describe("epics", () => {
   const epicMiddleware = createEpicMiddleware(epicRegisterMux);
   const mockStore = configureMockStore([epicMiddleware]);
 
-  test("should register a mux with the plugin manager", () => {
+  test("viewsStart should register a mux with the plugin manager", () => {
     const language = "r";
     const id = "dcl-1";
     const store = mockStore(

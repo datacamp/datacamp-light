@@ -171,7 +171,10 @@ export const selectBackendUIStatus = (state: State) => {
 /*
  * Epics */
 
-const guardOnBackendError = (data: SessionOutput[], language: Language) => {
+export const guardOnBackendError = (
+  data: SessionOutput[],
+  language: Language
+) => {
   const backendErrorType = (() => {
     switch (language) {
       case "revo":

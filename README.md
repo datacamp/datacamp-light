@@ -60,7 +60,7 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
 * Convert existing markdown documents to an interactive course using [the
   tutorial package](https://github.com/datacamp/tutorial).
 * Check out a [demo R and Python
-  example](https://cdn.datacamp.com/dcl/standalone-example.html).
+  example](https://cdn.datacamp.com/dcl-react/standalone-example.html).
 * Leverage the same Submission Correctness Tests (SCT) DataCamp uses for all
   their courses. For R, there's the
   [testwhat](https://github.com/datacamp/testwhat) ([GitHub
@@ -72,15 +72,15 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
 
 ### We're in beta!
 
-We're still building this rewrite of DataCamp Light. 
+We're still building this rewrite of DataCamp Light.
 Feel free to try it out and if you encounter problems or just have a great idea,
 just [create an issue](https://github.com/datacamp/datacamp-light/issues/new).
 Your feedback is appreciated!
 
 When you do, please add the *beta* label so we know which version you're talking about.
-  
-  
-  
+
+
+
 
 
 
@@ -281,7 +281,7 @@ part, it's structured as a standard React/Redux project (written in TypeScript)
 so if you're not familiar with one of those, you might want to read up a bit.
 
 To develop DataCamp Light, you'll need to run the app locally. This repository
-includes some example exercises to test it on. 
+includes some example exercises to test it on.
 
 Get started by cloning this repostory, installing the dependencies and starting
 the development server. As you make changes, the page will reload with your new
@@ -365,7 +365,7 @@ has emoji and emoji are :thumbsup:.
 
 #### Continuous Integration
 
-Development is primarily done on the [`development` 
+Development is primarily done on the [`development`
 branch](https://github.com/datacamp/datacamp-light/tree/development).
 
 Commits to the `development` branch trigger a build on the DataCamp development

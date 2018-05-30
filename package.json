@@ -15,7 +15,7 @@
     "test": "cross-env NODE_ENV=development jest",
     "test:watch": "cross-env NODE_ENV=development NODE_PATH=dist jest --watch",
     "test:ci":
-      "npm run test -- --coverage --ci --testResultsProcessor='jest-junit' && npm run report-coverage",
+      "npm run test -- --ci --runInBand --coverage --testResultsProcessor='jest-junit' && npm run report-coverage",
     "report-coverage": "codecov",
     "test-and-report": "npm run test -- --coverage && npm run report-coverage",
     "lint:ts": "tslint -p .",

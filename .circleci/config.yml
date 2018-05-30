@@ -15,9 +15,17 @@ jobs:
             fi
             gzip dist/dcl-react.js
       - run:
-          name: Tests
+          name: Run Tests
+          environment:
+            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
           command: |
-            npm run unit-test-and-report
+            npm run test:ci
+      - run:
+          name: Run Linter
+          command: |
+            npm run lint:ci
+      - store_test_results:
+          path: reports/junit
       - persist_to_workspace:
           root: "."
           paths:

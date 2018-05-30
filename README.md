@@ -1,9 +1,15 @@
-# DataCamp Light
+<h1 align="center">DataCamp Light<sup>Beta</sup></h1>
+<p align="center">
+  <a href="https://github.com/datacamp/datacamp-light/projects/1">Roadmap</a>
+</p>
+<p align="center">
+  <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>
+</p>
 
-*This is is the new DataCamp Light version rewritten in React. To access the old
+*This is is the all-new DataCamp Light. To access the old
 version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
 
-[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl/standalone-example.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react/standalone-example.html)
 
 <details>
 <summary><strong>Table of Contents</strong></summary>
@@ -13,6 +19,7 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
 <!-- toc -->
 
 - [Features](#features)
+  * [We're in beta!](#were-in-beta)
 - [How to run the app](#how-to-run-the-app)
   * [Writing the HTML block](#writing-the-html-block)
   * [Pre-Exercise Code](#pre-exercise-code)
@@ -34,7 +41,6 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
     + [Commit Messages](#commit-messages)
     + [Continuous Integration](#continuous-integration)
     + [Packages used that you might want to know about](#packages-used-that-you-might-want-to-know-about)
-    + [Other notes](#other-notes)
 
 <!-- tocstop -->
 
@@ -61,6 +67,17 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
   wiki](https://github.com/datacamp/testwhat/wiki)); for Python, there's
   [pythonwhat](https://github.com/datacamp/pythonwhat) ([GitHub
   wiki](https://github.com/datacamp/pythonwhat/wiki)).
+
+
+
+### We're in beta!
+
+We're still building this rewrite of DataCamp Light. 
+Feel free to try it out and if you encounter problems or just have a great idea,
+just [create an issue](https://github.com/datacamp/datacamp-light/issues/new).
+Your feedback is appreciated!
+
+When you do, please add the *beta* label so we know which version you're talking about.
   
   
   
@@ -80,7 +97,7 @@ That's it! If your app adds DataCamp Light exercises after the initial page load
 new exercises:
 
 ```js
-global.initAddedDCLightExercises();
+initAddedDCLightExercises();
 ```
 
 **You can also use the JavaScript library in a stackoverflow.com answer by
@@ -342,13 +359,37 @@ pop up there as well.
 
 #### Commit Messages
 
-I've been using [this commit message
+We've been using [this commit message
 convention](https://github.com/kazupon/git-commit-message-convention) because it
-has emoji and emoji are the :poop:.
+has emoji and emoji are :thumbsup:.
 
 #### Continuous Integration
 
-Development is primarily done on the `development` branch. Commits to this
+Development is primarily done on the [`development` 
+branch](https://github.com/datacamp/datacamp-light/tree/development).
+
+Commits to the `development` branch trigger a build on the DataCamp development
+environment and produce a build here:
+
+```
+https://cdn.datacamp.com/dcl-react-dev.js.gz
+```
+
+Next, commits to the [`beta` branch](https://github.com/datacamp/datacamp-light/tree/beta)
+ push a release to the staging environment:
+
+```
+https://cdn.datacamp.com/dcl-react-staging.js.gz
+```
+
+Finally, when we create a release, an update is pushed to the production
+environment. This should be a stable version of DataCamp Light:
+
+```
+https://cdn.datacamp.com/dcl-react.js.gz
+```
+
+Commits to this
 branch trigger a build that is deployed on the DataCamp Dev environment. Commits
 to the main branch, `beta`, are built and deployed to staging. When a release is
 created, that build is deployed to production.
@@ -361,9 +402,3 @@ created, that build is deployed to production.
 - [redux-observable](https://github.com/redux-observable/redux-observable/) for observable middleware
 - [typescript-fsa](https://github.com/aikoven/typescript-fsa) for easy, type-safe action creators
 - [typescript-fsa-reducers](https://github.com/dphilipson/typescript-fsa-reducers) for super-clean reducers
-
-#### Other notes
-
-In order to get TypeScript type information, there are partial types for a few
-
-ones to become a part of their own repository.

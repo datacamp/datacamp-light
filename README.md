@@ -1,5 +1,7 @@
 [![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl/standalone-example.html)
 
+## NOTE: The beta version of the new Datacamp Light can be found [here](https://github.com/datacamp/datacamp-light/tree/beta)
+
 # DataCamp Light
 
 * Convert any website or blog to an interactive learning platform.

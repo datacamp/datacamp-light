@@ -14,6 +14,9 @@
     "serve": "webpack-dev-server --open --env=serve",
     "test": "cross-env NODE_ENV=development jest",
     "test:watch": "cross-env NODE_ENV=development NODE_PATH=dist jest --watch",
+    "cover": "npm run test -- --coverage",
+    "report-coverage": "codecov",
+    "unit-test-and-report": "npm run cover && npm run report-coverage",
     "lint:ts": "tslint -c tslint.json -p . 'src/**/*.{ts,tsx}'",
     "precommit": "lint-staged",
     "prettier":
@@ -68,6 +71,7 @@
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.5.0",
     "clean-webpack-plugin": "0.1.16",
+    "codecov": "^3.0.2",
     "cross-env": "5.0.5",
     "css-loader": "0.28.7",
     "enzyme": "^3.3.0",

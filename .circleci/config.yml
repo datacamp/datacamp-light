@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Tests
           command: |
-            npm test
+            npm unit-test-and-report
       - persist_to_workspace:
           root: "."
           paths:

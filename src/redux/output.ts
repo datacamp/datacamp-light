@@ -77,7 +77,9 @@ export const reducer = reducerWithInitialState(new OutputState())
     state.set("consoleOutputCallback", callback)
   )
   .case(addPlot, (state, source) =>
-    state.update("plots", plots => plots.push(source))
+    state
+      .update("plots", plots => plots.push(source))
+      .update("plotIndex", _ => Math.max(0, state.get("plots").size))
   )
   .case(setPlotIndex, (state, index) => state.set("plotIndex", index))
   .case(setPlot, (state, { figureIndex, source }) =>

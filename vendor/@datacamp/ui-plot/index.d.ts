@@ -1,8 +1,13 @@
 declare module "@datacamp/ui-plot" {
   import { Component, Props } from "react";
 
+  export interface IPlotSource {
+    type: "img" | "html";
+    src: string;
+  }
+
   export interface IPlotProps extends Props<Plot> {
-    sources?: string[];
+    sources?: IPlotSource[];
     currentIndex?: number;
     setIndex: (currentIndex: number) => void;
     exercise: {

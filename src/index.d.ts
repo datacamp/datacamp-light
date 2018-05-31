@@ -201,6 +201,11 @@ declare module "@datacamp/multiplexer-client" {
     payload: string;
   }
 
+  interface ISessionOutputIframe {
+    type: "iframe";
+    payload: string;
+  }
+
   interface ISessionOutputFigureResize {
     type: "figure-resize";
     payload: {
@@ -229,6 +234,7 @@ declare module "@datacamp/multiplexer-client" {
     | ISessionOutputError
     | ISessionOutputCodeCompletion
     | ISessionOutputGraph
+    | ISessionOutputIframe
     | ISessionOutputFigureResize
     | ISessionOutputFigureExpand;
 
@@ -458,6 +464,11 @@ declare module "@datacamp/ui-editor" {
 declare module "@datacamp/ui-plot" {
   import { Component, Props } from "react";
 
+  export interface IPlotSource {
+    type: "img" | "html";
+    src: string;
+  }
+
   export interface IPlotProps extends Props<Plot> {
     sources?: string[];
     currentIndex?: number;
@@ -472,7 +483,7 @@ declare module "@datacamp/ui-plot" {
       width?: number,
       height?: number
     ) => void;
-    expand: (source: string) => void;
+    expand: (source: IPlotSource) => void;
   }
 
   export default class Plot extends Component<IPlotProps> {}

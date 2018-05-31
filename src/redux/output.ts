@@ -18,6 +18,7 @@ import "rxjs/add/operator/ignoreElements";
 import "rxjs/add/operator/take";
 import { includes, some } from "lodash";
 import { SessionOutput } from "@datacamp/multiplexer-client";
+import { IPlotSource } from "@datacamp/ui-plot";
 
 import { State } from "./";
 import {
@@ -42,13 +43,13 @@ export const registerConsoleOutputCallback = createAction<
   (result: SessionOutput[]) => void
 >("REGISTER_CONSOLE_OUTPUT_CALLBACK");
 
-export const addPlot = createAction<string>("ADD_PLOT");
+export const addPlot = createAction<IPlotSource>("ADD_PLOT");
 
 export const setPlotIndex = createAction<number>("SET_PLOT_INDEX");
 
 export const setPlot = createAction<{
   figureIndex: number;
-  source: string;
+  source: IPlotSource;
 }>("SET_PLOT");
 
 /*
@@ -56,13 +57,13 @@ export const setPlot = createAction<{
 
 export interface IOutputState {
   consoleOutputCallback: (output: SessionOutput[]) => void;
-  plots: List<string>;
+  plots: List<IPlotSource>;
   plotIndex: number;
 }
 
 const initialState: IOutputState = {
   consoleOutputCallback: output => null,
-  plots: List<string>(),
+  plots: List<IPlotSource>(),
   plotIndex: 0,
 };
 
@@ -75,8 +76,8 @@ export const reducer = reducerWithInitialState(new OutputState())
   .case(registerConsoleOutputCallback, (state, callback) =>
     state.set("consoleOutputCallback", callback)
   )
-  .case(addPlot, (state, url) =>
-    state.update("plots", plots => plots.push(url))
+  .case(addPlot, (state, source) =>
+    state.update("plots", plots => plots.push(source))
   )
   .case(setPlotIndex, (state, index) => state.set("plotIndex", index))
   .case(setPlot, (state, { figureIndex, source }) =>

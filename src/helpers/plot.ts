@@ -1,5 +1,6 @@
 import { AnyAction as Action } from "typescript-fsa";
 import { isEmpty } from "lodash";
+import { IPlotSource } from "@datacamp/ui-plot";
 
 import { submitCode } from "../redux/backend-session";
 import { ExerciseState } from "../redux/exercise";
@@ -28,8 +29,12 @@ export const hexToBase64 = (str: string) => {
 };
 
 export const createImageSrc = (payload: string) => {
-  // SVGs (from Python) com in base64 - they always start with PD94
-  if (payload.startsWith("PD94")) {
+  // Old SVGs (from Python) come in plain text
+  if (payload.indexOf("<svg") > -1) {
+    return `data:image/svg+xml,${encodeURI(payload)}`;
+  }
+  // New SVGs (from Python) com in base64 - they always start with PD94
+  if (payload.indexOf("PD94") == 0) {
     return `data:image/svg+xml;base64,${payload}`;
   }
   // PNGs (from R) come in hex; need to convert to base 64
@@ -38,7 +43,7 @@ export const createImageSrc = (payload: string) => {
 
 export const expandHandler = (
   type: string,
-  src: string,
+  source: IPlotSource,
   figureIndex: number,
   currentExercise?: ExerciseState
 ): Action | null => {
@@ -55,17 +60,20 @@ export const expandHandler = (
   let width = 640;
 
   const expandWindow = window.open(
-    type === "html" ? src : "",
+    "",
     "_blank",
     `height=${height}px,width=${width}px`
   );
+  console.log("opened window", expandWindow);
   const isBlocked = checkPopup(expandWindow);
   if (isBlocked) return null;
   if (window.focus && expandWindow) expandWindow.focus();
-  if (type === "plot") {
+  if (source.type === "img") {
     expandWindow.document.body.innerHTML = `<div style="width: 100%; height: 100%;"><img alt="plot" style="max-width: 100%; max-height: 100%;" src="${createImageSrc(
-      src
+      source.src
     )}"></div>`;
+  } else if (source.type === "html") {
+    expandWindow.document.write(decodeURI(source.src));
   }
   return { type: "noop" };
 };

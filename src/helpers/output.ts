@@ -37,14 +37,29 @@ export const getAction = (
         type: output.payload.correct ? "success" : "danger",
       });
     case "graph":
-      return addPlot(output.payload);
+      return addPlot({
+        type: "img",
+        src: output.payload,
+      });
+    case "iframe":
+      return addPlot({
+        type: "html",
+        src: output.payload,
+      });
     case "figure-resize":
       return setPlot({
         figureIndex: output.payload.index,
-        source: output.payload.url,
+        source: {
+          type: "img",
+          src: output.payload.url,
+        },
       });
     case "figure-expand":
-      return expandHandler("plot", output.payload.url, output.payload.index);
+      return expandHandler(
+        "plot",
+        { type: "img", src: output.payload.url },
+        output.payload.index
+      );
     default:
       // Handled by callback
       return null;

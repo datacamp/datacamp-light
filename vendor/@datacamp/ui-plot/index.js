@@ -512,7 +512,7 @@ var checkPropTypes_1 = checkPropTypes,
           var r = e.constructor,
             n = (r && (r.displayName || r.name)) || "ReactClass",
             o = n + "." + t;
-          if (J[o]) return;
+          if (Q[o]) return;
           U(
             !1,
             "%s(...): Can only update a mounted or mounting component. This usually means you called %s() on an unmounted component. This is a no-op.\n\nPlease check the code for the %s component.",
@@ -520,7 +520,7 @@ var checkPropTypes_1 = checkPropTypes,
             t,
             n
           ),
-            (J[o] = !0);
+            (Q[o] = !0);
         }
       }
       function n(e, t, r) {
@@ -697,7 +697,7 @@ var checkPropTypes_1 = checkPropTypes,
                 case $:
                 case q:
                 case V:
-                case Y:
+                case B:
                   s = !0;
               }
           }
@@ -804,7 +804,7 @@ var checkPropTypes_1 = checkPropTypes,
         }
         return t;
       }
-      function T(e, t) {
+      function N(e, t) {
         if (e._store && !e._store.validated && null == e.key) {
           e._store.validated = !0;
           var r = P(t);
@@ -827,16 +827,16 @@ var checkPropTypes_1 = checkPropTypes,
           }
         }
       }
-      function N(e, r) {
+      function T(e, r) {
         if ("object" == typeof e)
           if (Array.isArray(e))
-            for (var n, o = 0; o < e.length; o++) (n = e[o]), m(n) && T(n, r);
+            for (var n, o = 0; o < e.length; o++) (n = e[o]), m(n) && N(n, r);
           else if (m(e)) e._store && (e._store.validated = !0);
           else if (e) {
             var i = t(e);
             if ("function" == typeof i && i !== e.entries)
               for (var a, s = i.call(e); !(a = s.next()).done; )
-                m(a.value) && T(a.value, r);
+                m(a.value) && N(a.value, r);
           }
       }
       function I(e) {
@@ -924,8 +924,8 @@ var checkPropTypes_1 = checkPropTypes,
         }
         var a = d.apply(this, arguments);
         if (null == a) return a;
-        if (r) for (var s = 2; s < arguments.length; s++) N(arguments[s], e);
-        return "symbol" == typeof e && e === B ? C(a) : I(a), a;
+        if (r) for (var s = 2; s < arguments.length; s++) T(arguments[s], e);
+        return "symbol" == typeof e && e === Y ? C(a) : I(a), a;
       }
       var j = objectAssign,
         z = emptyObject_1,
@@ -937,8 +937,8 @@ var checkPropTypes_1 = checkPropTypes,
         $ = D ? Symbol["for"]("react.element") : 60103,
         q = D ? Symbol["for"]("react.call") : 60104,
         V = D ? Symbol["for"]("react.return") : 60105,
-        Y = D ? Symbol["for"]("react.portal") : 60106,
-        B = D ? Symbol["for"]("react.fragment") : 60107,
+        B = D ? Symbol["for"]("react.portal") : 60106,
+        Y = D ? Symbol["for"]("react.fragment") : 60107,
         W = "function" == typeof Symbol && Symbol.iterator,
         H = "@@iterator",
         X = function() {};
@@ -977,8 +977,8 @@ var checkPropTypes_1 = checkPropTypes,
           }
         };
       }
-      var Q = X,
-        J = {},
+      var J = X,
+        Q = {},
         G = {
           isMounted: function() {
             return !1;
@@ -1020,7 +1020,7 @@ var checkPropTypes_1 = checkPropTypes,
           ee = function(e, t) {
             Object.defineProperty(n.prototype, e, {
               get: function() {
-                Q(
+                J(
                   !1,
                   "%s(...) is deprecated in plain JavaScript React classes. %s",
                   t[0],
@@ -1106,7 +1106,7 @@ var checkPropTypes_1 = checkPropTypes,
               ? "#text"
               : "string" == typeof e.type
                 ? e.type
-                : e.type === B
+                : e.type === Y
                   ? "React.Fragment"
                   : e.type.displayName || e.type.name || "Unknown";
         },
@@ -1155,7 +1155,7 @@ var checkPropTypes_1 = checkPropTypes,
           Component: n,
           PureComponent: o,
           unstable_AsyncComponent: a,
-          Fragment: B,
+          Fragment: Y,
           createElement: R,
           cloneElement: function() {
             for (
@@ -1163,7 +1163,7 @@ var checkPropTypes_1 = checkPropTypes,
               t < arguments.length;
               t++
             )
-              N(arguments[t], e.type);
+              T(arguments[t], e.type);
             return I(e), e;
           },
           createFactory: function(e) {
@@ -1174,7 +1174,7 @@ var checkPropTypes_1 = checkPropTypes,
                 enumerable: !1,
                 get: function() {
                   return (
-                    Q(
+                    J(
                       !1,
                       "Factory.type is deprecated. Access the class directly before passing it to createFactory."
                     ),
@@ -4307,12 +4307,15 @@ var hexToBase64 = function(e) {
         ? "data:image/svg+xml;base64," + e
         : "data:image/png;base64," + hexToBase64(e);
   },
+  createHtmlSrc = function(e) {
+    return "data:text/html;charset=utf-8," + escape(e);
+  },
   styles$1 = {
-    container: "_container_17yze_1",
-    image: "_image_17yze_10",
-    bottomBar: "_bottomBar_17yze_16",
-    button: "_button_17yze_38",
-    disabled: "_disabled_17yze_62",
+    container: "_container_1g5c2_1",
+    image: "_image_1g5c2_10",
+    bottomBar: "_bottomBar_1g5c2_20",
+    button: "_button_1g5c2_42",
+    disabled: "_disabled_1g5c2_66",
   },
   asyncGenerator = (function() {
     function e(e) {
@@ -4486,35 +4489,45 @@ var hexToBase64 = function(e) {
               r = t.sources,
               n = t.currentIndex,
               o = t.setIndex,
-              i = r.map(function(e) {
-                return { src: createImageSrc(e) };
-              }),
-              a = this.props.glContainer;
-            a &&
-              a.on("resize", function() {
+              i = react.createElement("img", {
+                className: "" + styles$1.image,
+                alt: "plot",
+                role: "presentation",
+                src:
+                  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+              });
+            if (0 < r.length) {
+              var a = r[n];
+              i =
+                "html" === a.type
+                  ? react.createElement("iframe", {
+                      className: "" + styles$1.image,
+                      alt: "plot",
+                      role: "presentation",
+                      src: createHtmlSrc(a.src),
+                      frameBorder: "0",
+                    })
+                  : react.createElement("img", {
+                      className: "" + styles$1.image,
+                      alt: "plot",
+                      role: "presentation",
+                      src: createImageSrc(a.src),
+                    });
+            }
+            var s = this.props.glContainer;
+            s &&
+              s.on("resize", function() {
                 e.resizeObs.next({
                   currentIndex: n,
-                  width: a.width,
-                  height: a.height,
+                  width: s.width,
+                  height: s.height,
                 });
               });
             return react.createElement(
               "div",
               { className: "graphical-output-container " + styles$1.container },
-              react.createElement(
-                "div",
-                { className: "" + styles$1.image },
-                react.createElement("img", {
-                  className: "" + styles$1.image,
-                  alt: "plot",
-                  role: "presentation",
-                  src:
-                    0 < i.length
-                      ? i[n].src
-                      : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-                })
-              ),
-              0 < i.length
+              react.createElement("div", { className: "" + styles$1.image }, i),
+              0 < r.length
                 ? react.createElement(
                     "div",
                     { className: "" + styles$1.bottomBar },
@@ -4529,11 +4542,11 @@ var hexToBase64 = function(e) {
                               "btn btn-small btn-secondary m0 " +
                               styles$1.button,
                             onClick: function() {
-                              a &&
+                              s &&
                                 e.resizeObs.next({
                                   currentIndex: n - 1,
-                                  width: a.width,
-                                  height: a.height,
+                                  width: s.width,
+                                  height: s.height,
                                 }),
                                 o(n - 1);
                             },
@@ -4544,11 +4557,11 @@ var hexToBase64 = function(e) {
                           "Previous Plot"
                         )
                     ),
-                    react.createElement("span", null, n + 1 + "/" + i.length),
+                    react.createElement("span", null, n + 1 + "/" + r.length),
                     react.createElement(
                       "div",
                       null,
-                      !!(n + 1 < i.length) &&
+                      !!(n + 1 < r.length) &&
                         react.createElement(
                           "button",
                           {
@@ -4556,11 +4569,11 @@ var hexToBase64 = function(e) {
                               "btn btn-small btn-secondary m0 " +
                               styles$1.button,
                             onClick: function() {
-                              a &&
+                              s &&
                                 e.resizeObs.next({
                                   currentIndex: n + 1,
-                                  width: a.width,
-                                  height: a.height,
+                                  width: s.width,
+                                  height: s.height,
                                 }),
                                 o(n + 1);
                             },
@@ -4586,7 +4599,9 @@ var hexToBase64 = function(e) {
     );
   })(react.Component);
 (Plot$1.propTypes = {
-  sources: propTypes.arrayOf(propTypes.string),
+  sources: propTypes.arrayOf(
+    propTypes.shape({ type: propTypes.string, src: propTypes.string })
+  ),
   currentIndex: propTypes.number,
   setIndex: propTypes.func.isRequired,
   exercise: propTypes.shape({

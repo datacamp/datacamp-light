@@ -15,6 +15,7 @@ import { submitCode } from "./backend-session";
 import { setPlot, selectPlotIndex, selectPlots } from "./output";
 import { ExerciseState, selectLanguage, selectExercise } from "./exercise";
 
+import { IPlotSource } from "@datacamp/ui-plot";
 import { expandHandler } from "../helpers/plot";
 
 /*
@@ -27,7 +28,7 @@ export const viewsStart = createAction("VIEWS_START");
 export const expandTab = createAction<{
   category: string;
   tabKey: string;
-  src: string;
+  src: IPlotSource;
 }>("EXPAND_TAB");
 
 export const setRenderSize = createAction<{
@@ -122,7 +123,7 @@ export const epicExpandTab: Epic<Action, State> = (action$, store) =>
     const figureIndex = selectPlotIndex(state);
     const type = action.payload.tabKey;
 
-    if (currentExercise.language === "r") {
+    if (currentExercise.language === "r" && action.payload.src.type === "img") {
       return Observable.of(
         submitCode({
           language: currentExercise.language,

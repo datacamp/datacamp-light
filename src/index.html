@@ -11,54 +11,10 @@
     </style>
   </head>
   <body>
-    <div class="exercise">
-      <div class="title">
-        <h2>This is an python exercise with a plot</h2>
-      </div>
-
-      <div data-datacamp-exercise data-lang="python" data-height="auto">
-        <code data-type="pre-exercise-code"></code>
-        <code data-type="sample-code">
-        import numpy as np
-        import matplotlib.pyplot as plt
-
-        x = np.arange(0, 5, 0.1);
-        y = np.sin(x)
-        plt.plot(x, y)
-        plt.show()
-        </code>
-        <code data-type="solution"></code>
-        <code data-type="sct"></code>
-        <div data-type="hint">Just press 'Run'.</div>
-      </div>
-    </div>
-    <div class="exercise">
-      <div class="title">
-        <h2>This is a Python playground with matplotlib & numpy</h2>
-      </div>
-
-      <div data-datacamp-exercise data-lang="python" data-height="40">
-      </div>
-    </div>
 
     <div class="exercise">
       <div class="title">
-        <h2>This is an R playground</h2>
-      </div>
-
-      <div data-datacamp-exercise data-lang="r" data-height="40">
-        <code data-type="sample-code">
-          library(ggplot2)
-
-          ggplot(mtcars, aes(x = cyl, y = mpg)) +
-          geom_point()
-        </code>
-      </div>
-    </div>
-
-    <div class="exercise">
-      <div class="title">
-        <h2>How it works</h2>
+        <h2>R Exercise: How it Works</h2>
       </div>
       <div data-datacamp-exercise data-lang="r" data-height="500">
         <code data-type="pre-exercise-code"># no pec</code>
@@ -84,11 +40,78 @@
         </code>
       </div>
     </div>
+
     <div class="exercise">
       <div class="title">
-        <h2>Arithmetic with R</h2>
+        <h2>Python Exercise: How it Works</h2>
+        <p>If you omit the <code>height</code> setting, DataCamp Light uses the default 300 pixels.</p>
       </div>
-      <div data-datacamp-exercise data-lang="r" data-height="auto">
+      <div data-datacamp-exercise data-lang="python">
+        <code data-type="pre-exercise-code">
+          # no pec
+        </code>
+        <code data-type="sample-code">
+          # Create a variable a, equal to 5
+
+
+          # Print out a
+
+
+          # More comments
+
+
+          # More whitespace
+
+
+          # More everything
+
+
+        </code>
+        <code data-type="solution">
+          # Create a variable a, equal to 5
+          a = 5
+
+          # Print out a
+          print(a)
+        </code>
+        <code data-type="sct">
+          test_object("a")
+          test_function("print")
+          success_msg("Great job!")
+        </code>
+        <div data-type="hint">Use the assignment operator (<code>=</code>) to create the variable <code>a</code>.</div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="title">
+        <h2>Python playground with a plot</h2>
+        <p>If you omit the <code>sct</code> (sample correctness test), you can just use DataCamp Light to play with the code.</p>
+      </div>
+
+      <div data-datacamp-exercise data-lang="python" data-height="auto">
+        <code data-type="pre-exercise-code"></code>
+        <code data-type="sample-code">
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        x = np.arange(0, 5, 0.1);
+        y = np.sin(x)
+        plt.plot(x, y)
+        plt.show()
+        </code>
+        <code data-type="solution"></code>
+        <code data-type="sct"></code>
+        <div data-type="hint">Just press 'Run'.</div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="title">
+        <h2>Exercise + Playground</h2>
+        <p>Add <code>data-show-run-button</code> to the exercise tag to always show the "Run" button, so your visitors can try out the code without submitting it.</p>
+      </div>
+      <div data-datacamp-exercise data-lang="r" data-height="auto" data-show-run-button>
         <code data-type="pre-exercise-code"># no pec</code>
         <code data-type="sample-code">
         # An addition

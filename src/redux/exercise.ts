@@ -24,6 +24,7 @@ export const setExercise = createAction<{
   sample_code?: string;
   sct: string;
   solution: string;
+  showRunButton: boolean;
 }>("SET_EXERCISE");
 
 export const setExerciseFeedback = createAction<IAlert>(
@@ -46,6 +47,8 @@ export interface IExerciseState {
   sct: string;
   solution: string;
   type: ExerciseType;
+  showSolutionButton: boolean;
+  showRunButton: boolean;
 }
 
 const initialState: IExerciseState = {
@@ -59,6 +62,8 @@ const initialState: IExerciseState = {
   sct: "",
   solution: "",
   type: "NormalExercise",
+  showSolutionButton: false,
+  showRunButton: false,
 };
 
 export class ExerciseState extends Record(initialState) {}
@@ -110,3 +115,6 @@ export const selectSolution = (state: State) =>
   selectExercise(state).get("solution");
 
 export const selectType = (state: State) => selectExercise(state).get("type");
+
+export const selectShowRunButton = (state: State) =>
+  selectExercise(state).get("showRunButton");

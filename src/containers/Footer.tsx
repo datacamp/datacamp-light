@@ -6,7 +6,12 @@ import {
   selectBackendSessionIsBusy,
   submitCode,
 } from "../redux/backend-session";
-import { showHint, selectHint, selectSolution } from "../redux/exercise";
+import {
+  showHint,
+  selectHint,
+  selectSolution,
+  selectShowRunButton,
+} from "../redux/exercise";
 
 import { Footer, IFooterProps } from "../components/Footer";
 
@@ -22,6 +27,7 @@ const mapStateToProps: MapStateToProps<IFooterProps, IOwnProps> = (
   isSessionBusy: selectBackendSessionIsBusy(state),
   hint: selectHint(state),
   solution: selectSolution(state),
+  showRunButton: selectShowRunButton(state),
 });
 
 const mapDispatchToProps: MapDispatchToProps<IFooterProps, IOwnProps> = (
@@ -29,7 +35,7 @@ const mapDispatchToProps: MapDispatchToProps<IFooterProps, IOwnProps> = (
   ownProps
 ) => ({
   onShowHint: event => dispatch(showHint()),
-  onSubmit: event => dispatch(submitCode({})),
+  onSubmit: payload => dispatch(submitCode(payload)),
   onShowSolution: ownProps.onShowSolution,
 });
 

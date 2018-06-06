@@ -34,6 +34,7 @@ export default (element: HTMLDivElement) => {
     settings.sample_code = exercise.sample || exercise.sample_code;
     settings.sct = exercise.sct;
     settings.solution = exercise.solution;
+    settings.showRunButton = exercise.showRunButton;
   } else {
     const getText = (type: string, isEncoded?: boolean) => {
       const textElement = element.querySelector(`code[data-type=${type}]`);
@@ -53,6 +54,10 @@ export default (element: HTMLDivElement) => {
       }
     };
 
+    const showRunButton =
+      element.hasAttribute("data-show-run-button") &&
+      element.getAttribute("data-show-run-button").toLowerCase() !== "false";
+
     // Get settings
     Object.assign(settings, {
       hint: getHint(),
@@ -61,6 +66,7 @@ export default (element: HTMLDivElement) => {
       sample_code: getText("sample-code"),
       sct: getText("sct"),
       solution: getText("solution"),
+      showRunButton: showRunButton,
     });
   }
 

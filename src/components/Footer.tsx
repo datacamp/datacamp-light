@@ -2,6 +2,7 @@ import * as React from "react";
 
 import BackendStatus from "../containers/BackendStatus";
 import noop from "../helpers/noop";
+import { ISubmitCodePayload } from "../redux/backend-session";
 import Button from "./Button";
 import RestartSessionButton from "../containers/RestartSessionButton";
 
@@ -10,7 +11,7 @@ import * as DatacampLogo from "../images/datacamp-logo.svg";
 import * as styles from "./Footer.module.scss";
 
 export interface IFooterProps extends React.Props<Footer> {
-  onSubmit?: (event: React.SyntheticEvent<HTMLButtonElement>) => void;
+  onSubmit?: (payload: Partial<ISubmitCodePayload>) => void;
   onShowHint?: (event: React.SyntheticEvent<HTMLButtonElement>) => void;
   onShowSolution?: (event: React.SyntheticEvent<HTMLButtonElement>) => void;
   isSessionBroken?: boolean;
@@ -18,6 +19,7 @@ export interface IFooterProps extends React.Props<Footer> {
   hint?: string;
   solution?: string;
   showSolutionButton?: boolean;
+  showRunButton?: boolean;
 }
 
 interface IFooterState {
@@ -32,6 +34,7 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
     isSessionBroken: false,
     isSessionBusy: false,
     showSolutionButton: false,
+    showRunButton: false,
   };
 
   public displayName: string = "Footer";
@@ -43,6 +46,8 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
     };
 
     this.onShowHint = this.onShowHint.bind(this);
+    this.onRun = this.onRun.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onShowHint(event: React.SyntheticEvent<HTMLButtonElement>) {
@@ -50,6 +55,18 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
       isHintPressed: true,
     });
     this.props.onShowHint(event);
+  }
+
+  onRun() {
+    this.props.onSubmit({
+      command: "console",
+    });
+  }
+
+  onSubmit() {
+    this.props.onSubmit({
+      command: "submit",
+    });
   }
 
   public render() {
@@ -71,21 +88,22 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
           <Button
             size="small"
             type="primary"
-            onClick={this.props.onSubmit}
+            onClick={this.onSubmit}
             disabled={this.props.isSessionBroken}
           >
             Submit
           </Button>
-        ) : (
+        ) : null}
+        {!this.props.solution || this.props.showRunButton ? (
           <Button
             size="small"
             type="primary"
-            onClick={this.props.onSubmit}
+            onClick={this.onRun}
             disabled={this.props.isSessionBroken || this.props.isSessionBusy}
           >
             Run
           </Button>
-        )}
+        ) : null}
         <BackendStatus className={styles.status} />
         <div className={`${styles.spacer}`} />
         <RestartSessionButton

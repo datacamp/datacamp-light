@@ -211,7 +211,7 @@ const registerMux = (language: Language, dclId: string) => {
   }
   const userInfo = {
     authentication_token: id,
-    email: id,
+    email: `datacamp-light+${id}@datacamp.com`,
   };
   pluginManager.remove(MUX_NAME + dclId);
   pluginManager.register(MUX_NAME + dclId, Multiplexer.AsyncSession, userInfo, {

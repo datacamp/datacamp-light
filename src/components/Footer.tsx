@@ -20,6 +20,8 @@ export interface IFooterProps extends React.Props<Footer> {
   solution?: string;
   showSolutionButton?: boolean;
   showRunButton?: boolean;
+  sct?: string;
+  language?: string;
 }
 
 interface IFooterState {
@@ -84,17 +86,18 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
             Solution
           </Button>
         )}
-        {this.props.solution ? (
+        {this.props.language !== "shell" && this.props.sct ? (
           <Button
             size="small"
             type="primary"
             onClick={this.onSubmit}
-            disabled={this.props.isSessionBroken}
+            disabled={this.props.isSessionBroken || this.props.isSessionBusy}
           >
             Submit
           </Button>
         ) : null}
-        {!this.props.solution || this.props.showRunButton ? (
+        {this.props.language !== "shell" &&
+        (!this.props.solution || this.props.showRunButton) ? (
           <Button
             size="small"
             type="primary"

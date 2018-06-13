@@ -7,6 +7,9 @@ import { ExerciseType, Language } from "@datacamp/multiplexer-client";
 
 import { State } from "./";
 import { IAlert } from "./view";
+import { Listener } from "../helpers/hub";
+
+import config from "../config";
 
 /*
  * Actions */
@@ -33,6 +36,10 @@ export const setExerciseFeedback = createAction<IAlert>(
 
 export const showHint = createAction("SHOW_HINT");
 
+export const setShellProxy = createAction<string>("SET_SHELL_PROXY");
+
+export const setListener = createAction<Listener>("SET_LISTENER");
+
 /*
  * State definition */
 
@@ -49,6 +56,8 @@ export interface IExerciseState {
   type: ExerciseType;
   showSolutionButton: boolean;
   showRunButton: boolean;
+  shellProxy?: string;
+  listener?: Listener;
 }
 
 const initialState: IExerciseState = {
@@ -64,6 +73,8 @@ const initialState: IExerciseState = {
   type: "NormalExercise",
   showSolutionButton: false,
   showRunButton: false,
+  shellProxy: "",
+  listener: () => {},
 };
 
 export class ExerciseState extends Record(initialState) {}
@@ -82,6 +93,13 @@ const reducer = reducerWithInitialState(new ExerciseState())
     })
   )
   .case(updateCode, (state, content) => state.set("code", content))
+  .case(setShellProxy, (state, path) =>
+    state.set(
+      "shellProxy",
+      (config.urls.multiplexer + path).replace(/^.*:\/\//, "wss://")
+    )
+  )
+  .case(setListener, (state, fn) => state.set("listener", fn))
   .build();
 
 export default reducer;
@@ -118,3 +136,23 @@ export const selectType = (state: State) => selectExercise(state).get("type");
 
 export const selectShowRunButton = (state: State) =>
   selectExercise(state).get("showRunButton");
+
+export const selectShellProxy = (state: State) =>
+  selectExercise(state).get("shellProxy");
+
+export const selectListener = (state: State) =>
+  selectExercise(state).get("listener");
+
+/*
+ * Epics */
+
+export const epicPublishFeedback: Epic<Action, State> = (action$, store) =>
+  action$
+    .filter(setExerciseFeedback.match)
+    .do(({ payload }) =>
+      selectListener(store.getState())("feedback", {
+        correct: payload.type === "success",
+        content: payload.content,
+      })
+    )
+    .concatMapTo(Observable.empty());

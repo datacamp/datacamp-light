@@ -5,7 +5,7 @@ import {
 } from "@datacamp/multiplexer-client";
 import { AnyAction as Action } from "typescript-fsa";
 
-import { setExerciseFeedback } from "../redux/exercise";
+import { setExerciseFeedback, setShellProxy } from "../redux/exercise";
 import { addPlot, setPlot } from "../redux/output";
 
 import { expandHandler } from "./plot";
@@ -60,6 +60,8 @@ export const getAction = (
         { type: "img", src: output.payload.url },
         output.payload.index
       );
+    case "server":
+      return setShellProxy(output.payload);
     default:
       // Handled by callback
       return null;

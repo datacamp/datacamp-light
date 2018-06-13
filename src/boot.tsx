@@ -12,11 +12,12 @@ const outdent = require("strip-indent");
 import createApp from "./containers/App";
 import Placeholder from "./components/Placeholder";
 import rootEpic from "./helpers/epics";
+import Hub from "./helpers/hub";
 import uuid from "./helpers/uuid";
-import { setExercise, updateCode, setId } from "./redux/exercise";
+import { setExercise, updateCode, setId, setListener } from "./redux/exercise";
 import createStore from "./redux/store";
 
-export default (element: HTMLDivElement) => {
+export default (element: HTMLDivElement, hub: Hub) => {
   const storeEnhancer = composeWithDevTools(
     applyMiddleware(createEpicMiddleware(rootEpic))
   );
@@ -76,6 +77,10 @@ export default (element: HTMLDivElement) => {
 
   settings.height = settings.height >= 300 ? settings.height : 300;
 
+  if (settings.language == "shell") {
+    settings.type = "ConsoleExercise";
+  }
+
   // Create the store
   const store = createStore(storeEnhancer);
   const App = createApp(store);
@@ -101,8 +106,13 @@ export default (element: HTMLDivElement) => {
 
   store.dispatch(setExercise(settings));
   store.dispatch(updateCode(settings.sample_code));
-  store.dispatch(setId(element.id || uuid()));
+  const id = element.id || uuid();
+  store.dispatch(setId(id));
+
+  store.dispatch(setListener((t, p) => hub.process(t, p)));
 
   element.removeAttribute("data-datacamp-exercise");
   element.className += " datacamp-exercise";
+
+  return id;
 };

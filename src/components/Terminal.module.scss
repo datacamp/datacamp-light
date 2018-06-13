@@ -1,0 +1,8 @@
+.terminal {
+    height: 100%;
+
+    :global .xterm {
+        padding: 10px;
+        height: 100%;
+    }
+}

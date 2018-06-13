@@ -10,7 +10,9 @@ import {
   showHint,
   selectHint,
   selectSolution,
+  selectSct,
   selectShowRunButton,
+  selectLanguage,
 } from "../redux/exercise";
 
 import { Footer, IFooterProps } from "../components/Footer";
@@ -28,6 +30,8 @@ const mapStateToProps: MapStateToProps<IFooterProps, IOwnProps> = (
   hint: selectHint(state),
   solution: selectSolution(state),
   showRunButton: selectShowRunButton(state),
+  sct: selectSct(state),
+  language: selectLanguage(state),
 });
 
 const mapDispatchToProps: MapDispatchToProps<IFooterProps, IOwnProps> = (

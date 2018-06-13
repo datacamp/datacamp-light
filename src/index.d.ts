@@ -123,7 +123,7 @@ declare module "@datacamp/multiplexer-client" {
 
   export type SessionStatus = ISessionStatus;
 
-  export type Language = "r" | "python" | "revo";
+  export type Language = "r" | "python" | "revo" | "shell";
   export type ExerciseType =
     | "PlainMultipleChoiceExercise"
     | "PureMultipleChoiceExercise"
@@ -222,6 +222,11 @@ declare module "@datacamp/multiplexer-client" {
     };
   }
 
+  interface ISessionOutputServer {
+    type: "server";
+    payload: string;
+  }
+
   // TODO only have the accepted output types
   interface ISessionOutputAny {
     type: string;
@@ -236,7 +241,8 @@ declare module "@datacamp/multiplexer-client" {
     | ISessionOutputGraph
     | ISessionOutputIframe
     | ISessionOutputFigureResize
-    | ISessionOutputFigureExpand;
+    | ISessionOutputFigureExpand
+    | ISessionOutputServer;
 
   interface ISessionOptions {
     language: Language;

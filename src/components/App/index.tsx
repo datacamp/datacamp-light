@@ -9,6 +9,7 @@ import SolutionEditor from "../../containers/SolutionEditor";
 import FeedbackMessage from "../../containers/FeedbackMessage";
 import Footer from "../../containers/Footer";
 import Plot from "../../containers/Plot";
+import Terminal from "../../containers/Terminal";
 
 import { wrap } from "../../helpers/wrap";
 import { State } from "../../redux";
@@ -17,6 +18,60 @@ import noop from "../../helpers/noop";
 
 import * as styles from "./index.module.scss";
 import * as GithubIcon from "../../images/github-icon.svg";
+
+const NORMAL_EXERCISE_CONTENT = (props: IAppProps) => ({
+  content: [
+    {
+      type: "stack",
+      id: "left-pane",
+      content: [
+        {
+          component: "Editor",
+          id: "editor",
+          isClosable: false,
+          props: {
+            className: styles.editor,
+            language: props.language,
+            id: 2,
+          },
+          title: "script." + (props.language === "python" ? "py" : "R"),
+          type: "react-component",
+        },
+      ],
+    },
+    {
+      type: "stack",
+      id: "right-pane",
+      content: [
+        {
+          component: "Console",
+          id: "console",
+          isClosable: false,
+          props: {
+            className: styles.console,
+            language: props.language,
+          },
+          title: props.language === "python" ? "IPython Shell" : "R Console",
+          type: "react-component",
+        },
+      ],
+    },
+  ],
+  type: "row",
+});
+
+const SHELL_EXERCISE_CONTENT = (props: IAppProps) => ({
+  content: [
+    {
+      component: "Terminal",
+      id: "terminal",
+      isClosable: false,
+      title: "Terminal",
+      type: "react-component",
+    },
+  ],
+  type: "stack",
+});
 
 export interface IAppProps extends React.Props<App> {
   type?: string;
@@ -95,12 +150,14 @@ export class App extends React.Component<IAppProps, IAppState> {
     // FIXME This is quite an ugly hack
     requestAnimationFrame(() => {
       const plotItems = this.layout.root.getItemsById(this.PLOT_CONFIG.id);
-      const plotItem = plotItems.length > 0 ? plotItems[0] : undefined;
+      if (plotItems) {
+        const plotItem = plotItems.length > 0 ? plotItems[0] : undefined;
 
-      if (nextProps.nPlots > 0 && !plotItem) {
-        const panes = this.layout.root.getItemsByType("stack");
-        const pane = panes[panes.length - 1];
-        pane.addChild(this.PLOT_CONFIG);
+        if (nextProps.nPlots > 0 && !plotItem) {
+          const panes = this.layout.root.getItemsByType("stack");
+          const pane = panes[panes.length - 1];
+          pane.addChild(this.PLOT_CONFIG);
+        }
       }
     });
   }
@@ -117,51 +174,9 @@ export class App extends React.Component<IAppProps, IAppState> {
     this.layout = new GoldenLayout(
       {
         content: [
-          {
-            content: [
-              {
-                type: "stack",
-                id: "left-pane",
-                content: [
-                  {
-                    component: "Editor",
-                    id: "editor",
-                    isClosable: false,
-                    props: {
-                      className: styles.editor,
-                      language: this.props.language,
-                      id: 2,
-                    },
-                    title:
-                      "script." +
-                      (this.props.language === "python" ? "py" : "R"),
-                    type: "react-component",
-                  },
-                ],
-              },
-              {
-                type: "stack",
-                id: "right-pane",
-                content: [
-                  {
-                    component: "Console",
-                    id: "console",
-                    isClosable: false,
-                    props: {
-                      className: styles.console,
-                      language: this.props.language,
-                    },
-                    title:
-                      this.props.language === "python"
-                        ? "IPython Shell"
-                        : "R Console",
-                    type: "react-component",
-                  },
-                ],
-              },
-            ],
-            type: "row",
-          },
+          this.props.language === "shell"
+            ? SHELL_EXERCISE_CONTENT(this.props)
+            : NORMAL_EXERCISE_CONTENT(this.props),
         ],
         dimensions: {
           headerHeight: 30,
@@ -184,6 +199,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       wrap(SolutionEditor, this.store)
     );
     this.layout.registerComponent("Plot", wrap(Plot, this.store));
+    this.layout.registerComponent("Terminal", wrap(Terminal, this.store));
 
     requestAnimationFrame(() => {
       window.addEventListener("resize", () => this.layout.updateSize());
@@ -191,7 +207,9 @@ export class App extends React.Component<IAppProps, IAppState> {
         window.dispatchEvent(new Event("resize"));
 
         const editorItem = this.layout.root.getItemsById("editor")[0] as any;
-        editorItem.parent.setActiveContentItem(editorItem);
+        if (editorItem) {
+          editorItem.parent.setActiveContentItem(editorItem);
+        }
       });
 
       this.layout.on("stateChanged", () => {
@@ -216,26 +234,35 @@ export class App extends React.Component<IAppProps, IAppState> {
       this.layout.init();
 
       const consoleItem = this.layout.root.getItemsById("console")[0] as any;
-      consoleItem.on("resize", () => {
-        this.store.dispatch(
-          setRenderSize({
-            width: consoleItem.container.width,
-            height: consoleItem.container.height - 48,
-          })
-        );
+      if (consoleItem) {
+        consoleItem.on("resize", () => {
+          this.store.dispatch(
+            setRenderSize({
+              width: consoleItem.container.width,
+              height: consoleItem.container.height - 48,
+            })
+          );
 
-        if ((this.layout as any)._updatingColumnsResponsive) {
-          const editorItem = this.layout.root.getItemsById("editor")[0] as any;
-          editorItem.parent.setActiveContentItem(editorItem);
-        }
-      });
+          if ((this.layout as any)._updatingColumnsResponsive) {
+            const editorItem = this.layout.root.getItemsById(
+              "editor"
+            )[0] as any;
+            editorItem.parent.setActiveContentItem(editorItem);
+          }
+        });
+      }
     });
   }
 
   updateActiveElement() {
     let el: Node = document.activeElement;
 
-    if (!el || !this.layout || !this.layout.root) {
+    if (
+      !el ||
+      !this.layout ||
+      !this.layout.root ||
+      this.layout.root.getItemsById("editor").length <= 0
+    ) {
       return;
     }
 

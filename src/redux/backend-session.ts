@@ -33,7 +33,7 @@ import Multiplexer, {
 import { State } from "./";
 import { setId } from "./exercise";
 import { viewsStart } from "./view";
-import { selectId, selectLanguage } from "./exercise";
+import { selectId, selectLanguage, selectListener } from "./exercise";
 
 import ExerciseService from "../helpers/baseExercise";
 import getOutputAction from "../helpers/output";
@@ -296,6 +296,7 @@ export const epicStartSession: Epic<Action, State> = (action$, store) => {
 
       mux.start(options, startSessionAction.payload.initCommands);
     })
+    .do(() => selectListener(store.getState())("start", undefined))
     .concatMapTo(Observable.empty());
 };
 
@@ -318,7 +319,14 @@ export const epicSubmitCode: Epic<Action, State> = (action$, store) => {
       getMux(dclId).input({
         ...commandConfig,
       });
+
+      return commandConfig;
     })
+    .do(config =>
+      selectListener(store.getState())("submit", {
+        code: config.code,
+      })
+    )
     .concatMapTo(Observable.empty());
 };
 

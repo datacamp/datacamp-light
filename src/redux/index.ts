@@ -56,6 +56,7 @@ import {
   epicSubmitCode,
   epicRestartSession,
 } from "./backend-session";
+import { epicPublishFeedback } from "./exercise";
 import { epicOutputFeedback, epicRegisterOutputMuxCallbacks } from "./output";
 import { epicResizePlot, epicExpandTab } from "./view";
 
@@ -69,4 +70,5 @@ export const epics: Array<Epic<Action, State, any>> = [
   epicOutputFeedback,
   epicResizePlot,
   epicExpandTab,
+  epicPublishFeedback,
 ];

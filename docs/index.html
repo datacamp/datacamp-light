@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>DataCamp Light React</title>
+    <link rel='shortcut icon' type='image/x-icon' href='https://www.datacamp.com/assets/favicon.ico'/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism.min.css" type="text/css" media="screen" />
+    <style>
+      .exercise {
+        margin-bottom: 50px;
+      }
+
+      html, body {
+        min-height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        font-family: Lato, "Helvetica Neue", Helvetica, "Segoe UI", sans-serif;
+        font-size: 100%;
+        line-height: 1.4em;
+        color: #686f75;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        color: #3d4251;
+      }
+
+      a, summary {
+        color: #3ac;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      a:hover, summary:hover {
+        border-bottom: 1px solid #3ac;
+      }
+
+      a:active, summary:hover {
+        text-decoration: none;
+      }
+
+      ul {
+        padding-left: 1.4em;
+      }
+
+      dt {
+        font-style: italic;
+      }
+
+      dd {
+        margin-bottom: 1em;
+      }
+
+      hr {
+        border: 0;
+        height: 0;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        margin: 2em 0;
+      }
+
+      header {
+        background: linear-gradient(141deg, #2388b0, #3ac);
+      }
+
+      header h1 {
+        padding: 0;
+        margin: 0;
+        font-size: 18px;
+        font-weight: normal;
+        color: rgba(255, 255, 255, .8);
+      }
+
+      main, .container {
+        margin: auto;
+        max-width: 970px;
+        padding: 20px 10px;
+      }
+
+      p.lead {
+        font-size: 1.4em;
+        line-height: 1.4em;
+        margin-bottom: 1.4em;
+      }
+
+      p.subtitle {
+        font-style: italic;
+      }
+
+      pre {
+        max-width: 100%;
+        overflow-x: scroll;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>DataCamp Light</h1>
+      </div>
+    </header>
+
+    <main>
+
+      <p class="lead">
+        With DataCamp Light, anyone can create an interactive learning platform for data science.
+      </p>
+
+      <h2>Features</h2>
+      <ul>
+        <li>Convert any website or blog to an interactive learning platform</li>
+        <li>Work for R, Python and shell</li>
+        <li>All the heavy lifting for running code is handled by DataCamp servers</li>
+      </ul>
+
+      <h2>Contents</h2>
+      <ul>
+        <li>
+          <a href="#examples">Examples</a>
+          <ul>
+            <li>
+              <a href="#example-r">R Exercise</a>
+            </li>
+            <li>
+              <a href="#example-shell">Shell Exercise</a>
+            </li>
+            <li>
+              <a href="#example-python">Python Exercise</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#tutorial">Tutorial</a>
+          <ul>
+            <li>
+              <a href="#tutorial-installation">Installation</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#more-examples">More Examples</a>
+        </li>
+      </ul>
+
+
+      <hr />
+
+      <a name="examples"></a>
+      <h2>Examples</h2>
+
+      <div class="exercise">
+        <a name="example-r"></a>
+        <div class="title">
+          <h3>R Exercise</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="r" id="r-exercise">
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+            # Calculate 3 + 4
+            3 + 4
+
+            # Calculate 6 + 12
+          </code>
+          <code data-type="solution">
+            # Calculate 3 + 4
+            3 + 4
+
+            # Calculate 6 + 12
+            6 + 12
+          </code>
+          <code data-type="sct">
+            test_output_contains(&quot;18&quot;, incorrect_msg = &quot;Make sure to add `6 + 12` on a new line. Do not start the line with a `#`, otherwise your R code is not executed!&quot;)
+            success_msg(&quot;Awesome! See how the console shows the result of the R code you submitted? Now that you&#39;re familiar with the interface, let&#39;s get down to R business!&quot;)
+          </code>
+        </div>
+
+        <details>
+          <summary>Source Code</summary>
+          <pre><code class="language-html">&lt;div data-datacamp-exercise data-lang=&quot;r&quot; data-height=&quot;500&quot; id=&quot;r-exercise&quot;&gt;
+  &lt;code data-type=&quot;pre-exercise-code&quot;&gt;# no pec&lt;/code&gt;
+  &lt;code data-type=&quot;sample-code&quot;&gt;
+    # Calculate 3 + 4
+    3 + 4
+
+    # Calculate 6 + 12
+  &lt;/code&gt;
+  &lt;code data-type=&quot;solution&quot;&gt;
+    # Calculate 3 + 4
+    3 + 4
+
+    # Calculate 6 + 12
+    6 + 12
+  &lt;/code&gt;
+  &lt;code data-type=&quot;sct&quot;&gt;
+    test_output_contains(&amp;quot;18&amp;quot;, incorrect_msg = &amp;quot;Make sure to add `6 + 12` on a new line. Do not start the line with a `#`, otherwise your R code is not executed!&amp;quot;)
+    success_msg(&amp;quot;Awesome! See how the console shows the result of the R code you submitted? Now that you&amp;#39;re familiar with the interface, let&amp;#39;s get down to R business!&amp;quot;)
+  &lt;/code&gt;
+&lt;/div&gt;</code></pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <a name="example-shell"></a>
+        <div class="title">
+          <h3>Shell Exercise</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="shell" id="shell-example">
+          <div data-type="hint">Type <code>cd [directory]</code> to go to [directory].</div>
+          <code data-type="sct">
+          Ex() >> test_student_typed(r'\s*cd(\s+(\.\.|\~))?\s*',
+                                    fixed=False,
+                                    msg='Use `cd ..` to go up a level or `cd ~` to return home.')
+          </code>
+        </div>
+
+        <details>
+          <summary>Source Code</summary>
+          <pre><code class="language-html">&lt;div data-datacamp-exercise data-lang=&quot;shell&quot; data-height=&quot;500&quot; id=&quot;shell-example&quot;&gt;
+  &lt;div data-type=&quot;hint&quot;&gt;Type &lt;code&gt;cd [directory]&lt;/code&gt; to go to [directory].&lt;/div&gt;
+  &lt;code data-type=&quot;sct&quot;&gt;
+    Ex() &gt;&gt; test_student_typed(r'\s*cd(\s+(\.\.|\~))?\s*',
+                              fixed=False,
+                              msg='Use `cd ..` to go up a level or `cd ~` to return home.')
+  &lt;/code&gt;
+&lt;/div&gt;</code></pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <a name="example-python"></a>
+        <div class="title">
+          <h3>Python Exercise</h3>
+        </div>
+
+        <div data-datacamp-exercise data-lang="python">
+          <code data-type="pre-exercise-code">
+            # no pec
+          </code>
+          <code data-type="sample-code">
+            # Create a variable a, equal to 5
+
+
+            # Print out a
+
+          </code>
+          <code data-type="solution">
+            # Create a variable a, equal to 5
+            a = 5
+
+            # Print out a
+            print(a)
+          </code>
+          <code data-type="sct">
+            test_object("a")
+            test_function("print")
+            success_msg("Great job!")
+          </code>
+          <div data-type="hint">
+            Use the assignment operator (<code>=</code>) to create the variable <code>a</code>.
+          </div>
+        </div>
+
+        <details>
+          <summary>Source Code</summary>
+          <pre><code class="language-html">&lt;div data-datacamp-exercise data-lang=&quot;python&quot;&gt;
+  &lt;code data-type=&quot;pre-exercise-code&quot;&gt;
+    # no pec
+  &lt;/code&gt;
+  &lt;code data-type=&quot;sample-code&quot;&gt;
+    # Create a variable a, equal to 5
+
+
+    # Print out a
+
+  &lt;/code&gt;
+  &lt;code data-type=&quot;solution&quot;&gt;
+    # Create a variable a, equal to 5
+    a = 5
+
+    # Print out a
+    print(a)
+  &lt;/code&gt;
+  &lt;code data-type=&quot;sct&quot;&gt;
+    test_object(&quot;a&quot;)
+    test_function(&quot;print&quot;)
+    success_msg(&quot;Great job!&quot;)
+  &lt;/code&gt;
+  &lt;div data-type=&quot;hint&quot;&gt;
+    Use the assignment operator (&lt;code&gt;=&lt;/code&gt;) to create the variable &lt;code&gt;a&lt;/code&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </details>
+      </div>
+
+
+
+
+
+
+      <a name="tutorial"></a>
+      <h2>Tutorial</h2>
+
+
+      <h3>Installation</h3>
+      <p>To install DataCamp Light into your website, just add the following script tag:</p>
+
+      <pre><code class="language-html">&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.datacamp.com/dcl-react.js.gz&quot;&gt;&lt;/script&gt;</code></pre>
+
+
+      <h3>Writing an Exercise</h3>
+      <p>
+        To create an exercise, add a <code>&lt;div&gt;</code> tag with the <code>data-datacamp-exercise</code> property to denote that DataCamp Light should parse this block, and a <code>data-lang="python"</code> property to denote the language of this exercise. Possible options are <code>r</code>, <code>python</code> and <code>shell</code>.
+      </p>
+
+<pre><code class="language-html">&lt;div data-datacamp-exercise data-lang="r"&gt;
+  &lt;!-- The exercise specification will go here --&gt;
+&lt;/div&gt;</code></pre>
+
+      <p>
+        Now you can start specifying the exercise. An exercise has the following parts:
+      </p>
+      <dl>
+        <dt>Pre-exercise code</dt>
+        <dd>
+          This code will be run <em>before</em> any other code. This is useful if you want to load some packages or initialize some variables beforehand.
+        </dd>
+
+        <dt>Sample code</dt>
+        <dd>
+          This code will be present in the editor when your student opens the page.
+        </dd>
+
+        <dt>Solution</dt>
+        <dd>
+          The code that you consider "correct".
+        </dd>
+
+        <dt>Submission Correctness Test (SCT)</dt>
+        <dd>
+          This is the code that will check if your student's code is correct or not.
+          For more information, look at the <a href="https://github.com/datacamp/testwhat">documentation for R</a> and the <a href="https://github.com/datacamp/pythonwhat">documentation for Python</a>.
+        </dd>
+      </dl>
+
+      <h4>To Be Continuted...</h4>
+      <p>
+        We're still working on this web page! In the mean time, you can read
+        <a href="https://github.com/datacamp/datacamp-light/tree/beta">the README on our
+          GitHub repository</a>.
+      </p>
+
+
+
+
+
+      <a name="more-examples"></a>
+      <h2>More Examples</h2>
+
+
+      <div class="exercise">
+        <div class="title">
+          <h3>Python playground with a plot</h3>
+          <p>If you omit the <code>sct</code> (sample correctness test), you can just use DataCamp Light to play with the code.</p>
+        </div>
+
+        <div data-datacamp-exercise data-lang="python" data-height="auto">
+          <code data-type="pre-exercise-code"></code>
+          <code data-type="sample-code">
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        x = np.arange(0, 5, 0.1);
+        y = np.sin(x)
+        plt.plot(x, y)
+        plt.show()
+          </code>
+          <code data-type="solution"></code>
+          <code data-type="sct"></code>
+          <div data-type="hint">Just press 'Run'.</div>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="title">
+          <h3>Exercise + Playground</h3>
+          <p>Add <code>data-show-run-button</code> to the exercise tag to always show the "Run" button, so your visitors can try out the code without submitting it.</p>
+        </div>
+        <div data-datacamp-exercise data-lang="r" data-height="auto" data-show-run-button>
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+        # An addition
+        5 + 5
+
+        # A subtraction
+        5 - 5
+
+        # A multiplication
+        3 * 5
+
+        # A division
+        (5 + 5) / 2
+
+        # Exponentiation
+
+
+        # Modulo
+
+
+
+        # End
+          </code>
+          <code data-type="solution">
+        # An addition
+        5 + 5
+
+        # A subtraction
+        5 - 5
+
+        # A multiplication
+        3 * 5
+
+        # A division
+        (5 + 5) / 2
+
+        # Exponentiation
+        2 ^ 5
+
+        # Modulo
+        28 %% 6
+          </code>
+          <code data-type="sct">
+        msg = &quot;Do not remove the other arithmetic examples!&quot;
+        test_output_contains(&quot;2^5&quot;, incorrect_msg = &quot;The exponentiation
+        example
+        is not correct. Write `2 ^ 5` on a new line.&quot;)
+        test_output_contains(&quot;28 %% 6&quot;, incorrect_msg = &quot;There seems to be an
+        issue with the modulo example. Write `28 %% 6` on a new line.&quot;)
+        success_msg(&quot;Great! Head over to the next exercise.&quot;)
+          </code>
+          <div data-type="hint">
+            <p>Another example of the modulo operator:
+              <code>9 %% 2</code> equals
+              <code>1</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="exercise">
+        <div class="title">
+          <h3>Variable assignment</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="r" data-height="350">
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+        # Assign the value 42 to x
+        x &lt;-
+
+        # Print out the value of the variable x
+        x
+          </code>
+          <code data-type="solution">
+        # Assign the value 42 to x
+        x &lt;- 42
+
+        # Print out the value of the variable x
+        x
+          </code>
+          <code data-type="sct">
+        test_object(&quot;x&quot;, undefined_msg = &quot;Make sure to define a variable `x`.&quot;,
+        incorrect_msg = &quot;Make sure that you assign the correct value to `x`.&quot;)
+        success_msg(&quot;Good job! Have you noticed that R does not print the value of a
+        variable to the console when you did the assignment? `x &lt;- 42` did not generate
+        any
+        output, because R assumes that you will be needing this variable in the future.
+        Otherwise you wouldn&#39;t have stored the value in a variable in the first place,
+        right? Proceed to the next exercise!&quot;)
+          </code>
+          <div data-type="hint">
+            <p>Look at how the value 4 was assigned to
+              <code>my_variable</code> in the exercise&#39;s assignment. Do the exact same
+              thing
+              in the editor, but now assign 42 to the variable
+              <code>x</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="exercise">
+        <div class="title">
+          <h3>Variable assignment (2)</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="r" data-height="350">
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+        # Assign the value 5 to the variable my_apples
+
+
+        # Print out the value of the variable my_apples
+          </code>
+          <code data-type="solution">
+        # Assign the value 5 to the variable my_apples
+        my_apples &lt;- 5
+
+        # Print out the value of the variable my_apples
+        my_apples
+          </code>
+          <code data-type="sct">
+        test_object(&quot;my_apples&quot;,
+        undefined_msg = &quot;Please make sure to define a variable `my_apples`.&quot;,
+        incorrect_msg = &quot;Make sure that you assign the correct value to `my_apples`.&quot;)
+        test_output_contains(&quot;my_apples&quot;, incorrect_msg = &quot;Have you
+        explicitly
+        told R to print out the `my_apples` variable to the console?&quot;)
+        success_msg(&quot;Great! Continue to the next exercise!&quot;)
+          </code>
+          <div data-type="hint">
+            <p>Remember that if you want to assign a number or an object to a variable in R, you
+              can
+              make use of the assignment operator
+              <code>&lt;-</code>. Alternatively, you can use
+              <code>=</code>, but
+              <code>&lt;-</code> is widely preferred in the R community.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="exercise">
+        <div class="title">
+          <h3>Variable assignment (3)</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="r" data-height="350">
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+        # Assign a value to the variables my_apples and my_oranges
+        my_apples &lt;- 5
+
+
+        # Add these two variables together
+
+
+        # Create the variable my_fruit
+          </code>
+          <code data-type="solution">
+        # Assign a value to the variables my_apples and my_oranges
+        my_apples &lt;- 5
+        my_oranges &lt;- 6
+
+        # Add these two variables together
+        my_apples + my_oranges
+
+        # Create the variable my_fruit
+        my_fruit &lt;- my_apples + my_oranges
+          </code>
+          <code data-type="sct">
+        test_object(&quot;my_apples&quot;, incorrect_msg = &quot;Keep the line that assigns
+        5 to
+        `my_apples`.&quot;)
+        test_object(&quot;my_oranges&quot;, incorrect_msg = &quot;Keep the line that assigns
+        6
+        to `my_oranges`.&quot;)
+        test_output_contains(&quot;my_apples + my_oranges&quot;,
+        incorrect_msg = &quot;Make sure to print out the result of adding `my_apples` and
+        `my_oranges`. The code example in the description already gives away the answer to
+        this
+        instruction!&quot;)
+        msg &lt;- &quot;Have you used `my_fruit &lt;- my_apples + my_oranges` to create the
+        `my_fruit` variable?&quot;
+        test_object(&quot;my_fruit&quot;, undefined_msg = msg, incorrect_msg = msg)
+        success_msg(&quot;Nice one! The great advantage of doing calculations with variables
+        is
+        reusability. If you just change `my_apples` to equal 12 instead of 5 and rerun the
+        script, `my_fruit` will automatically update as well. Continue to the next exercise.&quot;)
+          </code>
+          <div data-type="hint">
+            <p>
+              <code>my_fruit</code> is just the sum of
+              <code>my_apples</code> and
+              <code>my_oranges</code>. You can use the
+              <code>+</code> operator to sum the two and
+              <code>&lt;-</code> to assign that value to the variable
+              <code>my_fruit</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="exercise">
+        <div class="title">
+          <h3>Apples and oranges</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="r" data-height="350">
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+        # Assign a value to the variable my_apples
+        my_apples &lt;- 5
+
+        # Fix the assignment of my_oranges
+        my_oranges &lt;- &quot;six&quot;
+
+        # Create the variable my_fruit and print it out
+        my_fruit &lt;- my_apples + my_oranges
+        my_fruit
+          </code>
+          <code data-type="solution">
+        # Assign a value to the variable my_apples
+        my_apples &lt;- 5
+
+        # Fix the assignment of my_oranges
+        my_oranges &lt;- 6
+
+        # Create the variable my_fruit and print it out
+        my_fruit &lt;- my_apples + my_oranges
+        my_fruit
+          </code>
+          <code data-type="sct">
+        test_error(incorrect_msg = &quot;You can do this by setting the `my_oranges`
+        variable to
+        a numeric value, not a string!&quot;)
+        test_object(&quot;my_apples&quot;, incorrect_msg = &quot;Make sure that `my_apples`
+        still contains `5`.&quot;)
+        test_object(&quot;my_oranges&quot;, incorrect_msg = &quot;Make sure that
+        `my_oranges` is
+        equal to `6`.&quot;)
+        test_object(&quot;my_fruit&quot;, incorrect_msg = &quot;The value of `my_fruit` is
+        not
+        correct. It should be 11, the sum of `my_apples` and `my_oranges`.&quot;)
+        test_output_contains(&quot;my_fruit&quot;, incorrect_msg = &quot;Don&#39;t remove
+        the
+        line that prints out `my_fruit`.&quot;)
+        success_msg(&quot;Awesome, keep up the good work! Continue to the next exercise.&quot;)
+          </code>
+          <div data-type="hint">
+            <p>You have to assign the numeric value
+              <code>6</code> to the
+              <code>my_oranges</code> variable instead of the character value
+              <code>&quot;six&quot;</code>. Note how the quotation marks are used to indicate
+              that
+              <code>&quot;six&quot;</code> is a character.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="exercise">
+        <div class="title">
+          <h3>Basic data types in R</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="r" data-height="350">
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+        # Change my_numeric to be 42
+        my_numeric &lt;- 42.5
+
+        # Change my_character to be &quot;universe&quot;
+        my_character &lt;- &quot;some text&quot;
+
+        # Change my_logical to be FALSE
+        my_logical &lt;- TRUE
+          </code>
+          <code data-type="solution">
+        # Change my_numeric to be 42
+        my_numeric &lt;- 42
+
+        # Change my_character to be &quot;universe&quot;
+        my_character &lt;- &quot;universe&quot;
+
+        # Change my_logical to be FALSE
+        my_logical &lt;- FALSE
+          </code>
+          <code data-type="sct">
+        test_object(&quot;my_numeric&quot;, incorrect_msg = &quot;Have you correctly changed
+        the
+        declaration of `my_numeric` so it contains the value 42?&quot;)
+        test_object(&quot;my_character&quot;, incorrect_msg = &quot;Have you correctly
+        changed
+        `my_character` to `\&quot;universe\&quot;`? Don&#39;t forget the quotes!&quot;)
+        test_object(&quot;my_logical&quot;, incorrect_msg = &quot;Have you correctly changed
+        `my_logical` to `FALSE`? All letters of `FALSE` should be capitalized!&quot;)
+        success_msg(&quot;Great work! Continue to the next exercise.&quot;)
+          </code>
+          <div data-type="hint">
+            <p>Replace the values in the editor with the values that are provided in the
+              exercise.
+              For example:
+
+              <code>my_numeric &lt;- 42</code> assigns the value 42 to the variable
+              <code>my_numeric</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="exercise">
+        <div class="title">
+          <h3>What's that data type?</h3>
+        </div>
+        <div data-datacamp-exercise data-lang="r" data-height="350">
+          <code data-type="pre-exercise-code"># no pec</code>
+          <code data-type="sample-code">
+        # Declare variables of different types
+        my_numeric &lt;- 42
+        my_character &lt;- &quot;universe&quot;
+        my_logical &lt;- FALSE
+
+        # Check class of my_numeric
+        class(my_numeric)
+
+        # Check class of my_character
+
+
+        # Check class of my_logical
+          </code>
+          <code data-type="solution">
+        # Declare variables of different types:
+        my_numeric &lt;- 42
+        my_character &lt;- &quot;universe&quot;
+        my_logical &lt;- FALSE
+
+        # Check class of my_numeric
+        class(my_numeric)
+
+        # Check class of my_character
+        class(my_character)
+
+        # Check class of my_logical
+        class(my_logical)
+          </code>
+          <code data-type="sct">
+        msg &lt;- &quot;Do not change the declaration of the variables!&quot;
+        lapply(c(&quot;my_numeric&quot;, &quot;my_character&quot;, &quot;my_logical&quot;),
+        test_object, undefined_msg = msg, incorrect_msg = msg)
+        patt &lt;- &quot;Have you included `class(%1$s)` to print out the data type of
+        `%1$s`?&quot;
+        test_output_contains(&quot;class(my_numeric)&quot;,
+        incorrect_msg = &quot;Do not remove the code that prints out the type of
+        `my_numeric`.&quot;)
+        test_output_contains(&quot;class(my_character)&quot;,
+        incorrect_msg = sprintf(patt, &quot;my_character&quot;))
+        test_output_contains(&quot;class(my_logical)&quot;,
+        incorrect_msg = sprintf(patt, &quot;my_logical&quot;))
+        success_msg(&quot;Congratulations! This was the last exercise for this chapter. Head
+        over to the next chapter to get immersed in the world of vectors!&quot;)
+          </code>
+          <div data-type="hint">
+            <p>The code that prints the data type of
+              <code>my_numeric</code> is already included; do a similar things for
+              <code>my_character</code> and
+              <code>my_logical</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script async src="https://cdn.datacamp.com/dcl-react.js.gz"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/prism.min.js"></script>
+
+  </body>
+</html>

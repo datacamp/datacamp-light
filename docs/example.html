@@ -10,7 +10,7 @@
     }
   </style>
 
-  <script async src="https://cdn.datacamp.com/dcl-react.js.gz"></script>
+  <script async src="https://cdn.datacamp.com/dcl-react-dev.js.gz"></script>
 </head>
 <body>
   <div class="exercise">
@@ -67,6 +67,21 @@
       </div>
     </div>
   </div>
+
+  <div class="exercise">
+    <div class="title">
+      <h2>Shell Exercise</h2>
+    </div>
+    <div data-datacamp-exercise data-lang="shell" data-height="500" id="shell-example">
+      <div data-type="hint">Type <code>cd [directory]</code> to go to [directory].</div>
+      <code data-type="sct">
+          Ex() >> test_student_typed(r'\s*cd(\s+(\.\.|\~))?\s*',
+                                    fixed=False,
+                                    msg='Use `cd ..` to go up a level or `cd ~` to return home.')
+      </code>
+    </div>
+  </div>
+
   <div class="exercise">
     <div class="title">
       <h2>Arithmetic with R</h2>

@@ -1,6 +1,7 @@
 <h1 align="center">DataCamp Light</h1>
 <p align="center">
-  <a href="https://github.com/datacamp/datacamp-light/projects/1">Roadmap</a>
+  <a href="https://github.com/datacamp/datacamp-light/projects/1">Roadmap</a> |
+  <a href="https://cdn.datacamp.com/dcl-react-prod/index.html"
 </p>
 <p align="center">
   <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>
@@ -9,7 +10,7 @@
 *This is is the all-new DataCamp Light. To access the old
 version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc50b590bbf34bfffaba8fb1a0d929f5)*
 
-[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/index.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html)
 
 <details>
 <summary><strong>Table of Contents</strong></summary>

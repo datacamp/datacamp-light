@@ -1,7 +1,7 @@
 <h1 align="center">DataCamp Light</h1>
 <p align="center">
   <a href="https://github.com/datacamp/datacamp-light/projects/1">Roadmap</a> |
-  <a href="https://cdn.datacamp.com/dcl-react-prod/index.html"
+  <a href="https://cdn.datacamp.com/dcl-react-prod/index.html">Docs</a>
 </p>
 <p align="center">
   <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>

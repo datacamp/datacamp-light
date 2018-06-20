@@ -109,7 +109,7 @@ workflows:
           filters:
             branches:
               only:
-                - beta
+                - master
       - deploy-prod:
           requires:
             - build

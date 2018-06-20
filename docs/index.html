@@ -5,12 +5,8 @@
     <title>DataCamp Light React</title>
     <link rel='shortcut icon' type='image/x-icon' href='https://www.datacamp.com/assets/favicon.ico'/>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css" type="text/css" media="screen" />
     <style>
-      .exercise {
-        margin-bottom: 50px;
-      }
-
       html, body {
         min-height: 100%;
         width: 100%;
@@ -18,27 +14,107 @@
         margin: 0;
         font-family: Lato, "Helvetica Neue", Helvetica, "Segoe UI", sans-serif;
         font-size: 100%;
-        line-height: 1.4em;
-        color: #686f75;
+        line-height: 1.618em;
+        color: #3d4251;
+        background: #fafafa;
+        scroll-behavior: smooth;
+      }
+
+      p, ul, dl {
+        max-width: 660px;
+      }
+
+      p {
+        margin-top: 0;
+        margin-bottom: 1rem;
       }
 
       h1, h2, h3, h4, h5, h6 {
-        color: #3d4251;
+        color: black;
+        line-height: 1.618em;
+        font-weight: normal;
+      }
+
+      h1 {
+        font-size: 4.236rem;
+        margin-top: 2.618rem;
+        margin-bottom: 1.618rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+        margin-top: 4.236rem;
+        margin-bottom: 0.618rem;
+      }
+
+      h1 + h2, h1 + a + h3 {
+        margin-top: 0;
+      }
+
+      h3 {
+        font-size: 1.618rem;
+        margin-top: 2.618rem;
+        margin-bottom: 0.618rem;
+      }
+
+      h2 + h3, h2 + a + h3 {
+        margin-top: 0;
+      }
+
+      h4 {
+        font-size: 1.294rem;
+        margin-top: 1.618rem;
+        margin-bottom: 0.618rem;
+      }
+
+      h3 + h4, h3 + a + h4 {
+        margin-top: 0;
+      }
+
+      h5 {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-top: 0.618rem;
+        margin-bottom: 0;
+      }
+
+      h6 {
+        font-size: 0.618rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 0;
       }
 
       a, summary {
         color: #3ac;
         text-decoration: none;
         cursor: pointer;
-        font-weight: bold;
+        border-bottom: 0px solid #3ac;
       }
 
       a:hover, summary:hover {
-        border-bottom: 1px solid #3ac;
+        border-bottom-width: 1px;
       }
 
       a:active, summary:hover {
         text-decoration: none;
+      }
+
+      pre {
+        line-height: 1.4em;
+      }
+
+      p code, ul code, dl code {
+        display: inline-block;
+        padding: 0 5px;
+        border-radius: 4px;
+        background: #e6eaeb;
+        color: #3d4251;
+      }
+
+      dt code {
+        font-style: normal;
       }
 
       ul {
@@ -90,7 +166,6 @@
 
       pre {
         max-width: 100%;
-        overflow-x: scroll;
       }
     </style>
 
@@ -109,14 +184,14 @@
         With DataCamp Light, anyone can create an interactive learning platform for data science.
       </p>
 
-      <h2>Features</h2>
+      <h4>Features</h4>
       <ul>
         <li>Convert any website or blog to an interactive learning platform</li>
         <li>Work for R, Python and shell</li>
         <li>All the heavy lifting for running code is handled by DataCamp servers</li>
       </ul>
 
-      <h2>Contents</h2>
+      <h4>Contents</h4>
       <ul>
         <li>
           <a href="#examples">Examples</a>
@@ -139,6 +214,34 @@
             <li>
               <a href="#tutorial-installation">Installation</a>
             </li>
+            <li>
+              <a href="#tutorial-exercise">Writing an Exercise</a>
+            </li>
+            <ul>
+              <li>
+                <a href="#tutorial-exercise-element">Create the Exercise Element</a>
+              </li>
+              <li>
+                <a href="#tutorial-exercise-learn-blocks">Learn about Exercise Blocks</a>
+              </li>
+              <li>
+                <a href="#tutorial-exercise-create-blocks">Create Exercise Blocks</a>
+              </li>
+            </ul>
+            <li>
+              <a href="#tutorial-customizing">Customizing DataCamp Light</a>
+            </li>
+            <ul>
+              <li>
+                <a href="#tutorial-customizing-exercise">Exercise Options</a>
+              </li>
+              <li>
+                <a href="#tutorial-customizing-init">Initialize New Exercises</a>
+              </li>
+              <li>
+                <a href="#tutorial-customizing-integrating">Integrating with your own Application</a>
+              </li>
+            </ul>
           </ul>
         </li>
 
@@ -152,6 +255,9 @@
 
       <a name="examples"></a>
       <h2>Examples</h2>
+      <p>
+        Try out some exercises and check out the source code for a quick copy-paste.
+      </p>
 
       <div class="exercise">
         <a name="example-r"></a>
@@ -306,55 +412,183 @@
       <h2>Tutorial</h2>
 
 
+      <a name="tutorial-installation"></a>
       <h3>Installation</h3>
       <p>To install DataCamp Light into your website, just add the following script tag:</p>
 
       <pre><code class="language-html">&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.datacamp.com/dcl-react.js.gz&quot;&gt;&lt;/script&gt;</code></pre>
 
 
+      <a name="tutorial-exercise"></a>
       <h3>Writing an Exercise</h3>
+      <a name="tutorial-exercise-element"></a>
+      <h4>Create the Exercise Element</h4>
       <p>
-        To create an exercise, add a <code>&lt;div&gt;</code> tag with the <code>data-datacamp-exercise</code> property to denote that DataCamp Light should parse this block, and a <code>data-lang="python"</code> property to denote the language of this exercise. Possible options are <code>r</code>, <code>python</code> and <code>shell</code>.
+        To create an exercise, add a <code>&lt;div&gt;</code> tag with the <code>data-datacamp-exercise</code> property to denote that DataCamp Light should parse this element, and a <code>data-lang="python"</code> property to denote the language of this exercise. Possible options are <code>r</code>, <code>python</code> and <code>shell</code>.
       </p>
 
-<pre><code class="language-html">&lt;div data-datacamp-exercise data-lang="r"&gt;
+      <pre><code class="language-html">&lt;div data-datacamp-exercise data-lang="r"&gt;
   &lt;!-- The exercise specification will go here --&gt;
 &lt;/div&gt;</code></pre>
 
+      <a name="tutorial-exercise-learn-blocks"></a>
+      <h4>Learn about Exercise Blocks</h4>
       <p>
-        Now you can start specifying the exercise. An exercise has the following parts:
+        An exercise consists of different blocks. You'll be familiar with these
+        already if you've created a course on DataCamp.
       </p>
+      <p>
+        When you start a DataCamp Light exercise, DataCamp prepares the workspace behind the scenes using the <em>pre-exercise code</em>. Then, the <em>sample code</em> is displayed to the student. The student can optionally request a <em>hint</em> if he or she is stuck, or request to see the <em>solution</em>. When the student clicks the &ldquo;Submit&rdquo; button, the <em>sample correctness test</em> is executed to verify the student's solution.
+      </p>
+
+      <p>
+        You don't have to specify <em>all</em> of these elements in every exercise.
+        DataCamp Light will behave slightly differently based on what you
+        specify. For example,
+      </p>
+
+      <ul>
+        <li>If you don't specify an SCT, there will be no &ldquo;Submit&rdquo;
+          button: you can just play around with the language. There will instead
+          be a &ldquo;Run&rdquo; button that executes all the code in the
+          editor.</li>
+        <li>If you specify a solution, a button will appear so that your student
+          can view and execute the correct solution.If you don't, that button is
+          simply not visible.</li>
+      </ul>
+
+      <a name="tutorial-exercise-create-blocks"></a>
+      <h4>Create Exercise Blocks</h4>
+      <p>
+        To specify these blocks in your exercise, add a <code>&lt;code&gt;</code> element
+        within the exercise <code>&lt;div&gt;</code> and specify the type by adding a
+        <code>data-type="_____"</code> attribute. For example:
+      </p>
+
+      <h5>Pre-exercise code</h5>
+      <p>
+        This code will be run <em>before</em> any other code. This is useful
+        if you want to load some packages or initialize some variables
+        beforehand.
+      </p>
+      <pre><code class="lang-html">&lt;code data-type=&quot;pre-exercise-code&quot;&gt;
+	# This will get executed each time the exercise gets initialized
+	b = 6
+&lt;/code&gt;</code></pre>
+
+      <h5>Sample code</h5>
+      <p>
+        This code will be present in the editor when your student opens the
+        page.
+      </p>
+      <pre><code class="lang-html">&lt;code data-type=&quot;sample-code&quot;&gt;
+	# Create a variable a, equal to 5
+
+
+	# Print out a
+
+&lt;/code&gt;</code></pre>
+
+      <h5>Solution</h5>
+      <p>
+        The code that you consider "correct". This will show up when the user
+        presses the "Solution" button.
+      </p>
+
+      <pre><code class="lang-html">&lt;code data-type=&quot;solution&quot;&gt;
+	# Create a variable a, equal to 5
+	a &amp;lt;- 5
+
+	# Print out a
+	print(a)
+&lt;/code&gt;</code></pre>
+
+      <h5>Pre-exercise code</h5>
+      <p>
+        This is the code that will check if your student's code is correct or not. For more information, look at the <a href="https://github.com/datacamp/testwhat">documentation for R</a> and the <a href="https://github.com/datacamp/pythonwhat">documentation for Python</a>.
+      </p>
+      <pre><code class="lang-html">&lt;code data-type=&quot;sct&quot;&gt;
+	test_object(&quot;a&quot;)
+	test_function(&quot;print&quot;)
+	success_msg(&quot;Great job!&quot;)
+&lt;/code&gt;</code></pre>
+
+      <h5>Hint</h5>
+      <p>
+        This will be shown when the student presses the &ldquo;Hint&rdquo; button.
+      </p>
+
+      <pre><code class="lang-html">&lt;div data-type=&quot;hint&quot;&gt;Use the assignment operator (&lt;code&gt;&amp;lt;-&lt;/code&gt;) to create the variable &lt;code&gt;a&lt;/code&gt;.&lt;/div&gt;</code></pre>
+
+
+      <a name="tutorial-customizing"></a>
+      <h3>Customizing DataCamp Light</h3>
+
+      <a name="tutorial-customizing-exercise"></a>
+      <h4>Exercise Options</h4>
+      <p>
+        Use these properties on your <code>&lt;div&gt;</code> to customize DataCamp Light's appearance:
+      </p>
+
       <dl>
-        <dt>Pre-exercise code</dt>
-        <dd>
-          This code will be run <em>before</em> any other code. This is useful if you want to load some packages or initialize some variables beforehand.
-        </dd>
+        <dt><code>data-datacamp-exercise</code></dt>
+        <dd>Required. Marks this block as an exercise.</dd>
 
-        <dt>Sample code</dt>
-        <dd>
-          This code will be present in the editor when your student opens the page.
-        </dd>
+        <dt><code>data-lang="myLanguage"</code></dt>
+        <dd>Required. Replace <code>myLanguage</code> with the language of your exercise. Options are: <code>r</code>, <code>python</code> and <code>shell</code>.</dd>
 
-        <dt>Solution</dt>
-        <dd>
-          The code that you consider "correct".
-        </dd>
+        <dt><code>data-height="300"</code></dt>
+        <dd>Specify the height of the exercise in pixels. The default and minimum value are both 300.</dd>
 
-        <dt>Submission Correctness Test (SCT)</dt>
-        <dd>
-          This is the code that will check if your student's code is correct or not.
-          For more information, look at the <a href="https://github.com/datacamp/testwhat">documentation for R</a> and the <a href="https://github.com/datacamp/pythonwhat">documentation for Python</a>.
-        </dd>
+        <dt><code>data-show-run-button</code></dt>
+        <dd>Add this property to always show the &ldquo;Run&rdquo; button, so the student can execute his code without submitting it.</dd>
       </dl>
 
-      <h4>To Be Continuted...</h4>
+
+      <a name="tutorial-customizing-initialize"></a>
+      <h4>Initialize New Exercises</h4>
       <p>
-        We're still working on this web page! In the mean time, you can read
-        <a href="https://github.com/datacamp/datacamp-light/tree/beta">the README on our
-          GitHub repository</a>.
+        If you added new exercise after the page was loaded (for example, in single-page applications),
+        you can manually ask DataCamp Light to find new exercises by executing the following JavaScript code:
+      </p>
+      <pre><code class="lang-javascript">DCL.init();</code></pre>
+
+
+      <a name="tutorial-customizing-integrating"></a>
+      <h4>Integrating with Your Own Application</h4>
+      <p>
+        If you want to keep track of your student's progress, DataCamp Light exposes a few events you can listen to.
+      </p>
+      <p>
+        First, be sure to manually specify an <code>id</code> for every exercise. If there is no <code>id</code>
+        present, a random UUID will be chosen.
+      </p>
+      <p>
+        All the exercises are exposed in a global <code>DCL.instances</code> object, where the key is the
+        <code>id</code> you specified. You can listen to their events by calling
+        <code>on(eventType, callback)</code> to add a callback. For example,
       </p>
 
+      <pre><code class="lang-javascript">DCL.instances["my-exercise-1"].on("feedback", payload => {
+  if (payload.correct) {
+    alert("You rock!");
+  }
+});</code></pre>
 
+      <p>The following events are currently supported:</p>
+
+      <dl>
+        <dt><code>start</code></dt>
+        <dd>Payload: <code>undefined</code>. Triggered when a session is started. This happens the first time a
+          user clicks within the exercise and when the session is restarted.</dd>
+
+        <dt><code>submit</code></dt>
+        <dd>Payload: <code>{ code: string }</code>. Triggered when the student submitted code.</dd>
+
+        <dt><code>feedback</code></dt>
+        <dd>Payload: <code>{ correct: boolean, content: string }</code>. Triggered when feedback from the
+          correctness test is received. The <code>content</code> is the feedback that is shown to the user.</dd>
+      </dl>
 
 
 
@@ -362,12 +596,9 @@
       <h2>More Examples</h2>
 
 
+      <h3>Python playground with a plot</h3>
+      <p>If you omit the <code>sct</code> (sample correctness test), you can just use DataCamp Light to play with the code.</p>
       <div class="exercise">
-        <div class="title">
-          <h3>Python playground with a plot</h3>
-          <p>If you omit the <code>sct</code> (sample correctness test), you can just use DataCamp Light to play with the code.</p>
-        </div>
-
         <div data-datacamp-exercise data-lang="python" data-height="auto">
           <code data-type="pre-exercise-code"></code>
           <code data-type="sample-code">
@@ -754,8 +985,10 @@
       </div>
     </main>
 
-    <script async src="https://cdn.datacamp.com/dcl-react.js.gz"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/prism.min.js"></script>
+    <script async src="./dcl-react.js.gz"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
   </body>
 </html>

@@ -1,4 +1,4 @@
-<h1 align="center">DataCamp Light<sup>Beta</sup></h1>
+<h1 align="center">DataCamp Light</h1>
 <p align="center">
   <a href="https://github.com/datacamp/datacamp-light/projects/1">Roadmap</a>
 </p>
@@ -7,9 +7,9 @@
 </p>
 
 *This is is the all-new DataCamp Light. To access the old
-version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
+version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc50b590bbf34bfffaba8fb1a0d929f5)*
 
-[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react/standalone-example.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/index.html)
 
 <details>
 <summary><strong>Table of Contents</strong></summary>
@@ -19,7 +19,6 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
 <!-- toc -->
 
 - [Features](#features)
-  * [We're in beta!](#were-in-beta)
 - [How to run the app](#how-to-run-the-app)
   * [Writing the HTML block](#writing-the-html-block)
   * [Pre-Exercise Code](#pre-exercise-code)
@@ -67,17 +66,6 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/master)*
   wiki](https://github.com/datacamp/testwhat/wiki)); for Python, there's
   [pythonwhat](https://github.com/datacamp/pythonwhat) ([GitHub
   wiki](https://github.com/datacamp/pythonwhat/wiki)).
-
-
-
-### We're in beta!
-
-We're still building this rewrite of DataCamp Light.
-Feel free to try it out and if you encounter problems or just have a great idea,
-just [create an issue](https://github.com/datacamp/datacamp-light/issues/new).
-Your feedback is appreciated!
-
-When you do, please add the *beta* label so we know which version you're talking about.
 
 
 

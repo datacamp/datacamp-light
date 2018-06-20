@@ -2,9 +2,9 @@
   "private": false,
   "name": "datacamp-light",
   "version": "1.2.0",
-  "description": "",
-  "main": "dist/datacamp-light.js",
-  "module": "dist/datacamp-light.es.js",
+  "description":
+    "Convert any blog or website to an interactive learning platform for data science",
+  "main": "dist/dcl-react.js",
   "scripts": {
     "start": "npm run serve",
     "start:dev": "webpack --env=dev",

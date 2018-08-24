@@ -14,8 +14,8 @@ export default {
         return {
           assets: "https://assets.datacamp.com",
           datacamp: "https://dev.datacamp.com/",
-          imb: "https://imb-dev.datacamp.com",
-          multiplexer: "https://multiplexer-prod.datacamp.com",
+          imb: "https://imb.datacamp-dev.com",
+          multiplexer: "https://multiplexer.datacamp-dev.com",
           projector: "https://projector-dev.herokuapp.com",
           rdoc: "https://dev.rdocumentation.org",
           slackNotifierUrl:
@@ -27,8 +27,8 @@ export default {
         return {
           assets: "https://assets.datacamp.com",
           datacamp: "https://staging.datacamp.com/",
-          imb: "https://imb-staging.datacamp.com",
-          multiplexer: "https://multiplexer-staging.datacamp.com",
+          imb: "https://imb.datacamp-staging.com",
+          multiplexer: "https://multiplexer.datacamp-staging.com",
           projector: "https://projector-staging.herokuapp.com",
           rdoc: "https://staging.rdocumentation.org",
           slackNotifierUrl:

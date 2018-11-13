@@ -25,7 +25,7 @@
       "prettier --trailing-comma es5 --write 'src/**/*.{ts,tsx,js,jsx,css,scss}'"
   },
   "author": "Marcel Samyn",
-  "license": "",
+  "license": "GPL-3.0",
   "dependencies": {
     "bluebird": "3.5.1",
     "brace": "git+https://github.com/datacamp/brace.git#v0.10.2",

@@ -10,7 +10,7 @@
 *This is is the all-new DataCamp Light. To access the old
 version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc50b590bbf34bfffaba8fb1a0d929f5)*
 
-[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html) [![Greenkeeper badge](https://badges.greenkeeper.io/datacamp/datacamp-light.svg)](https://greenkeeper.io/)
 
 <details>
 <summary><strong>Table of Contents</strong></summary>

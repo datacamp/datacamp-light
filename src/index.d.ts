@@ -142,7 +142,7 @@ declare module "@datacamp/multiplexer-client" {
     | "BulletConsoleExercise"
     | "RCppExercise"
     | "ConsoleExercise";
-  export type CommandType = "init" | "submit" | "command";
+  export type CommandType = "console" | "init" | "soft_init" | "submit";
 
   interface IAnyCommand {
     width?: number;

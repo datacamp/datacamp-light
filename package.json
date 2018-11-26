@@ -62,6 +62,7 @@
     "@types/redux-devtools": "3.0.38",
     "@types/redux-immutable": "3.0.35",
     "@types/storejs": "2.0.0",
+    "@types/tapable": "0.2.5",
     "@types/webpack": "3.0.10",
     "@types/webpack-dev-server": "2.4.1",
     "@types/webpack-env": "1.13.0",

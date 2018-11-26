@@ -36,9 +36,11 @@ export class BaseExerciseService {
       commandConfig.code = selectSolution(state);
     }
 
+    const echo = commandConfig.language !== "r";
+
     const config = {
       command: "submit", // submit is default command
-      echo: true,
+      echo,
       ...commandConfig,
       ...action, // settings from the action will overwrite settings from the state.
     };

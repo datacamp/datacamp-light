@@ -1,4 +1,5 @@
 import "nodelist-foreach-polyfill";
+import { forceCheck } from "react-lazyload";
 
 import boot from "./boot";
 import Hub, { Listener } from "./helpers/hub";
@@ -19,6 +20,7 @@ function bootstrapDCLightExercises() {
 
 (global as any).bootstrapDCLightExercises = bootstrapDCLightExercises;
 (global as any).initAddedDCLightExercises = bootstrapDCLightExercises;
+(global as any).forceDCLightLazyLoadCheck = forceCheck;
 
 document.addEventListener("DOMContentLoaded", bootstrapDCLightExercises);
 

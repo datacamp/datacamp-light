@@ -59,6 +59,11 @@ export default (element: HTMLDivElement, hub: Hub) => {
       element.hasAttribute("data-show-run-button") &&
       element.getAttribute("data-show-run-button").toLowerCase() !== "false";
 
+    const showSolutionBefore =
+      !element.hasAttribute("data-show-solution-before") ||
+      element.getAttribute("data-show-solution-before").toLowerCase() !==
+        "false";
+
     // Get settings
     Object.assign(settings, {
       hint: getHint(),
@@ -68,6 +73,7 @@ export default (element: HTMLDivElement, hub: Hub) => {
       sct: getText("sct"),
       solution: getText("solution"),
       showRunButton: showRunButton,
+      showSolutionBefore: showSolutionBefore,
     });
   }
 

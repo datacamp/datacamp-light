@@ -27,6 +27,7 @@ export const setExercise = createAction<{
   sample_code?: string;
   sct: string;
   solution: string;
+  showSolutionBefore: boolean;
   showRunButton: boolean;
 }>("SET_EXERCISE");
 
@@ -54,6 +55,7 @@ export interface IExerciseState {
   sct: string;
   solution: string;
   type: ExerciseType;
+  showSolutionBefore: boolean;
   showSolutionButton: boolean;
   showRunButton: boolean;
   shellProxy?: string;
@@ -71,6 +73,7 @@ const initialState: IExerciseState = {
   sct: "",
   solution: "",
   type: "NormalExercise",
+  showSolutionBefore: true,
   showSolutionButton: false,
   showRunButton: false,
   shellProxy: "",
@@ -133,6 +136,9 @@ export const selectSolution = (state: State) =>
   selectExercise(state).get("solution");
 
 export const selectType = (state: State) => selectExercise(state).get("type");
+
+export const selectShowSolutionBefore = (state: State) =>
+  selectExercise(state).get("showSolutionBefore");
 
 export const selectShowRunButton = (state: State) =>
   selectExercise(state).get("showRunButton");

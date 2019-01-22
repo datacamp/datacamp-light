@@ -86,6 +86,16 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
             Solution
           </Button>
         )}
+        {this.props.language !== "shell" &&
+        (!this.props.solution || this.props.showRunButton) ? (
+          <Button
+            size="small"
+            onClick={this.onRun}
+            disabled={this.props.isSessionBroken || this.props.isSessionBusy}
+          >
+            Run
+          </Button>
+        ) : null}
         {this.props.language !== "shell" && this.props.sct ? (
           <Button
             size="small"
@@ -94,17 +104,6 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
             disabled={this.props.isSessionBroken || this.props.isSessionBusy}
           >
             Submit
-          </Button>
-        ) : null}
-        {this.props.language !== "shell" &&
-        (!this.props.solution || this.props.showRunButton) ? (
-          <Button
-            size="small"
-            type="primary"
-            onClick={this.onRun}
-            disabled={this.props.isSessionBroken || this.props.isSessionBusy}
-          >
-            Run
           </Button>
         ) : null}
         <BackendStatus className={styles.status} />

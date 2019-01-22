@@ -27,6 +27,7 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc
   * [Solution](#solution)
   * [Submission Correctness Test (SCT)](#submission-correctness-test-sct)
   * [Hint](#hint)
+  * [Other Options](#other-options)
 - [How does it work?](#how-does-it-work)
 - [Contributing](#contributing)
   * [Dependencies](#dependencies)
@@ -239,6 +240,10 @@ It is possible for the hint to contain for instance `<code>` tags as is the case
 
 
 
+### Other Options
+
+- Add a `data-show-run-button` attribute to always show the "Run" button, so your visitors can try out the code without submitting it.
+- Add a `data-no-lazy-loading` attribute to load all exercises as soon as the page is loaded, instead of waiting for the user to scroll down to them. This may cause performance issues, but can fix compatibility problems with iFrame-based pages.
 
 
 

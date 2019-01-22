@@ -58,6 +58,9 @@ export default (element: HTMLDivElement, hub: Hub) => {
     const showRunButton =
       element.hasAttribute("data-show-run-button") &&
       element.getAttribute("data-show-run-button").toLowerCase() !== "false";
+    const noLazyLoad =
+      element.hasAttribute("data-no-lazy-load") &&
+      element.getAttribute("data-no-lazy-load").toLowerCase() !== "false";
 
     // Get settings
     Object.assign(settings, {
@@ -68,6 +71,7 @@ export default (element: HTMLDivElement, hub: Hub) => {
       sct: getText("sct"),
       solution: getText("solution"),
       showRunButton: showRunButton,
+      noLazyLoad: noLazyLoad,
     });
   }
 
@@ -87,22 +91,32 @@ export default (element: HTMLDivElement, hub: Hub) => {
 
   element.style.height = `${settings.height}px`;
 
-  render(
-    <LazyLoad
-      height={settings.height}
-      offset={200}
-      once
-      placeholder={<Placeholder />}
-      debounce={50}
-    >
+  const getAppContainer = () => {
+    return (
       <AppContainer>
         <Provider store={store}>
           <App height={settings.height} language={settings.language} />
         </Provider>
       </AppContainer>
-    </LazyLoad>,
-    element
-  );
+    );
+  };
+
+  if (settings.noLazyLoad) {
+    render(getAppContainer(), element);
+  } else {
+    render(
+      <LazyLoad
+        height={settings.height}
+        offset={200}
+        once
+        placeholder={<Placeholder />}
+        debounce={50}
+      >
+        {getAppContainer()}
+      </LazyLoad>,
+      element
+    );
+  }
 
   store.dispatch(setExercise(settings));
   store.dispatch(updateCode(settings.sample_code));

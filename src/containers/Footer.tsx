@@ -11,6 +11,7 @@ import {
   selectHint,
   selectSolution,
   selectSct,
+  selectShowSolutionBefore,
   selectShowRunButton,
   selectLanguage,
 } from "../redux/exercise";
@@ -29,6 +30,7 @@ const mapStateToProps: MapStateToProps<IFooterProps, IOwnProps> = (
   isSessionBusy: selectBackendSessionIsBusy(state),
   hint: selectHint(state),
   solution: selectSolution(state),
+  showSolutionBefore: selectShowSolutionBefore(state),
   showRunButton: selectShowRunButton(state),
   sct: selectSct(state),
   language: selectLanguage(state),

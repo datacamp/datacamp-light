@@ -18,6 +18,7 @@ export interface IFooterProps extends React.Props<Footer> {
   isSessionBusy?: boolean;
   hint?: string;
   solution?: string;
+  showSolutionBefore?: boolean;
   showSolutionButton?: boolean;
   showRunButton?: boolean;
   sct?: string;
@@ -26,6 +27,7 @@ export interface IFooterProps extends React.Props<Footer> {
 
 interface IFooterState {
   isHintPressed: boolean;
+  isSubmitted: boolean;
 }
 
 export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
@@ -35,6 +37,7 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
     onSubmit: noop,
     isSessionBroken: false,
     isSessionBusy: false,
+    showSolutionBefore: true,
     showSolutionButton: false,
     showRunButton: false,
   };
@@ -45,6 +48,7 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
     super();
     this.state = {
       isHintPressed: false,
+      isSubmitted: false,
     };
 
     this.onShowHint = this.onShowHint.bind(this);
@@ -66,6 +70,9 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
   }
 
   onSubmit() {
+    this.setState({
+      isSubmitted: true,
+    });
     this.props.onSubmit({
       command: "submit",
     });
@@ -80,6 +87,7 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
           </Button>
         ) : null}
         {this.props.solution &&
+        (this.props.showSolutionBefore || this.state.isSubmitted) &&
         this.props.showSolutionButton &&
         (!this.props.hint || this.state.isHintPressed) && (
           <Button size="small" onClick={this.props.onShowSolution}>

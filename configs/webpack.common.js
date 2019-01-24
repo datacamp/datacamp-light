@@ -38,7 +38,7 @@ module.exports = {
   stats: "errors-only",
 
   entry: {
-    main: ["babel-polyfill", path.resolve(config.root, "src", "index.ts")],
+    main: [path.resolve(config.root, "src", "index.ts")],
   },
 
   output: {

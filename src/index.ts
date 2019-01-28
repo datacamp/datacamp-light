@@ -1,3 +1,4 @@
+import "./helpers/polyfill";
 import "nodelist-foreach-polyfill";
 
 import boot from "./boot";

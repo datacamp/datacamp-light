@@ -7,7 +7,7 @@ exports[`Alert should match snapshot 1`] = `
   <div
     dangerouslySetInnerHTML={
       Object {
-        "__html": undefined,
+        "__html": "",
       }
     }
   />

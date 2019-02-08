@@ -1,4 +1,5 @@
 import * as React from "react";
+import xss = require("xss");
 
 import { IAlert } from "../redux/view";
 
@@ -46,7 +47,14 @@ export class Alert extends React.Component<IAlertProps, IAlertState> {
 
   public render() {
     let closeButton: JSX.Element = null;
-    if (this.props.closable) {
+    const { closable, className, type, content } = this.props;
+
+    const sanitizedContent = xss(content, {
+      stripIgnoreTag: true,
+      stripIgnoreTagBody: true,
+    });
+
+    if (closable) {
       closeButton = (
         <button type="button" className={styles.close} onClick={this.close}>
           ×
@@ -55,12 +63,9 @@ export class Alert extends React.Component<IAlertProps, IAlertState> {
     }
 
     return this.state.open ? (
-      <div
-        className={`${styles.alert} ${styles[this.props.type]} ${this.props
-          .className}`}
-      >
+      <div className={`${styles.alert} ${styles[type]} ${className}`}>
         {closeButton}
-        <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
+        <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
       </div>
     ) : null;
   }

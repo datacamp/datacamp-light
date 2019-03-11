@@ -277,7 +277,7 @@ so if you're not familiar with one of those, you might want to read up a bit.
 To develop DataCamp Light, you'll need to run the app locally. This repository
 includes some example exercises to test it on.
 
-Get started by cloning this repostory, installing the dependencies and starting
+Get started by cloning this repository, installing the dependencies and starting
 the development server. As you make changes, the page will reload with your new
 code.
 

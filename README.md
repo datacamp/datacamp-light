@@ -244,6 +244,12 @@ It is possible for the hint to contain for instance `<code>` tags as is the case
 
 - Add a `data-show-run-button` attribute to always show the "Run" button, so your visitors can try out the code without submitting it.
 - Add a `data-no-lazy-loading` attribute to load all exercises as soon as the page is loaded, instead of waiting for the user to scroll down to them. This may cause performance issues, but can fix compatibility problems with iFrame-based pages.
+- Add the following css to the styling of your page to hide the configuration code of the exercises until they are loaded:
+```css
+[data-datacamp-exercise] {
+  visibility: hidden;
+}
+```
 
 
 

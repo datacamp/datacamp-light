@@ -22,6 +22,17 @@ export default (element: HTMLDivElement, hub: Hub) => {
     applyMiddleware(createEpicMiddleware(rootEpic))
   );
 
+  const getPackages = (packages: string) => {
+    if (packages){
+      return `from dcl_package_manager import install_packages; install_packages([${formatPackages(packages)}])\n`;
+    }
+    return "";
+  };
+
+  const formatPackages = (packages: string) => {
+    return packages.split(",").reduce((accumulator, singlePackage) =>  `${accumulator}'${singlePackage}',` , "");
+  }
+
   let settings: any = {
     id: element.id,
     height: parseInt(element.getAttribute("data-height") || "auto", 10),
@@ -31,7 +42,8 @@ export default (element: HTMLDivElement, hub: Hub) => {
     const exercise = JSON.parse(atob(decodeURIComponent(element.textContent)));
     settings.hint = exercise.hint;
     settings.language = exercise.language;
-    settings.pre_exercise_code = exercise.pre_exercise_code;
+    settings.lang_version = exercise.lang_version;
+    settings.pre_exercise_code = getPackages(exercise.packages) + exercise.pre_exercise_code;
     settings.sample_code = exercise.sample || exercise.sample_code;
     settings.sct = exercise.sct;
     settings.solution = exercise.solution;
@@ -66,7 +78,8 @@ export default (element: HTMLDivElement, hub: Hub) => {
     Object.assign(settings, {
       hint: getHint(),
       language: (element.getAttribute("data-lang") || "r") as Language,
-      pre_exercise_code: getText("pre-exercise-code"),
+      lang_version: element.getAttribute("lang-version"),
+      pre_exercise_code: getPackages(element.getAttribute("packages")) + getText("pre-exercise-code"),
       sample_code: getText("sample-code"),
       sct: getText("sct"),
       solution: getText("solution"),

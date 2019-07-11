@@ -22,6 +22,7 @@ export const setId = createAction<string>("SET_ID");
 
 export const setExercise = createAction<{
   language: Language;
+  lang_version?: string;
   hint?: string;
   pre_exercise_code?: string;
   sample_code?: string;
@@ -49,6 +50,8 @@ export interface IExerciseState {
   hint: string;
   id: string;
   language: Language;
+  lang_version: string;
+  packages: string;
   pre_exercise_code: string;
   sample_code: string;
   sct: string;
@@ -66,6 +69,8 @@ const initialState: IExerciseState = {
   hint: "",
   id: "",
   language: "r",
+  lang_version: "",
+  packages: "",
   pre_exercise_code: "",
   sample_code: "",
   sct: "",
@@ -118,6 +123,9 @@ export const selectId = (state: State) => selectExercise(state).get("id");
 
 export const selectLanguage = (state: State) =>
   selectExercise(state).get("language");
+
+export const selectLangVersion = (state: State) =>
+  selectExercise(state).get("lang_version");
 
 export const selectPreExerciseCode = (state: State) =>
   selectExercise(state).get("pre_exercise_code");

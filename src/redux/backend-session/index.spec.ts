@@ -5,9 +5,9 @@ import { AnyAction as Action } from "typescript-fsa";
 import { marbles } from "rxjs-marbles";
 import { Observable } from "rxjs/Observable";
 
-import pm from "../helpers/pluginManager";
-import { viewsStart } from "./view";
-import { setId } from "./exercise";
+import pm from "../../helpers/pluginManager";
+import { viewsStart } from "../view";
+import { setId } from "../exercise";
 
 import reducer, {
   BackendSessionState,
@@ -19,8 +19,8 @@ import reducer, {
   muxRegistered,
   id$,
   readyAgain$,
-  guardOnBackendError,
-} from "./backend-session";
+  guardOnBackendError
+} from ".";
 
 describe("state", () => {
   test("should exist", () => {
@@ -205,4 +205,5 @@ describe("epics", () => {
       store.getActions().find(action => action.type === startSession.type)
     ).toBeDefined();
   });
+
 });

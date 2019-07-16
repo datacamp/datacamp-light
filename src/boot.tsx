@@ -16,6 +16,7 @@ import Hub from "./helpers/hub";
 import uuid from "./helpers/uuid";
 import { setExercise, updateCode, setId, setListener } from "./redux/exercise";
 import createStore from "./redux/store";
+import * as _ from "lodash";
 
 export default (element: HTMLDivElement, hub: Hub) => {
   const storeEnhancer = composeWithDevTools(
@@ -23,19 +24,26 @@ export default (element: HTMLDivElement, hub: Hub) => {
   );
 
   const getPackages = (packages: string) => {
-    if (packages){
-      return `from dcl_package_manager import install_packages; install_packages([${formatPackages(packages)}])\n`;
+    if (_.isNil(packages) || _.trim(packages) === "") {
+      return "";
     }
-    return "";
+    return `from dcl_package_manager import install_packages; install_packages([${formatPackages(
+      packages
+    )}])\n`;
   };
 
   const formatPackages = (packages: string) => {
-    return packages.split(",").reduce((accumulator, singlePackage) =>  `${accumulator}'${singlePackage}',` , "");
-  }
+    return packages
+      .split(",")
+      .reduce(
+        (accumulator, singlePackage) => `${accumulator}'${singlePackage}',`,
+        ""
+      );
+  };
 
   let settings: any = {
     id: element.id,
-    height: parseInt(element.getAttribute("data-height") || "auto", 10),
+    height: parseInt(element.getAttribute("data-height") || "auto", 10)
   };
 
   if (element.getAttribute("data-encoded")) {
@@ -43,7 +51,8 @@ export default (element: HTMLDivElement, hub: Hub) => {
     settings.hint = exercise.hint;
     settings.language = exercise.language;
     settings.lang_version = exercise.lang_version;
-    settings.pre_exercise_code = getPackages(exercise.packages) + exercise.pre_exercise_code;
+    settings.pre_exercise_code =
+      getPackages(exercise.packages) + exercise.pre_exercise_code;
     settings.sample_code = exercise.sample || exercise.sample_code;
     settings.sct = exercise.sct;
     settings.solution = exercise.solution;
@@ -78,13 +87,16 @@ export default (element: HTMLDivElement, hub: Hub) => {
     Object.assign(settings, {
       hint: getHint(),
       language: (element.getAttribute("data-lang") || "r") as Language,
-      lang_version: element.getAttribute("lang-version"),
-      pre_exercise_code: getPackages(element.getAttribute("packages")) + getText("pre-exercise-code"),
+      lang_version: element.getAttribute("data-lang-version"),
+      packages: element.getAttribute("data-packages"),
+      pre_exercise_code: 
+        getPackages(element.getAttribute("data-packages")) +
+        getText("pre-exercise-code"),
       sample_code: getText("sample-code"),
       sct: getText("sct"),
       solution: getText("solution"),
       showRunButton: showRunButton,
-      noLazyLoad: noLazyLoad,
+      noLazyLoad: noLazyLoad
     });
   }
 

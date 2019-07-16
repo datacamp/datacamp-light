@@ -34,7 +34,8 @@ import {
   selectId,
   selectLanguage,
   selectListener,
-  selectLangVersion
+  selectLangVersion,
+  selectPackages
 } from "../exercise";
 
 import { State } from "../";
@@ -251,7 +252,8 @@ export const epicRegisterMux: Epic<Action, State> = (action$, store) =>
       const language = selectLanguage(store.getState());
       const imageTag = selectImageTag(
         language,
-        selectLangVersion(store.getState())
+        selectLangVersion(store.getState()),
+        selectPackages(store.getState())
       );
       registerMux(language, dclId);
 
@@ -302,7 +304,8 @@ export const epicStartSession: Epic<Action, State> = (action$, store) => {
         selectBackendSessionCountPostNewSession(store.getState()) === 1;
       const imageTag = selectImageTag(
         startSessionAction.payload.language,
-        selectLangVersion(store.getState())
+        selectLangVersion(store.getState()),
+        selectPackages(store.getState())
       );
       const options = {
         language: startSessionAction.payload.language,
@@ -353,7 +356,8 @@ export const epicRestartSession: Epic<Action, State> = (action$, store) =>
       id: selectId(store.getState()),
       image_tag: selectImageTag(
         selectLanguage(store.getState()),
-        selectLangVersion(store.getState())
+        selectLangVersion(store.getState()),
+        selectPackages(store.getState())
       ),
       force_new: true
     })

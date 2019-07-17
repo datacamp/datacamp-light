@@ -27,20 +27,26 @@ import Multiplexer, {
   Language,
   PLUGIN_NAME as MUX_NAME,
   SessionOutput,
-  SessionStatus,
+  SessionStatus
 } from "@datacamp/multiplexer-client";
 
-import { State } from "./";
-import { setId } from "./exercise";
-import { viewsStart } from "./view";
-import { selectId, selectLanguage, selectListener } from "./exercise";
+import {
+  selectId,
+  selectLanguage,
+  selectListener,
+  selectLangVersion,
+  selectPackages
+} from "../exercise";
 
-import ExerciseService from "../helpers/baseExercise";
-import getOutputAction from "../helpers/output";
-import pluginManager, { getMux } from "../helpers/pluginManager";
-import uuid from "../helpers/uuid";
+import { State } from "../";
+import { setId } from "../exercise";
+import { viewsStart } from "../view";
+import selectImageTag from "./selectImageTag";
+import ExerciseService from "../../helpers/baseExercise";
+import pluginManager, { getMux } from "../../helpers/pluginManager";
+import uuid from "../../helpers/uuid";
 
-import config from "../config";
+import config from "../../config";
 
 /*
  * Actions */
@@ -51,6 +57,7 @@ export const startSession = createAction<{
   language: Language;
   id: string;
   force_new: boolean;
+  image_tag: string;
   initCommands?: Command;
 }>("EPIC_START_SESSION");
 
@@ -89,7 +96,7 @@ export const BACKEND_STATUS: { [x: string]: SessionStatus } = {
   BROKEN: { status: "broken", text: "Session Broken" },
   BUSY: { status: "busy", text: "Session Busy" },
   NONE: { status: "none", text: "" },
-  READY: { status: "ready", text: "Workspace Ready" },
+  READY: { status: "ready", text: "Workspace Ready" }
 };
 
 export interface IBackendSessionState {
@@ -103,7 +110,7 @@ const initialState: IBackendSessionState = {
   countPostNewSession: 0,
   isInitSession: false,
   status: BACKEND_STATUS.NONE,
-  statusCode: 0,
+  statusCode: 0
 };
 
 export class BackendSessionState extends Record(initialState) {}
@@ -164,7 +171,7 @@ export const selectBackendUIStatus = (state: State) => {
   const status = selectBackendSession(state).get("status");
   return {
     code: status.status,
-    text: status.text,
+    text: status.text
   };
 };
 
@@ -211,14 +218,14 @@ const registerMux = (language: Language, dclId: string) => {
   }
   const userInfo = {
     authentication_token: id,
-    email: `datacamp-light+${id}@datacamp.com`,
+    email: `datacamp-light+${id}@datacamp.com`
   };
   pluginManager.remove(MUX_NAME + dclId);
   pluginManager.register(MUX_NAME + dclId, Multiplexer.AsyncSession, userInfo, {
     debug: process.env.NODE_ENV === "development",
     flattenOutputs: false,
     language,
-    multiplexerUrl: config.urls.multiplexer,
+    multiplexerUrl: config.urls.multiplexer
   });
 };
 
@@ -243,6 +250,11 @@ export const epicRegisterMux: Epic<Action, State> = (action$, store) =>
       const state = store.getState();
       const dclId = selectId(store.getState());
       const language = selectLanguage(store.getState());
+      const imageTag = selectImageTag(
+        language,
+        selectLangVersion(store.getState()),
+        selectPackages(store.getState())
+      );
       registerMux(language, dclId);
 
       const muxStateSubject$ = new BehaviorSubject(BACKEND_STATUS.NONE);
@@ -257,12 +269,13 @@ export const epicRegisterMux: Epic<Action, State> = (action$, store) =>
         Observable.of(
           startSession({
             force_new: false,
+            image_tag: imageTag,
             id: dclId,
             initCommands: {
               ...ExerciseService.prepareSubmit(state, {}),
-              command: "init",
+              command: "init"
             },
-            language,
+            language
           })
         ),
         updateBackendStatus$,
@@ -289,9 +302,15 @@ export const epicStartSession: Epic<Action, State> = (action$, store) => {
       const forceNew =
         startSessionAction.payload.force_new ||
         selectBackendSessionCountPostNewSession(store.getState()) === 1;
+      const imageTag = selectImageTag(
+        startSessionAction.payload.language,
+        selectLangVersion(store.getState()),
+        selectPackages(store.getState())
+      );
       const options = {
         language: startSessionAction.payload.language,
         force_new: forceNew,
+        image_tag: imageTag
       };
 
       mux.start(options, startSessionAction.payload.initCommands);
@@ -317,14 +336,14 @@ export const epicSubmitCode: Epic<Action, State> = (action$, store) => {
       );
 
       getMux(dclId).input({
-        ...commandConfig,
+        ...commandConfig
       });
 
       return commandConfig;
     })
     .do(config =>
       selectListener(store.getState())("submit", {
-        code: config.code,
+        code: config.code
       })
     )
     .concatMapTo(Observable.empty());
@@ -335,6 +354,11 @@ export const epicRestartSession: Epic<Action, State> = (action$, store) =>
     startSession({
       language: selectLanguage(store.getState()),
       id: selectId(store.getState()),
-      force_new: true,
+      image_tag: selectImageTag(
+        selectLanguage(store.getState()),
+        selectLangVersion(store.getState()),
+        selectPackages(store.getState())
+      ),
+      force_new: true
     })
   );

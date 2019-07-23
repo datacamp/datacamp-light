@@ -57,7 +57,7 @@ export const startSession = createAction<{
   language: Language;
   id: string;
   force_new: boolean;
-  image_tag: string;
+  course_id: string;
   initCommands?: Command;
 }>("EPIC_START_SESSION");
 
@@ -269,7 +269,7 @@ export const epicRegisterMux: Epic<Action, State> = (action$, store) =>
         Observable.of(
           startSession({
             force_new: false,
-            image_tag: imageTag,
+            course_id: imageTag,
             id: dclId,
             initCommands: {
               ...ExerciseService.prepareSubmit(state, {}),
@@ -310,7 +310,7 @@ export const epicStartSession: Epic<Action, State> = (action$, store) => {
       const options = {
         language: startSessionAction.payload.language,
         force_new: forceNew,
-        image_tag: imageTag
+        course_id: imageTag
       };
 
       mux.start(options, startSessionAction.payload.initCommands);
@@ -354,7 +354,7 @@ export const epicRestartSession: Epic<Action, State> = (action$, store) =>
     startSession({
       language: selectLanguage(store.getState()),
       id: selectId(store.getState()),
-      image_tag: selectImageTag(
+      course_id: selectImageTag(
         selectLanguage(store.getState()),
         selectLangVersion(store.getState()),
         selectPackages(store.getState())

@@ -1,4 +1,4 @@
-<h1 align="center">DataCamp Light</h1>
+<h1 align="center">DataCamp Light v3</h1>
 <p align="center">
   <a href="https://github.com/datacamp/datacamp-light/projects/1">Roadmap</a> |
   <a href="https://cdn.datacamp.com/dcl-react-prod/index.html">Docs</a>
@@ -6,9 +6,6 @@
 <p align="center">
   <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>
 </p>
-
-*This is the all-new DataCamp Light. To access the old
-version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc50b590bbf34bfffaba8fb1a0d929f5)*
 
 [![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html)
 
@@ -21,7 +18,7 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc
 
 - [Features](#features)
 - [How to run the app](#how-to-run-the-app)
-  * [Writing the HTML block](#writing-the-html-block)
+- [Writing the HTML block](#writing-the-html-block)
   * [Pre-Exercise Code](#pre-exercise-code)
   * [Sample Code](#sample-code)
   * [Solution](#solution)
@@ -79,7 +76,7 @@ Add the script to your HTML page (there is an example in
 `examples/standalone-example.html`):
 
 ```html
-<script type="text/javascript" src="//cdn.datacamp.com/dcl-react.js.gz"></script>
+<script type="text/javascript" src="//cdn.datacamp.com/dcl/latest/dcl-react.js.gz"></script>
 ```
 
 That's it! If your app adds DataCamp Light exercises after the initial page load
@@ -95,13 +92,13 @@ including the exercise and script tag as a snippet.**
 
 
 
-### Writing the HTML block
+## Writing the HTML block
 
 After including the JavaScript library, you can start writing HTML blocks in the
 format below. These will be dynamically converted to exercises.
 
 ```html
-<div data-datacamp-exercise data-lang="r">
+<div data-datacamp-exercise data-lang="python" data-lang-version="3.6" data-packages="" data-height="350">
 	<code data-type="pre-exercise-code">
 		# This will get executed each time the exercise gets initialized
 		b = 6
@@ -116,7 +113,7 @@ format below. These will be dynamically converted to exercises.
 	</code>
 	<code data-type="solution">
 		# Create a variable a, equal to 5
-		a <- 5
+		a = 5
 
 		# Print out a
 		print(a)
@@ -126,20 +123,24 @@ format below. These will be dynamically converted to exercises.
 		test_function("print")
 		success_msg("Great job!")
 	</code>
-	<div data-type="hint">Use the assignment operator (<code><-</code>) to create the variable <code>a</code>.</div>
+	<div data-type="hint">Use the assignment operator (<code>=</code>) to create the variable <code>a</code>.</div>
 </div>
 ```
 
-As we can see in the example, the whole exercise is contained in a single
-`<div>` element with two data attributes `data-datacamp-exercise` and
-`data-lang`. The first attribute `data-datacamp-exercise` indicates that the
-`<div>` should be treated as a DataCamp Light exercise, while the other
-attribute `data-lang` specifies which programming language should be used. The
-accepted values for `data-lang` are `r` and `python`. There is also an optional
-attribute `data-height` which can sets the height in `px` of the div (minimum
+### HTML Data Attributes
+
+As we can see in the example above, the whole exercise is contained in a single
+`<div>` element with multiple data attributes: 
+
+- `data-datacamp-exercise` indicates that the
+`<div>` is a DataCamp Light exercise and must be rendered as such.
+- `data-lang` specifies which programming language should be used. The
+accepted values for `data-lang` are `r`, `python` and `shell`.
+- `data-lang-version` (optional, only available for Python) specifies the version of the programming language used in the exercise. The name of the language shouldn't be specified again, thus if you want to use Python3.6 you should set `data-lang-version` to `"3.6"`. Versions available at this moment are `"3.5"` (default) and `"3.6"`.
+- `data-packages` (optional, only available for Python) specifies the additional packages you want to import and use in the exercise. DataCamp Light will take care of the installation of all packages declared here, which will need to be in the form `{package_name}=={package_version}`. As an example, if you want to install versions 1.0.0 of `matrix7` and `lattice`, you must set `data-packages` to `"matrix7==1.0.0, lattice==1.0.0"`. In case of no version number specified, the latest version will be used. To see a list of all packages available, please add `print_packages()` to your pre-exercise-code or sample-code.
+- `data-height` (optional) sets the height in `px` of the div (minimum
 height is `300px`) or set the size according to the amount of sample code lines:
 `data-height="auto"`.
-
 
 
 ### Pre-Exercise Code
@@ -263,7 +264,6 @@ R or Python session as if you're working on your local system. The R and Python
 computing environments feature the most popular packages:
 
 - [See list of packages for R](http://documents.datacamp.com/default_r_packages.txt)
-- [See list of packages for Python](http://documents.datacamp.com/default_python_packages.txt)
 
 If you want to use a package that is not available, create an issue and we can
 install it (it's not possible to install packages at runtime).
@@ -302,6 +302,13 @@ npm start
 The `vendor/` folder includes minified code of some internal DataCamp packages
 that are not hosted publicly right now.
 
+These packages can't be updated to newer versions, as they are used in our infrastructure:
+- `pythonwhat`
+- `protobackend`
+- `jinja2`
+- `IPython`
+- `requests`
+- `jsonschema`
 
 
 ### Testing
@@ -386,7 +393,7 @@ Finally, when we create a release, an update is pushed to the production
 environment. This should be a stable version of DataCamp Light:
 
 ```
-https://cdn.datacamp.com/dcl-react.js.gz
+https://cdn.datacamp.com/dcl/latest/dcl-react.js.gz
 ```
 
 Commits to this

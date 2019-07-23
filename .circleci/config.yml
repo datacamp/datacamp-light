@@ -45,7 +45,7 @@ jobs:
           command: |
             aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-dev.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
             aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react-dev.js.gz"
-            
+
             aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-dev/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
             aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-dev/index.html --acl public-read --content-type "text/html"
             aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-dev/example.html --acl public-read --content-type "text/html"
@@ -79,7 +79,8 @@ jobs:
       - run:
           name: S3 Sync
           command: |
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl/latest/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl/$CIRCLE_TAG/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
             aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react.js.gz"
 
             aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-prod/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
@@ -119,4 +120,3 @@ workflows:
               only: /^v\d+\.\d+\.\d+(-\w+\.\d+)?$/
             branches:
               ignore: /.*/
-         

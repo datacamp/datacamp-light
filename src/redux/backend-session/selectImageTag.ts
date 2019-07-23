@@ -1,21 +1,22 @@
 import { Language } from "@datacamp/multiplexer-client";
 import * as _ from "lodash";
 
-function selectImageTag(language: Language, version: string, packages: string) {
-  if (language === "python") {
-    const python_versions = ["3.5", "3.6"];
-    const default_version = "3.5";
+const PYTHON_VERSIONS = ["3.5", "3.6"];
+const DEFAULT_PYTHON = "3.5";
 
-    if (_.isNil(packages) && _.isNil(version)) {
+function selectImageTag(language: Language, version: string, packages: string) {
+
+  if (_.isNil(packages) && _.isNil(version)) {
       return "";
-    }
-    if (python_versions.includes(version)) {
-      return `dcl-python-${version}:latest`;
+  }
+  if (language === "python") {
+    if (PYTHON_VERSIONS.includes(version)) {
+      return `dcl-python-${version}`;
     }
     console.log(
-      `Python version not found. Using default Python ${default_version}. Available versions are: " ${python_versions}`
+      `Python version not found. Using default Python ${DEFAULT_PYTHON}. Available versions are: " ${PYTHON_VERSIONS}`
     );
-    return `dcl-python-${default_version}:latest`;
+    return `dcl-python-${DEFAULT_PYTHON}`;
   }
   return "";
 }

@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "datacamp-light",
-  "version": "2.0.0",
+  "version": "3.0.0-beta",
   "description":
     "Convert any blog or website to an interactive learning platform for data science",
   "main": "dist/dcl-react.js",

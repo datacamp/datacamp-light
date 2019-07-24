@@ -14,32 +14,14 @@ import Placeholder from "./components/Placeholder";
 import rootEpic from "./helpers/epics";
 import Hub from "./helpers/hub";
 import uuid from "./helpers/uuid";
+import getPackages from "./helpers/packages";
 import { setExercise, updateCode, setId, setListener } from "./redux/exercise";
 import createStore from "./redux/store";
-import * as _ from "lodash";
 
 export default (element: HTMLDivElement, hub: Hub) => {
   const storeEnhancer = composeWithDevTools(
     applyMiddleware(createEpicMiddleware(rootEpic))
   );
-
-  const getPackages = (packages: string) => {
-    if (_.isNil(packages) || _.trim(packages) === "") {
-      return "";
-    }
-    return `from dcl_package_manager import install_packages, print_packages; install_packages([${formatPackages(
-      packages
-    )}])\n`;
-  };
-
-  const formatPackages = (packages: string) => {
-    return packages
-      .split(",")
-      .reduce(
-        (accumulator, singlePackage) => `${accumulator}'${singlePackage}',`,
-        ""
-      );
-  };
 
   let settings: any = {
     id: element.id,
@@ -52,7 +34,7 @@ export default (element: HTMLDivElement, hub: Hub) => {
     settings.language = exercise.language;
     settings.lang_version = exercise.lang_version;
     settings.pre_exercise_code =
-      getPackages(exercise.packages) + exercise.pre_exercise_code;
+      getPackages(exercise.packages, exercise.language) + exercise.pre_exercise_code;
     settings.sample_code = exercise.sample || exercise.sample_code;
     settings.sct = exercise.sct;
     settings.solution = exercise.solution;
@@ -89,8 +71,8 @@ export default (element: HTMLDivElement, hub: Hub) => {
       language: (element.getAttribute("data-lang") || "r") as Language,
       lang_version: element.getAttribute("data-lang-version"),
       packages: element.getAttribute("data-packages"),
-      pre_exercise_code: 
-        getPackages(element.getAttribute("data-packages")) +
+      pre_exercise_code:
+        getPackages(element.getAttribute("data-packages"), element.getAttribute("data-lang")) +
         getText("pre-exercise-code"),
       sample_code: getText("sample-code"),
       sct: getText("sct"),

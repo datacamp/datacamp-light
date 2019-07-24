@@ -27,7 +27,7 @@ export default (element: HTMLDivElement, hub: Hub) => {
     if (_.isNil(packages) || _.trim(packages) === "") {
       return "";
     }
-    return `from dcl_package_manager import install_packages; install_packages([${formatPackages(
+    return `from dcl_package_manager import install_packages, print_packages; install_packages([${formatPackages(
       packages
     )}])\n`;
   };

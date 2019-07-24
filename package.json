@@ -24,7 +24,7 @@
     "prettier":
       "prettier --trailing-comma es5 --write 'src/**/*.{ts,tsx,js,jsx,css,scss}'"
   },
-  "author": "Marcel Samyn",
+  "author": "DataCamp",
   "license": "GPL-3.0",
   "dependencies": {
     "bluebird": "3.5.1",

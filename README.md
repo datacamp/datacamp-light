@@ -54,7 +54,7 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc
 
 
 
-## Features
+## Features added
 
 * Convert any website or blog to an interactive learning platform.
 * Works for both R and Python. Sessions are maintained on DataCamp's servers.

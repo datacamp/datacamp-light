@@ -36,6 +36,7 @@
 
   code {
     @include preventive-overrides;
+    background-color: rgba($white, 0.4);
   }
 }
 
@@ -46,7 +47,7 @@
   border: 0;
   -webkit-appearance: none;
   opacity: 1;
-  top: -4px;
+  margin-top: -4px;
   float: right;
   font-size: 24px;
   font-weight: bold;
@@ -61,12 +62,12 @@
   }
 }
 
-@mixin color-alert ($bg) {
+@mixin color-alert($bg, $textColor) {
   background-color: $bg;
-  color: rgba(0, 0, 0, 0.65);
+  color: $textColor;
 
   .close {
-    color: rgba(0, 0, 0, 0.2);
+    color: $textColor;
   }
 
   p,
@@ -78,25 +79,13 @@
 }
 
 .alert.danger {
-  @include color-alert($error-light);
-
-  code {
-    background-color: rgba(255, 255, 255, 0.4);
-  }
+  @include color-alert($red-light, $white);
 }
 
 .alert.success {
-  @include color-alert($success-light);
-
-  code {
-    background-color: $success-light;
-  }
+  @include color-alert($green-light, $navy);
 }
 
 .alert.info {
-  @include color-alert($primary-lighter);
-
-  code {
-    background-color: $primary-extra-light;
-  }
+  @include color-alert($purple-light, $white);
 }

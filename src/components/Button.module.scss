@@ -18,12 +18,28 @@ $btn-large-scale: 1.35;
     color $default-duration ease;
   text-align: center;
   cursor: pointer;
+  position: relative;
 
   &:hover,
   &:focus,
   &:active:focus {
     outline: none;
-    border: none;
+  }
+
+  &:active {
+    transform: perspective(1px) scale(0.975);
+  }
+
+  // waffles outline
+  &:focus:after {
+    content: ' ';
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    border: 1px dashed $navy;
+    border-radius: 2px;
   }
 
   :global .fa {
@@ -33,95 +49,54 @@ $btn-large-scale: 1.35;
 
 .button.disabled,
 .button:disabled {
-  background-color: $primary-lighter;
-  color: $text-invert;
+  background-color: rgba($green, 0.15);
+  color: $navy;
 
   &:hover {
-    background-color: $primary-lighter;
-    color: $text-invert;
+    background-color: rgba($green-light, 0.15);
   }
 }
 
-@mixin color-button ($bg, $color, $hover) {
+@mixin color-button($bg, $color, $hover) {
   background-color: $bg;
   color: $color;
+  border-style: solid;
+  border-width: 2px;
+  border-color: $bg;
 
-  &:hover,
-  &:focus {
+  &:hover {
+    border-style: solid;
+    border-width: 2px;
+    border-color: $hover;
     background-color: $hover;
     color: $color;
+  }
+
+  &:disabled,
+  &:disabled {
+    background-color: rgba($bg, 0.15);
+    color: rgba($color, 0.15);
+    border-color: rgba($bg, 0.15);
+
+    &:hover {
+      background-color: rgba($bg, 0.15);
+      color: rgba($color, 0.15);
+      border-color: rgba($bg, 0.15);
+    }
   }
 }
 
 .primary {
-  @include color-button($accent, $accent-dark, $accent-light);
+  @include color-button($green, $navy, $green-light);
 }
 
-.secondary {
-  @include color-button($primary, $text-invert, $primary-light);
-}
-
-.secondary-light {
-  @include color-button(($primary-light),
-    $text-invert,
-    $primary-lighter);
-  &:hover {
-    color: $primary-dark;
-  }
-}
-
-.tertiary {
-  @include color-button($text, $text-invert, $text-secondary);
-
-  padding: 0.3125em 1.25em;
-  font-size: $default-font-size;
-}
-
-.danger {
-  @include color-button($danger, $text-invert, $danger-light);
-}
-
-.facebook {
-  @include color-button(rgba(57, 87, 154, 1),
-    $text-invert,
-    rgba(57, 87, 154, 0.8));
-}
-
-.twitter {
-  @include color-button(rgb(0, 172, 237),
-    $text-invert,
-    rgba(0, 172, 237, 0.8));
-}
-
-.linkedin {
-  @include color-button(rgba(0, 118, 183, 1),
-    $text-invert,
-    rgba(0, 118, 183, 0.8));
-}
-
-.google-plus {
-  @include color-button(rgba(223, 74, 50, 1),
-    $text-invert,
-    rgba(223, 74, 50, 0.8));
-}
-
-.execute-code {
-  width: 137px;
-  &.attempts-counter {
-    width: 157px;
-  }
-}
-
-.try-code.small {
-  margin-right: 0;
-  width: 100px;
-}
-
-.execute-code.disabled {
-  background-color: #d1d3d8;
-
-  &:hover {
-    background-color: #d1d3d8;
+.inverted {
+  @include color-button(transparent, $navy, rgba($navy-light, 0.15));
+  border-color: $navy;
+  &:hover,
+  &:focus,
+  &:active:focus {
+    border-color: $navy;
   }
 }
 

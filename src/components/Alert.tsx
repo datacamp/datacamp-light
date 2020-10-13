@@ -56,7 +56,12 @@ export class Alert extends React.Component<IAlertProps, IAlertState> {
 
     if (closable) {
       closeButton = (
-        <button type="button" className={styles.close} onClick={this.close}>
+        <button
+          type="button"
+          aria-label="Close mesage"
+          className={styles.close}
+          onClick={this.close}
+        >
           ×
         </button>
       );

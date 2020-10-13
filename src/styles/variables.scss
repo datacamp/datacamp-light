@@ -9,61 +9,35 @@
 $baseline: 5px;
 
 // ---------- Colors ----------
-$primary-darker: #104a5b;
-$primary-dark: #195a72;
-$primary: #33aacc;
-$primary-light: #7ecce2;
-$primary-lighter: #d5eaef;
-$primary-extra-light: #ebf4f7;
-$primary-gradient: linear-gradient(130deg, #2388b0, $primary);
-$primary-dark-gradient: linear-gradient(130deg, #20748d, #164d62);
+$primary-dark: #000820;
+$primary: #05192d;
 
-$secondary: #ffc844;
-$secondary-light: #fbe28d;
-$secondary-gradient: linear-gradient(0deg, $secondary, #fcd86c);
+$beige400: #e5e1da;
 
-$green: #36d57d;
-$light-green: #a5ecc5;
-$red: #fe5c5c;
-$light-red: #ffb5b5;
-$orange: #ff9400;
+$green: #03ef62;
+$green-light: #65ff8f;
+$red: #ff5400;
+$red-light: #ff782d;
+$orange: #ff931e;
+$navy: #05192d;
+$navy-light: #213147;
+$navy-dark: #000820;
+$purple-light: #974dff;
 
 $dark-grey: #3d4251;
 $grey: #686f75;
-$light-grey: #d1d3d8;
-$lighter-grey: #e6eaeb;
 
 $white: #ffffff;
 $transparent-white: rgba(255, 255, 255, 0.2);
 
 //COLORS BELOW THIS ARE ONLY HERE FOR LEGACY, THEY SHOULD NOT BE USED
 
-$text: #3a3a3a;
-$text-secondary: #666666;
-$text-tertiary: #a3a3a3;
-$text-invert: #ffffff;
-$text-invert-secondary: $primary-lighter;
+$text: $navy;
 
 $link-color: $primary;
 
-$accent-dark: #6d561e;
-$accent: #fdc551;
-$accent-light: #ffe2a6;
-$accent-ultra-light: #fffdf7;
-
-$error-dark: #6e2a2a;
-$error: #c96768;
-$error-light: #ffbfbf;
-
-$danger: rgb(221, 92, 92);
-$danger-light: rgba(221, 92, 92, 0.8);
-
-$success-dark: #4d6e40;
-$success: #83c967;
-$success-light: #cfedc2;
-
 // -------- Typography --------
-$font-family: "lato", sans-serif;
+$font-family: "Studio-Feixen-Sans-Variable", sans-serif;
 $h1-size: 2.8rem; //42px
 $h2-size: 2.533rem; //38px
 $h3-size: 2rem; //30px
@@ -72,7 +46,7 @@ $h5-size: 1.133rem; //17px
 $small-font-size: 0.8667rem; //13px
 // It should only be used in rare situations and with the designer's approval
 $micro-font-size: 0.6rem; //9px
-$default-font-size: 1rem;
+$default-font-size: 16px;
 $default-line-height: 1.5;
 $header-line-height: 1;
 $code-border-radius: 3px;
@@ -94,8 +68,8 @@ $button-radius: 4px;
 $button-font-size: $default-font-size;
 $button-font-weight: 700;
 $button-line-height: $default-line-height;
-$button-small-radius: 3px;
-$button-small-font-size: $small-font-size;
+$button-small-radius: 4px;
+$button-small-font-size: 16px;
 $button-small-line-height: 1.2;
 
 // ---------- Spacing ----------

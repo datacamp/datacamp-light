@@ -3,10 +3,10 @@
 exports[`RestartSessionButton should match snapshot 1`] = `
 <div>
   <Button
+    appearance="inverted"
     disabled={false}
     onClick={[Function]}
     size="small"
-    type="primary"
   >
     <span>
       Restart

@@ -5,10 +5,10 @@ exports[`Footer should match snapshot 1`] = `
   className="footer"
 >
   <Button
+    appearance="primary"
     disabled={false}
     onClick={[Function]}
     size="small"
-    type="primary"
   >
     Run
   </Button>

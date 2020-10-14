@@ -2,7 +2,7 @@
 
 .footer {
   height: 48px; /* if you change me, also change the value in the golden layout root style, in ./index.tsx */
-  background: $primary-extra-light;
+  background: $beige400;
   text-align: left;
   display: flex;
   justify-content: flex-start;
@@ -20,6 +20,10 @@
 
 .status {
   margin: 0 $baseline;
+
+  svg + span {
+    color: $navy;
+  }
 }
 
 :root a.logo,
@@ -33,7 +37,7 @@
 
 .logo svg {
   height: 2em;
-  margin: 0 6px 0 0;
+  margin: 0 16px 0 0;
   display: block;
   line-height: 48px;
 }

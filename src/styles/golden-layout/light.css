@@ -25,18 +25,18 @@
 }
 
 .lm_splitter {
-  background: #ebf4f7;
+  background: #e5e1da;
   transition: opacity 200ms ease;
   z-index: 100;
 }
 
 .lm_splitter:hover {
-  background: #bfcdd2;
+  background: #e5e1da;
 }
 
 .lm_header {
   height: 30px;
-  background-color: #ebf4f7;
+  background-color: #e5e1da;
 }
 
 .lm_header.lm_selectable {
@@ -57,10 +57,10 @@
   padding-top: 0;
   padding-bottom: 0;
   height: 30px;
-  background: #ebf4f7;
+  background: #e5e1da;
   margin-top: 0;
-  color: rgba(86, 94, 101, 0.5);
-  font-weight: 400;
+  color: #05192d;
+  font-weight: 600;
 }
 
 .lm_header .lm_tab .lm_title {
@@ -71,12 +71,12 @@
 .lm_tab.lm_active,
 .lm_tab:hover {
   color: #777;
-  background: #ebf4f7;
+  background: #e5e1da;
 }
 
 .lm_header .lm_tab.lm_active {
   border-bottom: none;
-  color: #3a3a3a;
+  color: #05192d;
   background-color: #fff;
 }
 

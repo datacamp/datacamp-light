@@ -5,16 +5,7 @@ import * as styles from "./Button.module.scss";
 type StyleKey = keyof typeof styles;
 
 interface IButtonProps extends React.Props<Button> {
-  type?:
-    | "primary"
-    | "secondary"
-    | "secondary-light"
-    | "tertiary"
-    | "danger"
-    | "facebook"
-    | "twitter"
-    | "linkedin"
-    | "google-plus";
+  appearance?: "primary" | "inverted";
   size?: "small" | "extra-small" | "large";
   disabled?: boolean;
   className?: string;
@@ -24,7 +15,7 @@ interface IButtonProps extends React.Props<Button> {
 export class Button extends React.Component<IButtonProps> {
   public static defaultProps: Partial<IButtonProps> = {
     disabled: false,
-    type: "secondary-light",
+    appearance: "inverted",
   };
 
   button: HTMLElement;
@@ -38,7 +29,7 @@ export class Button extends React.Component<IButtonProps> {
     const classNames = outdent(`
           ${this.props.className || ""}
           ${styles.button}
-          ${styles[(this.props.type || "secondary-light") as StyleKey]}
+          ${styles[this.props.appearance as StyleKey]}
           ${this.props.size ? styles[this.props.size as StyleKey] : ""}
           ${this.props.disabled ? styles.disabled : ""}`);
 

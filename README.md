@@ -7,10 +7,7 @@
   <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>
 </p>
 
-*This is the all-new DataCamp Light. To access the old
-version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc50b590bbf34bfffaba8fb1a0d929f5)*
-
-[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/bannerv3.1.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/banner-new.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html)
 
 <details>
 <summary><strong>Table of Contents</strong></summary>
@@ -21,7 +18,7 @@ version, click [here](https://github.com/datacamp/datacamp-light/tree/d0c7ae4afc
 
 - [Features](#features)
 - [How to run the app](#how-to-run-the-app)
-  * [Writing the HTML block](#writing-the-html-block)
+- [Writing the HTML block](#writing-the-html-block)
   * [Pre-Exercise Code](#pre-exercise-code)
   * [Sample Code](#sample-code)
   * [Solution](#solution)
@@ -95,7 +92,7 @@ including the exercise and script tag as a snippet.**
 
 
 
-### Writing the HTML block
+## Writing the HTML block
 
 After including the JavaScript library, you can start writing HTML blocks in the
 format below. These will be dynamically converted to exercises.
@@ -139,7 +136,6 @@ accepted values for `data-lang` are `r` and `python`. There is also an optional
 attribute `data-height` which can sets the height in `px` of the div (minimum
 height is `300px`) or set the size according to the amount of sample code lines:
 `data-height="auto"`.
-
 
 
 ### Pre-Exercise Code

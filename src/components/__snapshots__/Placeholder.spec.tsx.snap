@@ -3,5 +3,7 @@
 exports[`Placeholder should match snapshot 1`] = `
 <div
   className="placeholder"
-/>
+>
+  <test-file-stub />
+</div>
 `;

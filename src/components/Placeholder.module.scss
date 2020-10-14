@@ -3,15 +3,16 @@
 .placeholder {
   /* stylelint-disable declaration-block-no-duplicate-properties, declaration-block-no-shorthand-property-overrides */
   @include preventive-overrides;
-  outline: 1px solid #d5eaef !important;
-  background: #fff url(https://cdn.datacamp.com/spinner.gif) no-repeat center
-    center !important;
-  color: transparent;
+  outline: 1px solid darken($beige400, 5%) !important;
+  background: #fff;
   /* stylelint-enable */
   margin: 0;
   background-size: auto 80px !important;
   position: relative;
   min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .placeholder > code,

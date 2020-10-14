@@ -1,5 +1,10 @@
 @import "global.scss";
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700');
+
+@font-face {
+  src: url("https://waffles.datacamp.com/fonts/StudioFeixenSans-Regular.ttf")
+    format("truetype");
+  font-family: "Studio-Feixen-Sans-Variable";
+}
 
 .app {
   /* stylelint-disable declaration-block-no-duplicate-properties */
@@ -45,7 +50,7 @@
   mark {
     /* stylelint-disable declaration-block-no-duplicate-properties */
     @include preventive-overrides;
-    background-color: $primary-extra-light;
+    background-color: $beige400;
     /* stylelint-enable */
     border-radius: $code-border-radius;
   }
@@ -108,7 +113,7 @@
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  outline: 1px solid #d5eaef !important;
+  outline: 1px solid darken($beige400, 5%) !important;
 
   :global .lm_maximise {
     display: none;
@@ -140,7 +145,6 @@
   left: 0;
   width: 100%;
   z-index: 200;
-  opacity: 0.9;
 }
 
 :global .datacamp-exercise {
@@ -151,9 +155,8 @@
 :global div[data-datacamp-exercise] {
   /* stylelint-disable declaration-block-no-duplicate-properties, declaration-block-no-shorthand-property-overrides */
   @include preventive-overrides;
-  outline: 1px solid #d5eaef !important;
-  background: #fff url(https://cdn.datacamp.com/spinner.gif) no-repeat center
-    center !important;
+  outline: 1px solid darken($beige400, 5%) !important;
+  background: #fff !important;
   color: transparent;
   /* stylelint-enable */
   margin: 0;
@@ -172,7 +175,7 @@
 a.githubLink {
   @include preventive-overrides;
   position: absolute;
-  right: 3px;
+  right: 16px;
   top: 0;
   z-index: 200;
   border: none;
@@ -187,7 +190,6 @@ a.githubLink {
     display: block;
     height: 1em;
     line-height: 100%;
-    opacity: 0.4;
     margin: 0.35em 3px 0.3em 0;
   }
 }

@@ -5,7 +5,7 @@ exports[`Button should match snapshot 1`] = `
   className="
 
 button
-secondary-light
+inverted
 
 "
   disabled={false}

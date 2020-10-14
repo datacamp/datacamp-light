@@ -82,14 +82,18 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
         {this.props.solution &&
         this.props.showSolutionButton &&
         (!this.props.hint || this.state.isHintPressed) && (
-          <Button size="small" onClick={this.props.onShowSolution}>
+          <Button
+            appearance="inverted"
+            size="small"
+            onClick={this.props.onShowSolution}
+          >
             Solution
           </Button>
         )}
         {this.props.language !== "shell" && this.props.sct ? (
           <Button
             size="small"
-            type="primary"
+            appearance="primary"
             onClick={this.onSubmit}
             disabled={this.props.isSessionBroken || this.props.isSessionBusy}
           >
@@ -100,7 +104,7 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
         (!this.props.solution || this.props.showRunButton) ? (
           <Button
             size="small"
-            type="primary"
+            appearance="primary"
             onClick={this.onRun}
             disabled={this.props.isSessionBroken || this.props.isSessionBusy}
           >

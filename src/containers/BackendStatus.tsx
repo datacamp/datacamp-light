@@ -1,7 +1,3 @@
-import { SessionStatus } from "@datacamp/multiplexer-client";
-/* import BackendStatus, {
- *   IBackendStatusProps
- * } from "@datacamp/ui-backend-status"; */
 import * as BackendStatus from "@datacamp/ui-backend-status";
 import "@datacamp/ui-backend-status/lib/style.css";
 import { connect, MapStateToProps } from "react-redux";

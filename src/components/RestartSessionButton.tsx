@@ -27,7 +27,11 @@ export class RestartSessionButton extends React.Component<
 
     return (
       <div className={this.props.className}>
-        <Button size="small" type="primary" onClick={this.props.onClickRestart}>
+        <Button
+          size="small"
+          appearance="inverted"
+          onClick={this.props.onClickRestart}
+        >
           <span>Restart</span>
           <span className={`${styles.largeScreen}`}> Session</span>
         </Button>

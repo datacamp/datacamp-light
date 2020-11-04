@@ -7,7 +7,7 @@
   <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>
 </p>
 
-[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/banner-new.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/banner-new.png "Banner")](https://cdn.datacamp.com/dcl-react/standalone-example.html)
 
 <details>
 <summary><strong>Table of Contents</strong></summary>
@@ -19,6 +19,7 @@
 - [Features](#features)
 - [How to run the app](#how-to-run-the-app)
 - [Writing the HTML block](#writing-the-html-block)
+  * [HTML Data Attributes](#html-data-attributes)
   * [Pre-Exercise Code](#pre-exercise-code)
   * [Sample Code](#sample-code)
   * [Solution](#solution)

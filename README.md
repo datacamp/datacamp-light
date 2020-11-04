@@ -7,7 +7,7 @@
   <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>
 </p>
 
-[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/banner-new.png "Banner")](https://cdn.datacamp.com/dcl-react-prod/example.html)
+[![DataCamp Light banner](https://assets.datacamp.com/img/github/datacamp-light/banner-new.png "Banner")](https://cdn.datacamp.com/dcl-react/standalone-example.html)
 
 <details>
 <summary><strong>Table of Contents</strong></summary>

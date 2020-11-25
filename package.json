@@ -31,7 +31,7 @@
     "brace": "git+https://github.com/datacamp/brace.git#v0.10.2",
     "browser-cookies": "1.1.0",
     "golden-layout": "1.5.9",
-    "jquery": "3.2.1",
+    "jquery": "3.5.0",
     "lodash": "4.17.10",
     "node-sass": "4.9.0",
     "nodelist-foreach-polyfill": "1.2.0",

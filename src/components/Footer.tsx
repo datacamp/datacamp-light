@@ -22,6 +22,8 @@ export interface IFooterProps extends React.Props<Footer> {
   showRunButton?: boolean;
   sct?: string;
   language?: string;
+  utmSource?: string;
+  utmCampaign?: string;
 }
 
 interface IFooterState {
@@ -37,6 +39,8 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
     isSessionBusy: false,
     showSolutionButton: false,
     showRunButton: false,
+    utmSource: "datacamp_light",
+    utmCampaign: "powered_by_datacamp",
   };
 
   public displayName: string = "Footer";
@@ -118,7 +122,8 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
           className={styles.restart}
         />
         <a
-          href="https://www.datacamp.com/?utm_source=datacamp_light&utm_campaign=powered_by_datacamp"
+          href={`https://www.datacamp.com/?utm_source=${this.props
+            .utmSource}&utm_campaign=${this.props.utmCampaign}`}
           className={styles.logo}
           title="Powered by DataCamp"
           target="_blank"

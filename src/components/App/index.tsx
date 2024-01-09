@@ -83,6 +83,8 @@ export interface IAppProps extends React.Props<App> {
   language?: string;
   height?: number;
   nPlots?: number;
+  utmSource?: string;
+  utmCampaign?: string;
 }
 
 interface IAppState {
@@ -317,6 +319,8 @@ export class App extends React.Component<IAppProps, IAppState> {
           <Footer
             onShowSolution={this.showSolutionTab}
             showSolutionButton={this.state.solutionButtonVisible}
+            utmSource={this.props.utmSource}
+            utmCampaign={this.props.utmCampaign}
           />
         </div>
       </Provider>

@@ -3,7 +3,7 @@
 .placeholder {
   /* stylelint-disable declaration-block-no-duplicate-properties, declaration-block-no-shorthand-property-overrides */
   @include preventive-overrides;
-  outline: 1px solid darken($grey400, 5%) !important;
+  outline: 1px solid darken($greySubtle, 5%) !important;
   background: #fff;
   /* stylelint-enable */
   margin: 0;

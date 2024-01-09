@@ -25,18 +25,18 @@
 }
 
 .lm_splitter {
-  background: #e1e1e8;
+  background: #f7f7fc;
   transition: opacity 200ms ease;
   z-index: 100;
 }
 
 .lm_splitter:hover {
-  background: #e1e1e8;
+  background: #f7f7fc;
 }
 
 .lm_header {
   height: 30px;
-  background-color: #e1e1e8;
+  background-color: #f7f7fc;
 }
 
 .lm_header.lm_selectable {
@@ -57,7 +57,7 @@
   padding-top: 0;
   padding-bottom: 0;
   height: 30px;
-  background: #e1e1e8;
+  background: #f7f7fc;
   margin-top: 0;
   color: #05192d;
   font-weight: 600;
@@ -71,7 +71,7 @@
 .lm_tab.lm_active,
 .lm_tab:hover {
   color: #777;
-  background: #e1e1e8;
+  background: #f7f7fc;
 }
 
 .lm_header .lm_tab.lm_active {

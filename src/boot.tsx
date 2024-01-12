@@ -27,6 +27,9 @@ export default (element: HTMLDivElement, hub: Hub) => {
     height: parseInt(element.getAttribute("data-height") || "auto", 10),
   };
 
+  const utmSource = element.getAttribute("data-utm-source") || undefined;
+  const utmCampaign = element.getAttribute("data-utm-campaign") || undefined;
+
   if (element.getAttribute("data-encoded")) {
     const exercise = JSON.parse(atob(decodeURIComponent(element.textContent)));
     settings.hint = exercise.hint;
@@ -95,7 +98,12 @@ export default (element: HTMLDivElement, hub: Hub) => {
     return (
       <AppContainer>
         <Provider store={store}>
-          <App height={settings.height} language={settings.language} />
+          <App
+            height={settings.height}
+            language={settings.language}
+            utmSource={utmSource}
+            utmCampaign={utmCampaign}
+          />
         </Provider>
       </AppContainer>
     );

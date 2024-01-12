@@ -25,8 +25,11 @@ export default (element: HTMLDivElement, hub: Hub) => {
 
   let settings: any = {
     id: element.id,
-    height: parseInt(element.getAttribute("data-height") || "auto", 10)
+    height: parseInt(element.getAttribute("data-height") || "auto", 10),
   };
+
+  const utmSource = element.getAttribute("data-utm-source") || undefined;
+  const utmCampaign = element.getAttribute("data-utm-campaign") || undefined;
 
   if (element.getAttribute("data-encoded")) {
     const exercise = JSON.parse(atob(decodeURIComponent(element.textContent)));
@@ -34,7 +37,8 @@ export default (element: HTMLDivElement, hub: Hub) => {
     settings.language = exercise.language;
     settings.lang_version = exercise.lang_version;
     settings.pre_exercise_code =
-      getPackages(exercise.packages, exercise.language) + exercise.pre_exercise_code;
+      getPackages(exercise.packages, exercise.language) +
+      exercise.pre_exercise_code;
     settings.sample_code = exercise.sample || exercise.sample_code;
     settings.sct = exercise.sct;
     settings.solution = exercise.solution;
@@ -72,13 +76,15 @@ export default (element: HTMLDivElement, hub: Hub) => {
       lang_version: element.getAttribute("data-lang-version"),
       packages: element.getAttribute("data-packages"),
       pre_exercise_code:
-        getPackages(element.getAttribute("data-packages"), element.getAttribute("data-lang")) +
-        getText("pre-exercise-code"),
+        getPackages(
+          element.getAttribute("data-packages"),
+          element.getAttribute("data-lang")
+        ) + getText("pre-exercise-code"),
       sample_code: getText("sample-code"),
       sct: getText("sct"),
       solution: getText("solution"),
       showRunButton: showRunButton,
-      noLazyLoad: noLazyLoad
+      noLazyLoad: noLazyLoad,
     });
   }
 
@@ -102,7 +108,12 @@ export default (element: HTMLDivElement, hub: Hub) => {
     return (
       <AppContainer>
         <Provider store={store}>
-          <App height={settings.height} language={settings.language} />
+          <App
+            height={settings.height}
+            language={settings.language}
+            utmSource={utmSource}
+            utmCampaign={utmCampaign}
+          />
         </Provider>
       </AppContainer>
     );

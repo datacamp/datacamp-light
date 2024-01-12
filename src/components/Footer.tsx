@@ -75,7 +75,22 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
     });
   }
 
+  createURL = (utmSource: string, utmCampaign: string) => {
+    const url = new URL("https://www.datacamp.com/");
+    const params = new URLSearchParams({
+      utm_source: utmSource,
+      utm_campaign: utmCampaign,
+    });
+    url.search = params.toString();
+    return url.toString();
+  };
+
   public render() {
+    const datacampUrl = this.createURL(
+      this.props.utmSource,
+      this.props.utmCampaign
+    );
+
     return (
       <div className={styles.footer}>
         {this.props.hint ? (
@@ -122,8 +137,7 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
           className={styles.restart}
         />
         <a
-          href={`https://www.datacamp.com/?utm_source=${this.props
-            .utmSource}&utm_campaign=${this.props.utmCampaign}`}
+          href={datacampUrl}
           className={styles.logo}
           title="Powered by DataCamp"
           target="_blank"

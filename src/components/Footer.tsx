@@ -75,22 +75,11 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
     });
   }
 
-  createURL = (utmSource: string, utmCampaign: string) => {
-    const url = new URL("https://www.datacamp.com/");
-    const params = new URLSearchParams({
-      utm_source: utmSource,
-      utm_campaign: utmCampaign,
-    });
-    url.search = params.toString();
-    return url.toString();
-  };
-
   public render() {
-    const datacampUrl = this.createURL(
-      this.props.utmSource,
-      this.props.utmCampaign
-    );
-
+    const { utmSource, utmCampaign } = this.props;
+    const baseUrl = "https://www.datacamp.com/";
+    const queryParams = `utm_source=${utmSource}&utm_campaign=${utmCampaign}`;
+    const datacampUrl = `${baseUrl}?${queryParams}`;
     return (
       <div className={styles.footer}>
         {this.props.hint ? (

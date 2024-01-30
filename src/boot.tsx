@@ -29,8 +29,8 @@ export default (element: HTMLDivElement, hub: Hub) => {
 
   const utmSource = element.getAttribute("data-utm-source") || undefined;
   const utmCampaign = element.getAttribute("data-utm-campaign") || undefined;
-  const homeButtonLink =
-    element.getAttribute("data-home-button-link") || undefined;
+  const impactTrackingLink =
+    element.getAttribute("data-impact-tracking-link") || undefined;
 
   if (element.getAttribute("data-encoded")) {
     const exercise = JSON.parse(atob(decodeURIComponent(element.textContent)));
@@ -105,7 +105,7 @@ export default (element: HTMLDivElement, hub: Hub) => {
             language={settings.language}
             utmSource={utmSource}
             utmCampaign={utmCampaign}
-            homeButtonLink={homeButtonLink}
+            impactTrackingLink={impactTrackingLink}
           />
         </Provider>
       </AppContainer>

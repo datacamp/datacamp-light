@@ -85,6 +85,7 @@ export interface IAppProps extends React.Props<App> {
   nPlots?: number;
   utmSource?: string;
   utmCampaign?: string;
+  homeButtonLink?: string;
 }
 
 interface IAppState {
@@ -321,6 +322,7 @@ export class App extends React.Component<IAppProps, IAppState> {
             showSolutionButton={this.state.solutionButtonVisible}
             utmSource={this.props.utmSource}
             utmCampaign={this.props.utmCampaign}
+            homeButtonLink={this.props.homeButtonLink}
           />
         </div>
       </Provider>

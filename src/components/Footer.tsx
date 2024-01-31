@@ -24,6 +24,7 @@ export interface IFooterProps extends React.Props<Footer> {
   language?: string;
   utmSource?: string;
   utmCampaign?: string;
+  impactTrackingLink?: string;
 }
 
 interface IFooterState {
@@ -76,10 +77,14 @@ export class Footer extends React.PureComponent<IFooterProps, IFooterState> {
   }
 
   public render() {
-    const { utmSource, utmCampaign } = this.props;
-    const baseUrl = "https://www.datacamp.com/";
+    const { utmSource, utmCampaign, impactTrackingLink } = this.props;
+    const baseUrl = impactTrackingLink
+      ? "https://datacamp.pxf.io"
+      : "https://www.datacamp.com/";
     const queryParams = `utm_source=${utmSource}&utm_campaign=${utmCampaign}`;
-    const datacampUrl = `${baseUrl}?${queryParams}`;
+    const datacampUrl = impactTrackingLink
+      ? `${baseUrl}${impactTrackingLink}`
+      : `${baseUrl}?${queryParams}`;
 
     return (
       <div className={styles.footer}>

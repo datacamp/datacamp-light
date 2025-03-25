@@ -1,4 +1,4 @@
-import { Language } from "@datacamp/multiplexer-client";
+import { ExerciseType, Language } from "@datacamp/multiplexer-client";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { render } from "react-dom";
@@ -21,20 +21,25 @@ import createStore from "./redux/store";
 type Settings = {
   id: string;
   height: number;
-  hint: string;
-  language: string;
-  pre_exercise_code: string;
-  sample_code: string;
+  hint?: string;
+  language: Language;
+  pre_exercise_code?: string;
+  sample_code?: string;
   sct: string;
   solution: string;
-  showRunButton: string;
-  noLazyLoad: string;
+  showRunButton: boolean;
+  noLazyLoad?: boolean;
+  type?: ExerciseType;
 };
 
 export function getSettings(element: HTMLDivElement): Settings {
   let settings: Settings = {
-    id: element.id,
     height: parseInt(element.getAttribute("data-height") || "auto", 10),
+    id: element.id,
+    language: "r",
+    sct: "",
+    showRunButton: false,
+    solution: "",
   };
 
   if (element.getAttribute("data-encoded")) {

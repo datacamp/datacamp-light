@@ -12,6 +12,10 @@ describe("getSettings", () => {
     const settings = getSettings(element);
     expect(settings.id).toBe("test-id");
     expect(settings.height).toBe(300);
+    expect(settings.language).toBe("r");
+    expect(settings.sct).toBe("");
+    expect(settings.solution).toBe("");
+    expect(settings.showRunButton).toBe(false);
   });
 
   it("should parse height attribute correctly", () => {

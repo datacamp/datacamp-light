@@ -18,20 +18,24 @@ import getPackages from "./helpers/packages";
 import { setExercise, updateCode, setId, setListener } from "./redux/exercise";
 import createStore from "./redux/store";
 
-export default (element: HTMLDivElement, hub: Hub) => {
-  const storeEnhancer = composeWithDevTools(
-    applyMiddleware(createEpicMiddleware(rootEpic))
-  );
+type Settings = {
+  id: string;
+  height: number;
+  hint: string;
+  language: string;
+  pre_exercise_code: string;
+  sample_code: string;
+  sct: string;
+  solution: string;
+  showRunButton: string;
+  noLazyLoad: string;
+};
 
-  let settings: any = {
+export function getSettings(element: HTMLDivElement): Settings {
+  let settings: Settings = {
     id: element.id,
     height: parseInt(element.getAttribute("data-height") || "auto", 10),
   };
-
-  const utmSource = element.getAttribute("data-utm-source") || undefined;
-  const utmCampaign = element.getAttribute("data-utm-campaign") || undefined;
-  const impactTrackingLink =
-    element.getAttribute("data-impact-tracking-link") || undefined;
 
   if (element.getAttribute("data-encoded")) {
     const exercise = JSON.parse(atob(decodeURIComponent(element.textContent)));
@@ -45,6 +49,7 @@ export default (element: HTMLDivElement, hub: Hub) => {
     settings.sct = exercise.sct;
     settings.solution = exercise.solution;
     settings.showRunButton = exercise.showRunButton;
+    settings.noLazyLoad = exercise.noLazyLoad;
   } else {
     const getText = (type: string, isEncoded?: boolean) => {
       const textElement = element.querySelector(`code[data-type=${type}]`);
@@ -67,11 +72,7 @@ export default (element: HTMLDivElement, hub: Hub) => {
     const showRunButton =
       element.hasAttribute("data-show-run-button") &&
       element.getAttribute("data-show-run-button").toLowerCase() !== "false";
-    const noLazyLoad =
-      element.hasAttribute("data-no-lazy-load") &&
-      element.getAttribute("data-no-lazy-load").toLowerCase() !== "false";
 
-    // Get settings
     Object.assign(settings, {
       hint: getHint(),
       language: (element.getAttribute("data-lang") || "r") as Language,
@@ -86,8 +87,16 @@ export default (element: HTMLDivElement, hub: Hub) => {
       sct: getText("sct"),
       solution: getText("solution"),
       showRunButton: showRunButton,
-      noLazyLoad: noLazyLoad,
+      noLazyLoad: undefined, // assigned later
     });
+  }
+  // Encoded content can also have the data-no-lazy-load attribute
+  if (
+    element.hasAttribute("data-no-lazy-load") &&
+    settings.noLazyLoad === undefined
+  ) {
+    settings.noLazyLoad =
+      element.getAttribute("data-no-lazy-load").toLowerCase() !== "false";
   }
 
   if (isNaN(settings.height)) {
@@ -99,6 +108,20 @@ export default (element: HTMLDivElement, hub: Hub) => {
   if (settings.language == "shell") {
     settings.type = "ConsoleExercise";
   }
+
+  return settings;
+}
+
+export default (element: HTMLDivElement, hub: Hub) => {
+  const storeEnhancer = composeWithDevTools(
+    applyMiddleware(createEpicMiddleware(rootEpic))
+  );
+
+  const utmSource = element.getAttribute("data-utm-source") || undefined;
+  const utmCampaign = element.getAttribute("data-utm-campaign") || undefined;
+  const impactTrackingLink =
+    element.getAttribute("data-impact-tracking-link") || undefined;
+  const settings = getSettings(element);
 
   // Create the store
   const store = createStore(storeEnhancer);

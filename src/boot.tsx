@@ -23,6 +23,7 @@ type Settings = {
   height: number;
   hint?: string;
   language: Language;
+  lang_version?: string;
   pre_exercise_code?: string;
   sample_code?: string;
   sct: string;
@@ -37,6 +38,7 @@ export function getSettings(element: HTMLDivElement): Settings {
     height: parseInt(element.getAttribute("data-height") || "auto", 10),
     id: element.id,
     language: "r",
+    lang_version: "",
     sct: "",
     showRunButton: false,
     solution: "",

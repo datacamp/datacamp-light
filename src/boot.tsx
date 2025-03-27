@@ -33,7 +33,9 @@ type Settings = {
 
 export function getSettings(element: HTMLDivElement): Settings {
   let settings: Settings = {
-    height: parseInt(element.getAttribute("data-height") || "auto", 10),
+    height: element.getAttribute("data-height")
+      ? parseInt(element.getAttribute("data-height"), 10)
+      : "auto",
     id: element.id,
     language: "r",
     sct: "",

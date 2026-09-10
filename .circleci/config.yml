@@ -85,6 +85,25 @@ jobs:
             aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-prod/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
             aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-prod/index.html --acl public-read --content-type "text/html"
             aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-prod/example.html --acl public-read --content-type "text/html"
+      - run:
+          name: Invalidate Cloudflare cache
+          command: |
+            if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+              echo "CLOUDFLARE_API_TOKEN not set; skipping Cloudflare cache purge"
+              exit 0
+            fi
+            ZONE_ID="$CLOUDFLARE_ZONEID"
+            if [ -z "$ZONE_ID" ]; then
+              ZONE_ID=$(curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "https://api.cloudflare.com/client/v4/zones?name=datacamp.com" | grep -o '"id":"[a-f0-9]\{32\}"' | head -1 | cut -d'"' -f4)
+            fi
+            if [ -z "$ZONE_ID" ]; then
+              echo "Could not resolve the datacamp.com Cloudflare zone id; skipping Cloudflare cache purge"
+              exit 0
+            fi
+            curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/purge_cache" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              --data '{ "files": ["https://cdn.datacamp.com/dcl-react.js.gz"] }'
 workflows:
   version: 2
   build_and_deploy:
@@ -113,7 +132,9 @@ workflows:
       - deploy-prod:
           requires:
             - build
-          context: org-global
+          context:
+            - org-global
+            - cloudflare
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+(-\w+\.\d+)?$/

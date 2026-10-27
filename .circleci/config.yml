@@ -113,6 +113,10 @@ workflows:
           filters:
             tags:
               only: /.*/
+            branches:
+              only:
+                - v2
+                - development
       - deploy-dev:
           requires:
             - build
@@ -128,7 +132,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - v2
       - deploy-prod:
           requires:
             - build

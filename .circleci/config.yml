@@ -33,61 +33,25 @@ jobs:
           paths:
             - dist/*
             - docs/*
-  deploy-dev:
-    docker:
-      - image: ${STAGING_ECR_URL}/docker-deploy
-        aws_auth:
-          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: S3 Sync
-          command: |
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-dev.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
-            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react-dev.js.gz"
-
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-dev/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
-            aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-dev/index.html --acl public-read --content-type "text/html"
-            aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-dev/example.html --acl public-read --content-type "text/html"
   deploy:
     docker:
       - image: ${STAGING_ECR_URL}/docker-deploy
         aws_auth:
           aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
           aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
+    environment:
+      DCL_PREFIX: s3://cdn.datacamp.com/dcl/v3
     steps:
       - attach_workspace:
           at: /tmp
       - run:
           name: S3 Sync
           command: |
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-staging.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
-            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react-staging.js.gz"
+            aws s3 cp /tmp/dist/dcl-react.js.gz $DCL_PREFIX/staging/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl/v3/staging/*"
 
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-staging/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
-            aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-staging/index.html --acl public-read --content-type "text/html"
-            aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-staging/example.html --acl public-read --content-type "text/html"
-  deploy-prod:
-    docker:
-      - image: ${STAGING_ECR_URL}/docker-deploy
-        aws_auth:
-          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: S3 Sync
-          command: |
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl/latest/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl/$CIRCLE_TAG/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
-            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl/latest/dcl-react.js.gz"
-
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-prod/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
-            aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-prod/index.html --acl public-read --content-type "text/html"
-            aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-prod/example.html --acl public-read --content-type "text/html"
+            aws s3 cp /tmp/docs/index.html $DCL_PREFIX/staging/index.html --acl public-read --content-type "text/html"
+            aws s3 cp /tmp/docs/example.html $DCL_PREFIX/staging/example.html --acl public-read --content-type "text/html"
       - run:
           name: Invalidate Cloudflare cache
           command: |
@@ -106,7 +70,48 @@ jobs:
             curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/purge_cache" \
               -H "Content-Type: application/json" \
               -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              --data '{ "files": ["https://cdn.datacamp.com/dcl/latest/dcl-react.js.gz"] }'
+              --data '{ "files": ["https://cdn.datacamp.com/dcl/v3/staging/dcl-react.js.gz"] }'
+  deploy-prod:
+    docker:
+      - image: ${STAGING_ECR_URL}/docker-deploy
+        aws_auth:
+          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
+          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
+    environment:
+      DCL_PREFIX: s3://cdn.datacamp.com/dcl/v3
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - run:
+          name: S3 Sync
+          command: |
+            aws s3 cp /tmp/dist/dcl-react.js.gz $DCL_PREFIX/$CIRCLE_TAG/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws s3 cp /tmp/dist/dcl-react.js.gz $DCL_PREFIX/prod/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
+            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl/v3/*"
+
+            aws s3 cp /tmp/docs/index.html $DCL_PREFIX/$CIRCLE_TAG/index.html --acl public-read --content-type "text/html"
+            aws s3 cp /tmp/docs/example.html $DCL_PREFIX/$CIRCLE_TAG/example.html --acl public-read --content-type "text/html"
+            aws s3 cp /tmp/docs/index.html $DCL_PREFIX/prod/index.html --acl public-read --content-type "text/html"
+            aws s3 cp /tmp/docs/example.html $DCL_PREFIX/prod/example.html --acl public-read --content-type "text/html"
+      - run:
+          name: Invalidate Cloudflare cache
+          command: |
+            if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+              echo "CLOUDFLARE_API_TOKEN not set; skipping Cloudflare cache purge"
+              exit 0
+            fi
+            ZONE_ID="$CLOUDFLARE_ZONEID"
+            if [ -z "$ZONE_ID" ]; then
+              ZONE_ID=$(curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "https://api.cloudflare.com/client/v4/zones?name=datacamp.com" | grep -o '"id":"[a-f0-9]\{32\}"' | head -1 | cut -d'"' -f4)
+            fi
+            if [ -z "$ZONE_ID" ]; then
+              echo "Could not resolve the datacamp.com Cloudflare zone id; skipping Cloudflare cache purge"
+              exit 0
+            fi
+            curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/purge_cache" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              --data '{ "files": ["https://cdn.datacamp.com/dcl/v3/prod/dcl-react.js.gz"] }'
 workflows:
   build_and_deploy:
     jobs:
@@ -115,22 +120,16 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy-dev:
-          requires:
-            - build
-          context: org-global
-          filters:
-            branches:
-              only:
-                - development
       - deploy:
           requires:
             - build
-          context: org-global
+          context:
+            - org-global
+            - cloudflare
           filters:
             branches:
               only:
-                - master
+                - v3
       - deploy-prod:
           requires:
             - build
@@ -139,6 +138,6 @@ workflows:
             - cloudflare
           filters:
             tags:
-              only: /^v\d+\.\d+\.\d+(-\w+\.\d+)?$/
+              only: /^v3\.\d+\.\d+(-[\w.]+\.\d+)?$/
             branches:
               ignore: /.*/

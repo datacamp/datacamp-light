@@ -1,7 +1,7 @@
 <h1 align="center">DataCamp Light v3</h1>
 <p align="center">
   <a href="https://github.com/datacamp/datacamp-light/projects/1">Roadmap</a> |
-  <a href="https://cdn.datacamp.com/dcl-react-prod/index.html">Docs</a>
+  <a href="https://cdn.datacamp.com/dcl/v3/prod/index.html">Docs</a>
 </p>
 <p align="center">
   <a href="https://codecov.io/gh/datacamp/datacamp-light"><img src="https://codecov.io/gh/datacamp/datacamp-light/branch/beta/graph/badge.svg" /></a>
@@ -77,7 +77,7 @@ Add the script to your HTML page (there is an example in
 `examples/standalone-example.html`):
 
 ```html
-<script type="text/javascript" src="//cdn.datacamp.com/dcl/latest/dcl-react.js.gz"></script>
+<script type="text/javascript" src="//cdn.datacamp.com/dcl/v3/prod/dcl-react.js.gz"></script>
 ```
 
 That's it! If your app adds DataCamp Light exercises after the initial page load
@@ -373,34 +373,22 @@ has emoji and emoji are :thumbsup:.
 
 #### Continuous Integration
 
-Development is primarily done on the [`development`
-branch](https://github.com/datacamp/datacamp-light/tree/development).
-
-Commits to the `development` branch trigger a build on the DataCamp development
-environment and produce a build here:
+Commits to the [`v3` branch](https://github.com/datacamp/datacamp-light/tree/v3)
+push a release to the staging environment:
 
 ```
-https://cdn.datacamp.com/dcl-react-dev.js.gz
+https://cdn.datacamp.com/dcl/v3/staging/dcl-react.js.gz
 ```
 
-Next, commits to the [`beta` branch](https://github.com/datacamp/datacamp-light/tree/beta)
- push a release to the staging environment:
+When we create a release, an update is pushed to the production environment.
+This should be a stable version of DataCamp Light:
 
 ```
-https://cdn.datacamp.com/dcl-react-staging.js.gz
+https://cdn.datacamp.com/dcl/v3/prod/dcl-react.js.gz
 ```
 
-Finally, when we create a release, an update is pushed to the production
-environment. This should be a stable version of DataCamp Light:
-
-```
-https://cdn.datacamp.com/dcl/latest/dcl-react.js.gz
-```
-
-Commits to this
-branch trigger a build that is deployed on the DataCamp Dev environment. Commits
-to the main branch, `beta`, are built and deployed to staging. When a release is
-created, that build is deployed to production.
+Each release is also kept in a folder named after its tag, so a published build
+is immutable and a later release cannot overwrite an earlier one.
 
 #### Packages used that you might want to know about
 

@@ -1,143 +1,42 @@
+version: 2.1
+
+# This branch holds a document, not a build, so the only thing worth checking is
+# that the document still points at things that answer. Every URL in README.md
+# must return a 2xx/3xx; anything else fails the build, which is what keeps the
+# page from advertising a path that is not live yet.
 jobs:
-  build:
+  links:
     docker:
-      - image: node:8.9.1
+      - image: cimg/base:stable
     steps:
       - checkout
       - run:
-          name: Install node deps and build
-          command: |
-            npm install
-            if [ "$CIRCLE_BRANCH" == 'development' ]; then
-              NODE_WORKSPACE=PRODDUCTION npm run build:dev
-            else
-              NODE_WORKSPACE=PRODDUCTION npm run build:prod
-            fi
-            gzip dist/dcl-react.js
+          name: The banner the README embeds is in the tree
+          command: test -s banner.png
       - run:
-          name: Run Tests
-          environment:
-            JEST_JUNIT_OUTPUT: reports/junit/js-test-results.xml
+          name: Every URL in README.md answers
           command: |
-            npm run test:ci
-      - run:
-          name: Run Linter
-          command: |
-            npm run lint:ci
-      - store_test_results:
-          path: reports/junit
-      - persist_to_workspace:
-          root: "."
-          paths:
-            - dist/*
-            - docs/*
-  deploy-dev:
-    docker:
-      - image: ${STAGING_ECR_URL}/docker-deploy
-        aws_auth:
-          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: S3 Sync
-          command: |
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-dev.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
-            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react-dev.js.gz"
-            
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-dev/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
-            aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-dev/index.html --acl public-read --content-type "text/html"
-            aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-dev/example.html --acl public-read --content-type "text/html"
-  deploy:
-    docker:
-      - image: ${STAGING_ECR_URL}/docker-deploy
-        aws_auth:
-          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: S3 Sync
-          command: |
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-staging.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
-            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react-staging.js.gz"
+            fail=0
 
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-staging/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
-            aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-staging/index.html --acl public-read --content-type "text/html"
-            aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-staging/example.html --acl public-read --content-type "text/html"
-  deploy-prod:
-    docker:
-      - image: ${STAGING_ECR_URL}/docker-deploy
-        aws_auth:
-          aws_access_key_id: $STAGING_AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $STAGING_AWS_SECRET_ACCESS_KEY
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run:
-          name: S3 Sync
-          command: |
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript" --cache-control "max-age=1296000"
-            aws cloudfront create-invalidation --distribution-id E11JM11LLUSZQE --paths "/dcl-react.js.gz"
+            # The Content Security Policy block lists hosts a page has to allow,
+            # not links to follow, so it is dropped before collecting URLs.
+            awk '/^```text$/{skip=1} !skip{print} /^```$/{skip=0}' README.md > /tmp/readme.md
 
-            aws s3 cp /tmp/dist/dcl-react.js.gz s3://cdn.datacamp.com/dcl-react-prod/dcl-react.js.gz --acl public-read --content-encoding "gzip" --content-type "application/javascript"
-            aws s3 cp /tmp/docs/index.html s3://cdn.datacamp.com/dcl-react-prod/index.html --acl public-read --content-type "text/html"
-            aws s3 cp /tmp/docs/example.html s3://cdn.datacamp.com/dcl-react-prod/example.html --acl public-read --content-type "text/html"
-      - run:
-          name: Invalidate Cloudflare cache
-          command: |
-            if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
-              echo "CLOUDFLARE_API_TOKEN not set; skipping Cloudflare cache purge"
-              exit 0
-            fi
-            ZONE_ID="$CLOUDFLARE_ZONEID"
-            if [ -z "$ZONE_ID" ]; then
-              ZONE_ID=$(curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "https://api.cloudflare.com/client/v4/zones?name=datacamp.com" | grep -o '"id":"[a-f0-9]\{32\}"' | head -1 | cut -d'"' -f4)
-            fi
-            if [ -z "$ZONE_ID" ]; then
-              echo "Could not resolve the datacamp.com Cloudflare zone id; skipping Cloudflare cache purge"
-              exit 0
-            fi
-            curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/purge_cache" \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              --data '{ "files": ["https://cdn.datacamp.com/dcl-react.js.gz"] }'
+            for url in $(grep -oE 'https?://[^ )"`<>]+' /tmp/readme.md | sort -u); do
+              # Affiliate base the tracking attribute is appended to; it has no
+              # page of its own.
+              [ "$url" = "https://datacamp.pxf.io" ] && continue
+
+              code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 20 "$url" || echo 000)
+              case "$code" in
+                2*|3*) echo "ok   $code $url" ;;
+                *)     echo "DEAD $code $url"; fail=1 ;;
+              esac
+            done
+
+            exit $fail
+
 workflows:
-  version: 2
-  build_and_deploy:
+  links:
     jobs:
-      - build:
-          context: org-global
-          filters:
-            tags:
-              only: /.*/
-      - deploy-dev:
-          requires:
-            - build
-          context: org-global
-          filters:
-            branches:
-              only:
-                - development
-      - deploy:
-          requires:
-            - build
-          context: org-global
-          filters:
-            branches:
-              only:
-                - master
-      - deploy-prod:
-          requires:
-            - build
-          context:
-            - org-global
-            - cloudflare
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+(-\w+\.\d+)?$/
-            branches:
-              ignore: /.*/
-         
+      - links
